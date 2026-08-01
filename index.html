@@ -47,11 +47,19 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
+/* Deux pixels : les événements partent vers les deux comptes.
+   1888097325094612 → compte perso (VEA / espagnol), garde l'historique.
+   635919952572462  → business « Cours de chant et cercle de voix », c'est
+                      DE CE COMPTE que les pubs du Cercle sont diffusées,
+                      donc c'est ce pixel qui doit recevoir InitiateCheckout. */
 fbq('init','1888097325094612');
+fbq('init','635919952572462');
 fbq('track','PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
-  src="https://www.facebook.com/tr?id=1888097325094612&ev=PageView&noscript=1"/></noscript>
+  src="https://www.facebook.com/tr?id=1888097325094612&ev=PageView&noscript=1"/>
+<img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=635919952572462&ev=PageView&noscript=1"/></noscript>
 
 <style>
 /* ===== TOKENS — burgundy dominant + gold accent + cream ===== */
