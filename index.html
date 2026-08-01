@@ -68,7 +68,8 @@ fbq('track','PageView');
   --wine-mid:   #9B2F43;
   --wine-dark:  #4A0F1C;   /* oxblood, gradient end */
   --wine-pale:  #C9707E;
-  --gold:       #d4af37;
+  --gold:       #d4af37;   /* 4.93:1 on claret — for dark grounds only */
+  --gold-ink:   #a8851f;   /* 3.39:1 on cream/card — gold on LIGHT grounds */
   --gold-deep:  #b8952c;
   --gold-soft:  #f6e0b0;
   --btn:        #E6B325;
@@ -218,6 +219,17 @@ strong{font-weight:700;color:var(--wine-deep)}
 
 .hero-proof{margin-top:var(--s5);text-align:center}
 .stars{color:var(--gold);font-size:.9rem;letter-spacing:2.5px}
+/* gold is only legible on the dark ground; darken it on light cards (3.39:1) */
+.rev .stars,.g-badge .stars{color:var(--gold-ink)}
+
+/* skip link — lets keyboard users jump the header straight to the cohorts */
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--btn);color:var(--ink);
+  font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;
+  padding:14px 20px;border-radius:0 0 10px 0;text-decoration:none;
+}
+.skip:focus{left:0}
 .hero-proof blockquote{
   font-size:.98rem;font-style:italic;color:var(--w-82);
   line-height:1.6;margin:var(--s2) auto 0;max-width:44ch;
@@ -439,7 +451,10 @@ strong{font-weight:700;color:var(--wine-deep)}
 /* ===== MARQUEE ===== */
 .marquee{overflow:hidden;margin-top:var(--s5)}
 .marquee-track{display:flex;gap:var(--s3);width:max-content;animation:mq 58s linear infinite}
-.marquee:hover .marquee-track{animation-play-state:paused}
+/* WCAG 2.2.2 — auto-scrolling content must be stoppable; hover covers mice,
+   focus-within covers keyboards, prefers-reduced-motion covers the OS setting */
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track{animation-play-state:paused}
 .marquee img{height:170px;width:auto;border-radius:13px;object-fit:cover;flex-shrink:0;box-shadow:0 12px 28px rgba(74,15,28,.2)}
 @media(min-width:768px){.marquee img{height:250px}}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -518,6 +533,8 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
 </style>
 </head>
 <body>
+
+<a class="skip" href="#cohortes">Aller aux cohortes</a>
 
 <header class="topbar">
   <div class="topbar-in">
