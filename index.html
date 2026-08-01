@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+
+<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+
+<title>Cercle de Voix — 12 semaines, 12 personnes · Plateau Mont-Royal</title>
+<meta name="description" content="Pourquoi ta voix se serre dès que quelqu'un écoute ? Un cercle de 12 personnes, 12 séances, les mardis ou mercredis 19 h 15 au Centre Soha. Dès le 1er septembre. 3 versements de 132 $ + taxes.">
+<meta property="og:title" content="Pourquoi ta voix se serre dès que quelqu'un écoute ?">
+<meta property="og:description" content="12 séances, 12 personnes maximum, dans le Plateau. Dès le 1er septembre.">
+<meta property="og:type" content="website">
+
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&family=Dancing+Script:wght@600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+</noscript>
+
+<!-- ============================================================
+     META PIXEL
+     ⚠️  1888097325094612 is the Voz Esencia (Spanish) dataset.
+     Voix Essence is a separate operation — this will mix French
+     Montréal traffic into the Spanish audience modelling.
+     Swap the id below once a dedicated dataset exists.
+
+     OPTIMISATION EVENTS (what to select in Ads Manager):
+       1. Campaign optimisation  → "Vue de page de destination"
+          (standard Landing Page View — built into PageView below).
+          A custom event `Cercle_LPV` also fires on full load if you
+          prefer a Custom Conversion instead.
+       2. Paywall button clicks  → `Cercle_PaywallClick`
+          (fires on every "Réserver ma place" tap, alongside the
+          standard InitiateCheckout).
+     ============================================================ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1888097325094612');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1888097325094612&ev=PageView&noscript=1"/></noscript>
+
+<style>
+/* ===== TOKENS — burgundy dominant + gold accent + cream ===== */
+:root{
+  --wine-deep:  #7A1B30;   /* claret — redder than the previous #6B2140 */
+  --wine-mid:   #9B2F43;
+  --wine-dark:  #4A0F1C;   /* oxblood, gradient end */
+  --wine-pale:  #C9707E;
+  --gold:       #d4af37;
+  --gold-deep:  #b8952c;
+  --gold-soft:  #f6e0b0;
+  --btn:        #E6B325;
+  --btn-deep:   #d3a015;
+  --ink:        #2A1119;
+  --ink-soft:   #6E5059;
+  --cream:      #F8F4EE;
+  --card:       #FEFCF8;
+  --line:       rgba(212,175,55,0.30);
+  --w-82:       rgba(255,255,255,0.84);
+  --w-58:       rgba(255,255,255,0.62);
+  --alert:      #B3401F;
+  --maxw:       1080px;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+body{
+  background:var(--cream);
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:16px; font-weight:400; color:var(--ink);
+  line-height:1.65; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+
+/* ===== LAYOUT ===== */
+.section{padding:var(--s7) var(--s4)}
+.section.tight{padding:var(--s6) var(--s4)}
+.wrap{max-width:var(--maxw);margin:0 auto}
+.narrow{max-width:720px;margin:0 auto}
+.center{text-align:center}
+@media(min-width:768px){
+  .section{padding:80px var(--s6)}
+  .section.tight{padding:var(--s7) var(--s6)}
+}
+
+.light{background:var(--cream)}
+.paper{background:var(--card)}
+.dark{
+  background:linear-gradient(162deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
+  color:#fff;
+}
+
+/* ===== TYPE ===== */
+.eyebrow{
+  font-family:'Montserrat',sans-serif;
+  font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--wine-deep);margin-bottom:var(--s3);line-height:1.4;
+}
+@media(max-width:400px){.eyebrow{letter-spacing:.11em;font-size:10.5px}}
+.dark .eyebrow{color:var(--gold-soft)}
+
+h1{
+  font-family:'Montserrat',sans-serif;font-weight:400;
+  font-size:clamp(1.9rem,6.6vw,3.2rem);line-height:1.12;letter-spacing:-.022em;
+  color:#fff;
+}
+h1 em{font-family:'Dancing Script',cursive;font-style:normal;font-weight:700;color:var(--gold-soft);font-size:1.14em;line-height:1.05}
+
+h2{
+  font-family:'Montserrat',sans-serif;font-weight:400;
+  font-size:clamp(1.5rem,4.6vw,2.35rem);line-height:1.18;letter-spacing:-.015em;
+  color:var(--wine-deep);margin-bottom:var(--s3);
+}
+.dark h2{color:#fff}
+h2 em{font-style:normal;font-weight:600;color:var(--gold-deep)}
+.dark h2 em{color:var(--gold-soft)}
+
+h3{
+  font-family:'Montserrat',sans-serif;font-weight:600;
+  font-size:1.05rem;line-height:1.25;color:var(--wine-deep);margin-bottom:var(--s2);
+}
+.dark h3{color:#fff}
+
+p{font-size:1rem;line-height:1.7}
+.lede{font-size:1.06rem;color:var(--ink);margin-bottom:var(--s3)}
+.dark .lede{color:var(--w-82)}
+.muted{color:var(--ink-soft);font-size:.94rem}
+.dark .muted{color:var(--w-58)}
+strong{font-weight:700;color:var(--wine-deep)}
+.dark strong{color:#fff}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(248,244,238,.95);
+  backdrop-filter:saturate(150%) blur(10px);
+  -webkit-backdrop-filter:saturate(150%) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{
+  max-width:var(--maxw);margin:0 auto;
+  padding:var(--s2) var(--s4);
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+}
+.topbar img{height:26px;width:auto}
+.topbar-cta{
+  font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;
+  background:var(--btn);color:var(--ink);
+  padding:11px var(--s4);border-radius:999px;text-decoration:none;
+  white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;
+  box-shadow:0 2px 10px rgba(212,175,55,.34);
+  transition:background .2s ease,transform .1s ease;cursor:pointer;
+  touch-action:manipulation;
+}
+.topbar-cta:hover{background:var(--btn-deep)}
+.topbar-cta:active{transform:scale(.97)}
+@media(min-width:768px){.topbar img{height:32px}.topbar-cta{font-size:13px}}
+
+/* ===== HERO ===== */
+.hero{
+  background:
+    radial-gradient(circle at 82% 12%,rgba(201,112,126,.30) 0%,rgba(201,112,126,0) 48%),
+    linear-gradient(158deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
+  color:#fff;padding:var(--s6) var(--s4) var(--s7);
+}
+@media(min-width:768px){.hero{padding:var(--s7) var(--s6) 72px}}
+.hero .narrow{max-width:760px}
+.hero-sub{
+  font-size:1.02rem;color:var(--w-82);line-height:1.6;
+  margin-top:var(--s4);
+}
+.hero-sub b{color:#fff;font-weight:700}
+
+.hero-media{
+  position:relative;margin-top:var(--s5);
+  border-radius:18px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 22px 52px rgba(0,0,0,.42);
+  aspect-ratio:3/2;background:var(--wine-dark);
+}
+@media(min-width:768px){.hero-media{aspect-ratio:16/10}}
+.hero-media img{width:100%;height:100%;object-fit:cover}
+.hero-media figcaption{
+  position:absolute;left:0;right:0;bottom:0;
+  background:linear-gradient(to top,rgba(74,15,28,.92),rgba(74,15,28,0));
+  padding:26px var(--s4) var(--s3);
+  font-family:'DM Sans',sans-serif;font-size:.82rem;color:var(--w-82);
+  text-align:center;
+}
+
+.hero-proof{margin-top:var(--s5);text-align:center}
+.stars{color:var(--gold);font-size:.9rem;letter-spacing:2.5px}
+.hero-proof blockquote{
+  font-size:.98rem;font-style:italic;color:var(--w-82);
+  line-height:1.6;margin:var(--s2) auto 0;max-width:44ch;
+}
+.hero-proof cite{
+  display:block;font-style:normal;font-family:'Montserrat',sans-serif;
+  font-size:.8rem;font-weight:700;color:var(--gold-soft);margin-top:var(--s2);
+}
+
+/* ===== SLOT PICKER ===== */
+.picker{margin-top:var(--s6)}
+.picker-h{
+  font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-soft);text-align:center;margin-bottom:var(--s4);
+}
+.light .picker-h,.paper .picker-h{color:var(--wine-deep)}
+.slots{display:grid;gap:var(--s3)}
+@media(min-width:820px){.slots{grid-template-columns:1fr 1fr}}
+
+.slot{
+  background:var(--card);
+  border:1.5px solid var(--gold);
+  border-radius:16px;padding:var(--s4);
+  display:flex;flex-direction:column;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.slot:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(74,15,28,.18)}
+.slot-top{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s2);flex-wrap:wrap}
+.slot-day{
+  font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.06rem;
+  letter-spacing:.04em;color:var(--wine-deep);text-transform:uppercase;
+}
+.slot-time{font-size:.82rem;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.slot-track{
+  height:8px;border-radius:999px;background:rgba(122,27,48,.14);
+  margin:var(--s3) 0 var(--s2);overflow:hidden;
+}
+.slot-fill{height:100%;background:var(--btn);border-radius:999px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.slot-left{font-size:.84rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.slot-left b{color:var(--alert)}
+.slot-cta{
+  margin-top:var(--s3);
+  background:var(--btn);color:var(--ink);
+  font-family:'Montserrat',sans-serif;font-size:.96rem;font-weight:800;
+  text-align:center;padding:15px var(--s4);border-radius:11px;
+  text-decoration:none;min-height:52px;
+  display:flex;align-items:center;justify-content:center;gap:var(--s2);
+  box-shadow:0 8px 22px rgba(230,179,37,.38);
+  transition:background .2s ease,transform .1s ease;
+  cursor:pointer;touch-action:manipulation;
+}
+.slot-cta:hover{background:var(--btn-deep)}
+.slot-cta:active{transform:scale(.985)}
+.slot-pay{
+  margin-top:var(--s2);text-align:center;
+  font-size:.8rem;font-weight:600;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;line-height:1.4;
+}
+
+.slot.locked{
+  border:1.5px dashed rgba(42,17,25,.24);
+  background:rgba(42,17,25,.045);
+  box-shadow:none;
+}
+.slot.locked:hover{transform:none;box-shadow:none}
+.slot.locked .slot-day,.slot.locked .slot-time{color:var(--ink-soft)}
+.slot-day-lock{display:inline-flex;align-items:center;gap:7px}
+.slot-why{
+  font-size:.84rem;font-style:italic;color:var(--ink-soft);
+  margin-top:var(--s2);line-height:1.5;
+}
+.slot-note{
+  margin-top:var(--s3);font-size:.8rem;font-weight:700;
+  font-family:'Montserrat',sans-serif;color:var(--wine-deep);
+  background:rgba(212,175,55,.16);border-radius:9px;
+  padding:10px var(--s3);text-align:center;
+  min-height:44px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;border:none;width:100%;
+  transition:background .2s ease;
+}
+.slot-note:hover{background:rgba(212,175,55,.28)}
+
+/* locked slots sit inside dark sections — restate them for that ground */
+.dark .slot.locked{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.30)}
+.dark .slot.locked .slot-day,.dark .slot.locked .slot-time{color:var(--w-82)}
+.dark .slot.locked .slot-why{color:var(--w-58)}
+.dark .slot-note{background:rgba(246,224,176,.20);color:var(--gold-soft)}
+.dark .slot-note:hover{background:rgba(246,224,176,.32)}
+.dark .slot-note:disabled{background:rgba(255,255,255,.08);color:var(--w-58)}
+
+/* ===== WAITLIST DIALOG ===== */
+.wl{
+  border:none;padding:0;border-radius:20px;
+  max-width:440px;width:calc(100% - 32px);
+  /* the global *{margin:0} reset kills the UA's margin:auto on <dialog>,
+     which is what centres a modal — restore it here. */
+  margin:auto;
+  max-height:calc(100dvh - 32px);overflow:auto;
+  background:var(--card);color:var(--ink);
+  box-shadow:0 30px 70px rgba(74,15,28,.45);
+}
+.wl::backdrop{background:rgba(74,15,28,.66);backdrop-filter:blur(3px)}
+.wl-head{
+  background:linear-gradient(160deg,var(--wine-deep),var(--wine-dark));
+  color:#fff;padding:var(--s5);border-radius:20px 20px 0 0;position:relative;
+}
+.wl-head h3{color:#fff;font-size:1.22rem;font-weight:600;margin-bottom:6px;padding-right:38px}
+.wl-head p{font-size:.9rem;color:var(--w-82);line-height:1.5}
+.wl-x{
+  position:absolute;top:10px;right:10px;
+  width:40px;height:40px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.15);color:#fff;
+  font-size:1.4rem;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s ease;
+}
+.wl-x:hover{background:rgba(255,255,255,.28)}
+.wl-body{padding:var(--s5)}
+.wl-row{margin-bottom:var(--s3)}
+.wl-row label{
+  display:block;font-family:'Montserrat',sans-serif;
+  font-size:.74rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--wine-deep);margin-bottom:5px;
+}
+.wl-row input{
+  width:100%;min-height:48px;padding:12px var(--s3);
+  font-family:'DM Sans',sans-serif;font-size:16px;color:var(--ink);
+  background:var(--cream);border:1.5px solid var(--line);border-radius:10px;
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.wl-row input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.24)}
+.wl-row input:user-invalid{border-color:var(--alert)}
+.wl-two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+@media(max-width:420px){.wl-two{grid-template-columns:1fr;gap:0}}
+.wl-submit{
+  width:100%;min-height:52px;margin-top:var(--s2);
+  background:var(--btn);color:var(--ink);border:none;border-radius:11px;
+  font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:800;
+  cursor:pointer;box-shadow:0 8px 22px rgba(230,179,37,.38);
+  transition:background .2s ease,transform .1s ease;
+}
+.wl-submit:hover{background:var(--btn-deep)}
+.wl-submit:active{transform:scale(.985)}
+.wl-submit:disabled{opacity:.55;cursor:default;transform:none}
+.wl-fine{font-size:.76rem;color:var(--ink-soft);text-align:center;margin-top:var(--s3);line-height:1.5}
+.wl-err{font-size:.86rem;color:var(--alert);text-align:center;margin-top:var(--s2);font-weight:600}
+.wl-done{padding:var(--s6) var(--s5);text-align:center}
+.wl-done h3{font-size:1.25rem;margin-bottom:6px}
+.wl-done p{font-size:.94rem;color:var(--ink-soft);line-height:1.55}
+.wl-tick{
+  width:58px;height:58px;border-radius:50%;background:rgba(212,175,55,.22);
+  color:var(--wine-deep);display:flex;align-items:center;justify-content:center;
+  margin:0 auto var(--s3);
+}
+
+/* ===== TRUST ROW ===== */
+.trust{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:var(--s2) var(--s5);margin-top:var(--s5);
+}
+.trust li{
+  list-style:none;display:flex;align-items:center;gap:7px;
+  font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:700;
+  color:var(--gold-soft);letter-spacing:.02em;
+}
+.light .trust li,.paper .trust li{color:var(--wine-deep)}
+.trust .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* ===== BENEFITS GRID ===== */
+.bens{display:grid;gap:var(--s3);margin-top:var(--s5)}
+@media(min-width:600px){.bens{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.bens{grid-template-columns:repeat(3,1fr)}}
+.ben{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:var(--s4);
+  display:flex;gap:var(--s3);align-items:flex-start;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.ben:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(74,15,28,.13)}
+.ben.hero-ben{background:rgba(212,175,55,.15);border-color:var(--gold)}
+.ben-ic{
+  flex-shrink:0;width:40px;height:40px;border-radius:11px;
+  background:rgba(122,27,48,.10);color:var(--wine-deep);
+  display:flex;align-items:center;justify-content:center;
+}
+.ben.hero-ben .ben-ic{background:rgba(212,175,55,.30)}
+.ben-t{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.94rem;color:var(--wine-deep);line-height:1.3}
+.ben-d{font-size:.86rem;color:var(--ink-soft);line-height:1.5;margin-top:3px}
+
+/* ===== REVIEWS ===== */
+.g-badge{
+  display:inline-flex;align-items:center;gap:var(--s3);
+  background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:9px var(--s4);margin-top:var(--s3);
+  box-shadow:0 5px 16px rgba(74,15,28,.09);
+}
+.g-badge .g{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
+.g-badge .g .b1{color:#4285F4}.g-badge .g .r1{color:#EA4335}
+.g-badge .g .y1{color:#FBBC05}.g-badge .g .g1{color:#34A853}
+.g-badge .sc{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;color:var(--ink)}
+.g-badge .mt{font-size:.76rem;color:var(--ink-soft)}
+
+.revs{margin-top:var(--s5);display:grid;gap:var(--s3)}
+@media(min-width:700px){.revs{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.revs{grid-template-columns:repeat(3,1fr)}}
+.rev{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:var(--s4);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.rev:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(74,15,28,.13)}
+.rev-top{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s2)}
+.rev-av{width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--wine-mid)}
+.rev-nm{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--ink);line-height:1.2}
+.rev-mt{font-size:.76rem;color:var(--ink-soft);margin-top:2px}
+.rev q{font-size:.94rem;line-height:1.6;color:var(--ink);display:block;margin-top:var(--s2);quotes:"«\00A0" "\00A0»"}
+
+/* ===== MARQUEE ===== */
+.marquee{overflow:hidden;margin-top:var(--s5)}
+.marquee-track{display:flex;gap:var(--s3);width:max-content;animation:mq 58s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee img{height:170px;width:auto;border-radius:13px;object-fit:cover;flex-shrink:0;box-shadow:0 12px 28px rgba(74,15,28,.2)}
+@media(min-width:768px){.marquee img{height:250px}}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ===== SEANCE LIST ===== */
+.steps{list-style:none;margin-top:var(--s4);display:grid;gap:var(--s3)}
+.step{display:flex;gap:var(--s3);align-items:flex-start}
+.step-n{
+  flex-shrink:0;width:30px;height:30px;border-radius:9px;
+  background:var(--gold);color:var(--ink);
+  font-family:'Montserrat',sans-serif;font-weight:800;font-size:.86rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.step p{font-size:.98rem;line-height:1.55;color:var(--w-82)}
+
+/* ===== FAQ ===== */
+.faq{margin-top:var(--s4)}
+.faq details{border-bottom:1px solid var(--line);padding:var(--s3) 0}
+.faq details:last-child{border-bottom:none}
+.faq summary{
+  font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;
+  color:var(--wine-deep);cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:var(--s3);
+  min-height:44px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";font-size:1.4rem;font-weight:400;color:var(--gold-deep);
+  flex-shrink:0;transition:transform .2s ease;line-height:1;
+}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{font-size:.96rem;color:var(--ink);line-height:1.65;padding-top:var(--s2)}
+
+/* ===== GUARANTEE ===== */
+.gtee{
+  background:rgba(212,175,55,.18);
+  border-left:5px solid var(--gold-soft);
+  border-radius:0 14px 14px 0;padding:var(--s4);
+  margin-top:var(--s5);text-align:left;
+}
+.gtee p{font-size:.98rem;line-height:1.6;color:#fff}
+
+/* ===== VENUE ===== */
+.venue{
+  display:inline-flex;align-items:center;gap:var(--s3);
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:var(--s3) var(--s4);margin-top:var(--s4);text-align:left;
+  text-decoration:none;transition:box-shadow .2s ease;
+}
+.venue:hover{box-shadow:0 10px 24px rgba(74,15,28,.14)}
+.venue .vt{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--wine-deep)}
+.venue .vs{font-size:.82rem;color:var(--ink-soft)}
+
+/* ===== SIGNATURE / FOOTER ===== */
+.sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:2.1rem;color:var(--gold-soft);margin-top:var(--s2)}
+.portrait{
+  width:150px;height:150px;object-fit:cover;object-position:center 20%;
+  border-radius:50%;margin:var(--s4) auto 0;
+  border:3px solid rgba(212,175,55,.55);
+  box-shadow:0 14px 36px rgba(0,0,0,.4);
+}
+footer{text-align:center;padding:var(--s6) var(--s4);background:var(--cream)}
+footer img{height:40px;width:auto;margin:0 auto var(--s3)}
+footer p{font-size:.78rem;color:var(--ink-soft)}
+
+/* ===== REVEAL ===== */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .marquee-track{animation:none}
+  .slot:hover,.rev:hover,.ben:hover{transform:none}
+  .slot-fill{transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <img src="Logo-fr.png" alt="Voix Essence" width="120" height="32">
+    <a class="topbar-cta" href="#cohortes">Réserver ma place</a>
+  </div>
+</header>
+
+<!-- ============================================================
+     1 · HERO
+     ============================================================ -->
+<section class="section hero dark">
+  <div class="narrow">
+    <p class="eyebrow reveal">Plateau Mont-Royal &middot; 961 rue Rachel Est</p>
+    <h1 class="reveal">Pourquoi ta voix se serre<br><em>dès que quelqu'un écoute&nbsp;?</em></h1>
+    <p class="hero-sub reveal">
+      Ce n'est pas un manque de talent. C'est la même gorge qui se serre quand tu
+      retiens tes larmes — elle a appris à se fermer, et ton souffle n'arrive plus
+      jusqu'en bas. Ça se travaille.
+      <b>Douze semaines, douze personnes, un soir par semaine</b> — pour la rouvrir.
+    </p>
+
+    <figure class="hero-media reveal">
+      <img src="community-03.jpg" alt="Un cercle de participants allongés au sol, souriants, pendant une séance de travail somatique et vocal" width="1200" height="800" fetchpriority="high">
+      <figcaption>Le Cercle de Voix &mdash; on commence par le corps, au sol.</figcaption>
+    </figure>
+
+    <div class="hero-proof reveal">
+      <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <!-- ⚠️ À REMPLACER par l'original français de Google -->
+      <blockquote>Les cercles de chant de Mamselle Ruiz sont des moments de pur plaisir, de détente et de camaraderie. Dès la première séance, on se sent bienvenu, peu importe notre expérience.</blockquote>
+      <cite>Caroline Tardif &middot; Google</cite>
+    </div>
+
+    <div class="picker reveal" id="cohortes">
+      <p class="picker-h">Choisis ton soir</p>
+      <div class="slots" id="slots-top"></div>
+    </div>
+
+    <ul class="trust reveal">
+      <li><span class="dot"></span>12 personnes maximum</li>
+      <li><span class="dot"></span>12 séances</li>
+      <li><span class="dot"></span>Dès le 1<sup>er</sup> septembre</li>
+      <li><span class="dot"></span>Google 5,0 &#9733;</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================
+     2 · WHAT CHANGES
+     ============================================================ -->
+<section class="section light">
+  <div class="wrap">
+    <div class="narrow center reveal">
+      <p class="eyebrow">Ce qui la retient</p>
+      <h2>Et si le problème n'était pas ta voix, <em>mais ce qui la retient&nbsp;?</em></h2>
+      <p class="lede">Un bébé crie pendant des heures sans jamais s'enrouer. Toi non plus, tu n'es pas né·e avec une gorge serrée — tu l'as apprise. Alors on ne vient pas apprendre à chanter : on vient décrocher ce qui serre, le souffle, la gorge, le système nerveux. Le chant, c'est juste l'outil le plus rapide que je connaisse pour y arriver.</p>
+    </div>
+
+    <div class="bens">
+      <div class="ben hero-ben reveal">
+        <span class="ben-ic" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l2-5 3 10 3-8 2 3h7"/></svg>
+        </span>
+        <div><p class="ben-t">Stimulation du nerf vague</p><p class="ben-d">La vibration vocale agit directement sur le nerf qui pilote ton état de calme.</p></div>
+      </div>
+      <div class="ben reveal">
+        <span class="ben-ic" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.6 4.6A2 2 0 1 1 11 8H2m8.6 11.4A2 2 0 1 0 12 16H2m13.6-11.4A2.5 2.5 0 1 1 18 9H2"/></svg>
+        </span>
+        <div><p class="ben-t">Respiration et posture</p><p class="ben-d">Le souffle se déplie, la cage s'ouvre, l'alignement suit.</p></div>
+      </div>
+      <div class="ben reveal">
+        <span class="ben-ic" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c2.5-2 5-2 7.5 0S15 8 17.5 6 22 4 22 4M2 12c2.5-2 5-2 7.5 0s5.5 2 8 0 4.5-2 4.5-2M2 18c2.5-2 5-2 7.5 0s5.5 2 8 0 4.5-2 4.5-2"/></svg>
+        </span>
+        <div><p class="ben-t">Régulation du stress</p><p class="ben-d">Les états anxieux redescendent — pendant la séance, et après.</p></div>
+      </div>
+      <div class="ben reveal">
+        <span class="ben-ic" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12z"/></svg>
+        </span>
+        <div><p class="ben-t">Vitalité et clarté mentale</p><p class="ben-d">L'énergie remonte, la tête se dégage.</p></div>
+      </div>
+      <div class="ben reveal">
+        <span class="ben-ic" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>
+        </span>
+        <div><p class="ben-t">Confiance et présence</p><p class="ben-d">Habiter ta voix change la façon dont tu occupes une pièce.</p></div>
+      </div>
+      <div class="ben reveal">
+        <span class="ben-ic" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <div><p class="ben-t">Appartenance et connexion</p><p class="ben-d">Chanter ensemble crée un lien que peu de pratiques créent.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3 · SOCIAL PROOF
+     ============================================================ -->
+<section class="section paper">
+  <div class="wrap">
+    <div class="narrow center reveal">
+      <p class="eyebrow">Ce qu'elles en disent</p>
+      <h2>Est-ce que ça marche vraiment <em>pour du monde comme toi&nbsp;?</em></h2>
+      <span class="g-badge">
+        <span class="g"><span class="b1">G</span><span class="r1">o</span><span class="y1">o</span><span class="b1">g</span><span class="g1">l</span><span class="r1">e</span></span>
+        <span class="sc">5,0</span>
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="mt">Avis vérifiés</span>
+      </span>
+    </div>
+
+    <!-- ⚠️ TOUS CES TEXTES SONT À REMPLACER par les originaux français de Google -->
+    <div class="revs">
+      <article class="rev reveal">
+        <div class="rev-top">
+          <img class="rev-av" src="rev-caroline.jpg" alt="" width="44" height="44" loading="lazy">
+          <div><p class="rev-nm">Caroline Tardif</p><p class="rev-mt">4 avis &middot; Google</p></div>
+        </div>
+        <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <q>Les cercles de chant de Mamselle Ruiz sont des moments de pur plaisir, de détente et de camaraderie. Mamselle est une professeure expérimentée : douce, drôle et très proche de nous. Dès la première séance, on se sent bienvenu, peu importe notre expérience.</q>
+      </article>
+
+      <article class="rev reveal">
+        <div class="rev-top">
+          <img class="rev-av" src="rev-genevieve.jpg" alt="" width="44" height="44" loading="lazy">
+          <div><p class="rev-nm">Geneviève Lavoie</p><p class="rev-mt">13 avis &middot; Google</p></div>
+        </div>
+        <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <q>Mamselle Ruiz a un talent unique pour rendre le chant naturel. Ses méthodes douces et intuitives nous guident vers notre propre voix et vers l'harmonie avec le rythme du groupe.</q>
+      </article>
+
+      <article class="rev reveal">
+        <div class="rev-top">
+          <img class="rev-av" src="rev-justine.jpg" alt="" width="44" height="44" loading="lazy">
+          <div><p class="rev-nm">Justine Lafortune</p><p class="rev-mt">Montréal</p></div>
+        </div>
+        <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <q>Mamselle anime les groupes merveilleusement bien. Ça a changé ma vie (sans blague) ! Moi qui ne croyais pas être capable de chanter.</q>
+      </article>
+
+      <article class="rev reveal">
+        <div class="rev-top">
+          <img class="rev-av" src="rev-julia.jpg" alt="" width="44" height="44" loading="lazy">
+          <div><p class="rev-nm">Julia Lazzarotto</p><p class="rev-mt">6 avis &middot; Google</p></div>
+        </div>
+        <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <q>Une magnifique occasion d'explorer sa voix en toute authenticité, dans l'environnement sécuritaire et bienveillant qu'offre Mamselle Ruiz. Dès le premier atelier, j'ai ressenti les bienfaits : une dose merveilleuse de vitalité et de joie !</q>
+      </article>
+
+      <article class="rev reveal">
+        <div class="rev-top">
+          <img class="rev-av" src="rev-nikita.jpg" alt="" width="44" height="44" loading="lazy">
+          <div><p class="rev-nm">Nikita Thilavanh</p><p class="rev-mt">Local Guide &middot; 18 avis</p></div>
+        </div>
+        <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <q>Mamselle a le don de créer une ambiance magique et accueillante. Ses cours sont des expériences vraiment joyeuses et enrichissantes. Elle nous guide avec beaucoup de patience.</q>
+      </article>
+
+      <article class="rev reveal">
+        <div class="rev-top">
+          <img class="rev-av" src="rev-flore.jpg" alt="" width="44" height="44" loading="lazy">
+          <div><p class="rev-nm">Flore Lacau</p><p class="rev-mt">5 avis &middot; Google</p></div>
+        </div>
+        <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <q>Merci Mamselle : pour ta magnifique voix, ton talent, ta capacité à créer un espace magique et sécuritaire pour créer, se libérer, s'amuser, partager.</q>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4 · AUTHORITY
+     ============================================================ -->
+<section class="section light" style="overflow:hidden">
+  <div class="wrap">
+    <div class="narrow center reveal">
+      <p class="eyebrow">Qui t'accompagne</p>
+      <h2>Qui va t'accompagner <em>pendant ces douze semaines&nbsp;?</em></h2>
+      <p class="lede">Tu reconnais quelqu'un au téléphone avant qu'il dise son nom. C'est dire à quel point ta voix, c'est toi — et à quel point ça vaut la peine de s'en occuper.</p>
+      <p class="lede">Moi, c'est Mamselle Ruiz — chanteuse, artiste de scène et coach vocale depuis <strong>25 ans</strong>. Près de <strong>1000 concerts</strong>, plusieurs années avec le <strong>Cirque du Soleil</strong>, 5 albums. J'ai fondé la méthode <strong>Voix Essence™</strong> parce que j'en avais assez de voir des gens croire qu'ils n'avaient pas de voix.</p>
+    </div>
+    <div class="marquee reveal" aria-label="Mamselle Ruiz en concert">
+      <div class="marquee-track">
+        <img src="slide-01.jpg" alt="" loading="lazy" height="250"><img src="slide-03.jpg" alt="" loading="lazy" height="250"><img src="slide-05.jpg" alt="" loading="lazy" height="250"><img src="slide-07.jpg" alt="" loading="lazy" height="250"><img src="slide-09.jpg" alt="" loading="lazy" height="250"><img src="slide-11.jpg" alt="" loading="lazy" height="250"><img src="slide-13.jpg" alt="" loading="lazy" height="250"><img src="slide-15.jpg" alt="" loading="lazy" height="250"><img src="slide-17.jpg" alt="" loading="lazy" height="250"><img src="slide-19.jpg" alt="" loading="lazy" height="250"><img src="slide-21.jpg" alt="" loading="lazy" height="250"><img src="slide-23.jpg" alt="" loading="lazy" height="250"><img src="slide-01.jpg" alt="" loading="lazy" height="250"><img src="slide-03.jpg" alt="" loading="lazy" height="250"><img src="slide-05.jpg" alt="" loading="lazy" height="250"><img src="slide-07.jpg" alt="" loading="lazy" height="250"><img src="slide-09.jpg" alt="" loading="lazy" height="250"><img src="slide-11.jpg" alt="" loading="lazy" height="250"><img src="slide-13.jpg" alt="" loading="lazy" height="250"><img src="slide-15.jpg" alt="" loading="lazy" height="250"><img src="slide-17.jpg" alt="" loading="lazy" height="250"><img src="slide-19.jpg" alt="" loading="lazy" height="250"><img src="slide-21.jpg" alt="" loading="lazy" height="250"><img src="slide-23.jpg" alt="" loading="lazy" height="250">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5 · THE SESSION
+     ============================================================ -->
+<section class="section dark">
+  <div class="narrow">
+    <div class="center reveal">
+      <p class="eyebrow">Une séance de 1 h 30</p>
+      <h2>Il se passe quoi, <em>pendant une heure et demie&nbsp;?</em></h2>
+    </div>
+    <ul class="steps reveal">
+      <li class="step"><span class="step-n">1</span><p>Une préparation physique douce et ciblée.</p></li>
+      <li class="step"><span class="step-n">2</span><p>Un travail respiratoire et somatique.</p></li>
+      <li class="step"><span class="step-n">3</span><p>Des exercices vocaux progressifs.</p></li>
+      <li class="step"><span class="step-n">4</span><p>L'apprentissage de chants issus de différentes traditions.</p></li>
+      <li class="step"><span class="step-n">5</span><p>Des espaces de résonance collective, d'écoute et de présence.</p></li>
+    </ul>
+    <p class="muted reveal" style="margin-top:var(--s4);font-style:italic">
+      Douze séances consécutives, les mardis ou les mercredis de 19 h 15 à 20 h 45, au Centre Soha.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     6 · OBJECTIONS
+     ============================================================ -->
+<section class="section paper">
+  <div class="narrow">
+    <div class="center reveal">
+      <p class="eyebrow">Avant de réserver</p>
+      <h2>Et si tu étais déjà <em>en train de te dire non&nbsp;?</em></h2>
+    </div>
+    <div class="faq reveal">
+      <details open>
+        <summary>« Je chante mal. »</summary>
+        <p>Presque tout le monde arrive en le disant. Ici, personne n'est évalué : le cercle est ouvert aux débutant·es, avec ou sans expérience préalable. Si ça t'arrive de chanter sous la douche ou dans ta voiture, tu en sais déjà assez pour venir. On chante ensemble — et quand une voix se pose seule un instant, c'est parce que le groupe l'a portée jusque-là.</p>
+      </details>
+      <details>
+        <summary>« Je n'ai jamais chanté en groupe. »</summary>
+        <p>C'est le cas de la moitié des gens qui s'assoient dans le cercle. Chanter à plusieurs est plus facile que chanter seul : ta voix se pose sur celles des autres, et c'est exactement ce qui la libère. On commence doucement, personne ne te pousse.</p>
+      </details>
+      <details>
+        <summary>« J'ai peur d'être gêné·e. »</summary>
+        <p>On commence au sol, par le corps et le souffle. Personne ne te regarde chanter. Quand la voix arrive, elle arrive dans un groupe qui fait exactement la même chose que toi, au même moment.</p>
+      </details>
+      <details>
+        <summary>« Et si je manque une semaine ? »</summary>
+        <p>Le parcours est pensé sur 12 séances consécutives, mais une absence ne te fait pas perdre le fil. On reprend là où ton corps en est.</p>
+      </details>
+    </div>
+
+    <div class="center">
+      <a class="venue reveal" href="https://maps.google.com/?q=961+rue+Rachel+Est+Montreal" target="_blank" rel="noopener">
+        <span class="ben-ic" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <span><span class="vt">Centre Soha</span><br><span class="vs">961 rue Rachel Est, Montréal &middot; Plateau Mont-Royal</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     7 · CLOSE
+     ============================================================ -->
+<section class="section dark">
+  <div class="narrow center">
+    <div class="reveal">
+      <p class="eyebrow">Il reste des places</p>
+      <h2>On se voit <em>le 1<sup>er</sup> septembre&nbsp;?</em></h2>
+      <p class="lede">Douze personnes, douze semaines. Un mardi ou un mercredi soir, de 19 h 15 à 20 h 45, au 961 rue Rachel Est.</p>
+    </div>
+
+    <div class="picker reveal">
+      <div class="slots" id="slots-bottom"></div>
+    </div>
+
+    <div class="gtee reveal">
+      <p><strong>Mon engagement :</strong> viens à la première séance. Si tu sens que ce n'est pas pour toi, je t'offre une séance privée avec moi — pour qu'on trouve ensemble ce qui te convient.</p>
+    </div>
+
+    <div class="reveal">
+      <img class="portrait" src="mamselle-close.jpg" alt="Mamselle Ruiz, coach vocale" width="150" height="150" loading="lazy">
+      <p class="sig">Mamselle Ruiz</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WAITLIST DIALOG — opened by the locked cohort buttons
+     ============================================================ -->
+<dialog class="wl" id="wl" aria-labelledby="wl-title">
+  <div id="wl-panel">
+    <div class="wl-head">
+      <button type="button" class="wl-x" id="wl-x" aria-label="Fermer">&times;</button>
+      <h3 id="wl-title">On te garde une place&nbsp;?</h3>
+      <p id="wl-sub">Ce créneau n'est pas encore ouvert. Laisse-moi tes coordonnées — tu seras prévenu·e en premier.</p>
+    </div>
+    <div class="wl-body">
+      <form id="wl-form">
+        <div class="wl-two">
+          <div class="wl-row">
+            <label for="wl-first">Prénom</label>
+            <input id="wl-first" name="prenom" type="text" autocomplete="given-name" required>
+          </div>
+          <div class="wl-row">
+            <label for="wl-last">Nom</label>
+            <input id="wl-last" name="nom" type="text" autocomplete="family-name" required>
+          </div>
+        </div>
+        <div class="wl-row">
+          <label for="wl-tel">Téléphone</label>
+          <input id="wl-tel" name="telephone" type="tel" inputmode="tel" autocomplete="tel" required>
+        </div>
+        <div class="wl-row">
+          <label for="wl-email">Courriel</label>
+          <input id="wl-email" name="email" type="email" inputmode="email" autocomplete="email" required>
+        </div>
+        <button type="submit" class="wl-submit" id="wl-submit">Préviens-moi à l'ouverture</button>
+        <p class="wl-err" id="wl-err" hidden></p>
+        <p class="wl-fine">Aucun paiement. Je t'écris seulement quand ce créneau ouvre.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="wl-done" id="wl-done" hidden>
+    <div class="wl-tick" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>
+    </div>
+    <h3>C'est noté.</h3>
+    <p>Tu es sur la liste pour le créneau <b id="wl-slot"></b>. Je t'écris dès qu'il ouvre.</p>
+    <button type="button" class="wl-submit" id="wl-close2" style="margin-top:20px">Fermer</button>
+  </div>
+</dialog>
+
+<footer>
+  <img src="Logo-fr.png" alt="Voix Essence" width="150" height="40" loading="lazy">
+  <p>© 2026 Voix Essence™ &middot; Centre Soha, 961 rue Rachel Est, Montréal</p>
+</footer>
+
+<script>
+/* ================================================================
+   SLOTS — the only thing you edit between now and full.
+   Bump `taken`, flip `locked`, redeploy. Both pickers re-render.
+   ponytail: manual counts. Wire to Circle only if editing gets old.
+   ================================================================ */
+var CAP = 12;
+var SLOTS = [
+  { day:'Mardi',    time:'19 h 15 – 20 h 45', start:'dès le 1er sept.',
+    taken:5, locked:false,
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mardi' },
+
+  { day:'Mercredi', time:'19 h 15 – 20 h 45', start:'dès le 2 sept.',
+    taken:3, locked:false,
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mercredi' },
+
+  { day:'Mardi',    time:'17 h 30 – 19 h 00', locked:true,
+    why:"S'ouvre quand la cohorte du mardi soir est complète." },
+
+  { day:'Mercredi', time:'17 h 30 – 19 h 00', locked:true,
+    why:"S'ouvre quand la cohorte du mercredi soir est complète." }
+];
+
+/* ⚠️ The Circle checkout currently charges 396 $ as a SINGLE payment.
+   These values are display-only — Circle must be switched to a
+   3-instalment plan or the page and the checkout contradict. */
+var PRICE_TOTAL  = 396;
+var INSTALMENTS  = 3;
+var INSTALMENT   = 132;
+var CURRENCY     = 'CAD';
+
+/* mc_id passthrough — same contract as vsl-v1.html */
+var mcId = (function(){
+  try { return new URLSearchParams(window.location.search).get('mc_id') || ''; }
+  catch(e){ return ''; }
+})();
+function withMc(url){
+  if(!mcId || mcId === '{{contact_id}}' || mcId === '0' || !mcId.trim()) return url;
+  return url + (url.indexOf('?') === -1 ? '?' : '&') + 'mc_id=' + encodeURIComponent(mcId);
+}
+
+var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function slotHTML(s){
+  if(s.locked){
+    return '<div class="slot locked">'
+      + '<div class="slot-top">'
+      +   '<span class="slot-day slot-day-lock">' + LOCK_SVG + esc(s.day) + '</span>'
+      +   '<span class="slot-time">' + esc(s.time) + '</span>'
+      + '</div>'
+      + '<p class="slot-why">' + esc(s.why) + '</p>'
+      + '<button type="button" class="slot-note js-lock" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
+      +   'Ce créneau m\'intéresserait' + '</button>'
+      + '</div>';
+  }
+  var left = Math.max(0, CAP - s.taken);
+  var pct  = Math.round((s.taken / CAP) * 100);
+  var plural = left > 1 ? 's' : '';
+  return '<div class="slot">'
+    + '<div class="slot-top">'
+    +   '<span class="slot-day">' + esc(s.day) + '</span>'
+    +   '<span class="slot-time">' + esc(s.time) + ' &middot; ' + esc(s.start) + '</span>'
+    + '</div>'
+    + '<div class="slot-track" role="img" aria-label="' + s.taken + ' places prises sur ' + CAP + '">'
+    +   '<div class="slot-fill" style="width:' + pct + '%"></div>'
+    + '</div>'
+    + '<p class="slot-left"><b>' + left + ' place' + plural + ' restante' + plural + '</b> sur ' + CAP + '</p>'
+    + '<a class="slot-cta js-book" href="' + esc(withMc(s.url)) + '"'
+    +   ' data-day="' + esc(s.day) + '" data-left="' + left + '">'
+    +   'Réserver ma place</a>'
+    + '<p class="slot-pay">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + taxes</p>'
+    + '</div>';
+}
+
+(function renderSlots(){
+  var html = SLOTS.map(slotHTML).join('');
+  ['slots-top','slots-bottom'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.innerHTML = html;
+  });
+})();
+
+/* ================================================================
+   META PIXEL EVENTS
+     Cercle_LPV          → optimisation #1 (landing page view)
+     Cercle_PaywallClick → optimisation #2 (paywall button clicks)
+   ================================================================ */
+if(typeof fbq !== 'undefined'){
+  fbq('track','ViewContent',{
+    content_name:'Cercle de Voix · automne 2026',
+    content_category:'Cercle',
+    value:PRICE_TOTAL, currency:CURRENCY
+  });
+}
+/* Landing page view = pixel fired AND page fully loaded. */
+window.addEventListener('load', function(){
+  if(typeof fbq !== 'undefined') fbq('trackCustom','Cercle_LPV');
+});
+
+document.addEventListener('click', function(e){
+  var book = e.target.closest ? e.target.closest('.js-book') : null;
+  var lock = e.target.closest ? e.target.closest('.js-lock') : null;
+
+  if(book){
+    e.preventDefault();
+    var url = book.getAttribute('href');
+    if(typeof fbq !== 'undefined'){
+      fbq('trackCustom','Cercle_PaywallClick',{
+        cohorte: book.getAttribute('data-day'),
+        places_restantes: Number(book.getAttribute('data-left'))
+      });
+      fbq('track','InitiateCheckout',{
+        content_name:'Cercle de Voix · ' + book.getAttribute('data-day'),
+        content_category:'Cercle',
+        value:PRICE_TOTAL, currency:CURRENCY
+      });
+    }
+    /* 300ms so the pixel flushes before navigation */
+    setTimeout(function(){ window.location.href = url; }, 300);
+    return;
+  }
+
+  if(lock){
+    openWaitlist(lock.getAttribute('data-day'));
+  }
+});
+
+/* ================================================================
+   WAITLIST — native <dialog> gives us Escape, backdrop and focus
+   handling; native form validation gives us the error states.
+   Leads land in the dedicated "Cercle de Voix - liste d'attente"
+   Formspree form, which webhooks the Worker, which tags them in Kit
+   (idioma-fr + the créneau tag). Separate form from the quiz on
+   purpose — separate inbox, separate volume, no shared automations.
+   ================================================================ */
+var FORMSPREE = 'https://formspree.io/f/maqrgbrl';
+var dlg = document.getElementById('wl');
+var wlSlot = '';
+
+function openWaitlist(slotLabel){
+  wlSlot = slotLabel || '';
+  document.getElementById('wl-sub').textContent =
+    'Le créneau ' + wlSlot + ' n\'est pas encore ouvert. Laisse-moi tes coordonnées — tu seras prévenu·e en premier.';
+  if(typeof fbq !== 'undefined') fbq('trackCustom','SeatLocked_Click',{ creneau: wlSlot });
+  if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
+  document.documentElement.style.overflow = 'hidden';   /* no scrolling behind the modal */
+  setTimeout(function(){ document.getElementById('wl-first').focus(); }, 60);
+}
+
+function closeWaitlist(){
+  if(dlg.close) dlg.close(); else dlg.removeAttribute('open');
+  document.documentElement.style.overflow = '';
+}
+/* Escape closes natively — catch it so the scroll lock is released too */
+dlg.addEventListener('close', function(){ document.documentElement.style.overflow = ''; });
+
+document.getElementById('wl-x').addEventListener('click', closeWaitlist);
+document.getElementById('wl-close2').addEventListener('click', closeWaitlist);
+/* click on the backdrop (outside the panel) closes */
+dlg.addEventListener('click', function(e){ if(e.target === dlg) closeWaitlist(); });
+
+document.getElementById('wl-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  var f   = e.target;
+  var btn = document.getElementById('wl-submit');
+  var err = document.getElementById('wl-err');
+  err.hidden = true;
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+
+  fetch(FORMSPREE, {
+    method:'POST',
+    headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+    body: JSON.stringify({
+      prenom:    f.prenom.value.trim(),
+      nom:       f.nom.value.trim(),
+      telephone: f.telephone.value.trim(),
+      email:     f.email.value.trim(),
+      creneau:   wlSlot,
+      source:    'cercle-locked-slot',
+      _subject:  'Cercle de Voix — liste d\'attente (' + wlSlot + ')'
+    })
+  }).then(function(r){
+    if(!r.ok) throw new Error('http ' + r.status);
+    if(typeof fbq !== 'undefined') fbq('trackCustom','Cercle_WaitlistLead',{ creneau: wlSlot });
+    document.getElementById('wl-slot').textContent = wlSlot;
+    document.getElementById('wl-panel').hidden = true;
+    document.getElementById('wl-done').hidden = false;
+  }).catch(function(){
+    err.textContent = 'Envoi impossible. Réessaie dans un instant.';
+    err.hidden = false;
+    btn.disabled = false;
+    btn.textContent = 'Préviens-moi à l\'ouverture';
+  });
+});
+
+/* ================================================================
+   SCROLL REVEAL
+   ================================================================ */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    for(var i=0;i<els.length;i++) els[i].classList.add('on');
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('on'); io.unobserve(en.target); }
+    });
+  }, { threshold:0.1, rootMargin:'0px 0px -6% 0px' });
+  for(var k=0;k<els.length;k++) io.observe(els[k]);
+})();
+</script>
+
+<!--
+  ⚠️ AVANT DE DÉPENSER
+  1. PRIX — le checkout Circle facture 396 $ en UN paiement ("Pago único").
+     Cette page annonce 3 versements de 132 $ + taxes. Il faut activer
+     un plan en 3 versements dans Circle, sinon la page et la caisse
+     se contredisent au moment de payer.
+  2. AVIS — les 6 avis + la citation du hero sont rendus en français à
+     partir des traductions espagnoles de vsl-v1.html. Les originaux
+     Google sont en français : les récupérer mot pour mot et remplacer.
+  3. CAISSE — l'interface Circle s'affiche en espagnol. Passer en FR.
+-->
+</body>
+</html>
