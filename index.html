@@ -242,7 +242,7 @@ strong{font-weight:700;color:var(--wine-deep)}
 }
 
 /* ===== SLOT PICKER ===== */
-.picker{margin-top:var(--s6)}
+.picker{margin-top:var(--s3)}
 .picker-h{
   font-family:'Montserrat',sans-serif;font-weight:700;
   font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
@@ -424,9 +424,11 @@ strong{font-weight:700;color:var(--wine-deep)}
 /* ===== ABOVE-THE-FOLD TRUST ROW =====
    Compact rating + ticks sit between the sub-head and the CTA so the
    whole value proposition fits a 375px viewport without scrolling. */
+/* More space above, less below: the rating reads as belonging to the
+   picker underneath it rather than trailing the benefit ticks. */
 .hero-rating{
   display:flex;align-items:center;justify-content:center;
-  gap:9px;flex-wrap:wrap;margin-top:var(--s4);
+  gap:9px;flex-wrap:wrap;margin-top:var(--s6);
 }
 .hero-rating .stars{font-size:1.05rem;letter-spacing:2px}
 .hero-rating b{
