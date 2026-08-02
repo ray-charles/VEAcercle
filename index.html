@@ -416,6 +416,13 @@ strong{font-weight:700;color:var(--wine-deep)}
    no CSS changes needed. */
 .hero-media iframe,.hero-media video{position:absolute;inset:0;width:100%;height:100%;border:0}
 .hero-media.is-video img{opacity:.5}
+/* Both films are 16:9. The frame's default 3:2 / 16:10 would letterbox
+   or distort them, so video frames match the footage exactly. */
+.hero-media.is-video{aspect-ratio:16/9}
+.hero-media video{object-fit:cover;background:#000}
+/* Same frame on a light section: the white border and deep shadow only
+   read against the dark hero. */
+.hero-media.on-light{border-color:rgba(74,15,28,.14);box-shadow:0 16px 38px rgba(74,15,28,.16)}
 .video-ph{
   position:absolute;inset:0;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:11px;pointer-events:none;
@@ -663,20 +670,13 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg><span>Centre Soha &middot; Plateau</span></li>
     </ul>
 
-    <!-- ============================================================
-         VIDEO SLOT — placeholder until the film is ready.
-         To go live: delete the <img> and the .video-ph <div>, and put
-         the embed in their place, e.g.
-           <iframe src="https://player.vimeo.com/video/ID"
-                   title="Cercle de Voix" allowfullscreen></iframe>
-         The frame, ratio and rounded corners already fit it.
-         ============================================================ -->
+    <!-- preload="none": the poster is a 51 KB jpg; the 8.8 MB mp4 only
+         downloads if someone presses play, so it costs nothing on load. -->
     <figure class="hero-media is-video reveal">
-      <img src="community-03.jpg" alt="Un cercle de participants allongés au sol, souriants, pendant une séance de travail somatique et vocal" width="1200" height="800" fetchpriority="high">
-      <div class="video-ph" aria-hidden="true">
-        <span class="disc"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-        <span class="tag">Vidéo à venir</span>
-      </div>
+      <video controls preload="none" playsinline poster="cercle-video-poster.jpg"
+             aria-label="Vidéo de présentation du Cercle de Voix">
+        <source src="cercle-video.mp4" type="video/mp4">
+      </video>
       <figcaption>Le Cercle de Voix &mdash; on commence par le corps, au sol.</figcaption>
     </figure>
 
@@ -813,6 +813,25 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
         <q>Merci Mamselle : pour ta magnifique voix, ton talent, ta capacité à créer un espace magique et sécuritaire pour créer, se libérer, s'amuser, partager.</q>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3b · TÉMOIGNAGES EN VIDÉO — right after the written reviews, so the
+     written proof and the filmed proof sit together.
+     ============================================================ -->
+<section class="section tight paper">
+  <div class="narrow">
+    <div class="center reveal" style="margin-bottom:var(--s4)">
+      <p class="eyebrow">En vidéo</p>
+      <h2>Ce qu'elles en disent, <em>dans leurs mots&nbsp;?</em></h2>
+    </div>
+    <figure class="hero-media is-video on-light reveal" style="margin-top:0">
+      <video controls preload="none" playsinline poster="temoignages-poster.jpg"
+             aria-label="Témoignages vidéo de participantes du Cercle de Voix">
+        <source src="temoignages.mp4" type="video/mp4">
+      </video>
+    </figure>
   </div>
 </section>
 
