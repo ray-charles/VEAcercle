@@ -455,7 +455,10 @@ strong{font-weight:700;color:var(--wine-deep)}
    focus-within covers keyboards, prefers-reduced-motion covers the OS setting */
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track{animation-play-state:paused}
-.marquee img{height:230px;width:auto;border-radius:13px;object-fit:cover;flex-shrink:0;box-shadow:0 12px 28px rgba(74,15,28,.2)}
+/* aspect-ratio (not the photos' native ratio) so every card is the same
+   width and reads wider. object-position sits high because these are
+   people shots — a centre crop cuts heads off the two portrait ones. */
+.marquee img{height:230px;aspect-ratio:16/9;width:auto;border-radius:13px;object-fit:cover;object-position:center 30%;flex-shrink:0;box-shadow:0 12px 28px rgba(74,15,28,.2)}
 @media(min-width:768px){.marquee img{height:360px}}
 @media(min-width:1280px){.marquee img{height:420px}}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
