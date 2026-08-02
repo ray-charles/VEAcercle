@@ -399,6 +399,54 @@ strong{font-weight:700;color:var(--wine-deep)}
 .light .trust li,.paper .trust li{color:var(--wine-deep)}
 .trust .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
 
+/* ===== ABOVE-THE-FOLD TRUST ROW =====
+   Compact rating + ticks sit between the sub-head and the CTA so the
+   whole value proposition fits a 375px viewport without scrolling. */
+.hero-rating{
+  display:flex;align-items:center;justify-content:center;
+  gap:9px;flex-wrap:wrap;margin-top:var(--s4);
+}
+.hero-rating .stars{font-size:1.05rem;letter-spacing:2px}
+.hero-rating b{
+  font-family:'Montserrat',sans-serif;font-size:.84rem;font-weight:700;color:#fff;
+}
+.hero-rating span{
+  font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:600;color:var(--w-58);
+}
+
+.checks{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s4);margin-top:var(--s4)}
+.checks li{
+  list-style:none;display:flex;align-items:center;gap:7px;
+  font-family:'Montserrat',sans-serif;font-size:.83rem;font-weight:600;color:#fff;
+}
+.checks svg{color:var(--gold);flex-shrink:0}
+
+/* Reassurance sits directly under the CTA — the highest-value trust real
+   estate. Kept to three short items; more reads as noise on mobile. */
+.reassure{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s4);margin-top:var(--s4)}
+.reassure li{
+  list-style:none;display:flex;align-items:center;gap:6px;
+  font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:600;
+  color:var(--w-58);letter-spacing:.01em;
+}
+.reassure svg{color:var(--gold-soft);opacity:.85;flex-shrink:0}
+
+/* Price moved ABOVE the button; proof line sits beside it. */
+.slot-price{
+  margin-top:var(--s3);text-align:center;
+  font-family:'Montserrat',sans-serif;font-size:.86rem;font-weight:700;
+  color:var(--wine-deep);font-variant-numeric:tabular-nums;line-height:1.35;
+}
+.slot-price small{
+  display:block;margin-top:3px;
+  font-size:.72rem;font-weight:600;color:var(--ink-soft);letter-spacing:.01em;
+}
+.slot-guarantee{
+  margin-top:var(--s2);display:flex;align-items:center;justify-content:center;gap:6px;
+  font-family:'Montserrat',sans-serif;font-size:.73rem;font-weight:600;color:var(--ink-soft);
+}
+.slot-guarantee svg{color:var(--gold-ink);flex-shrink:0}
+
 /* ===== BENEFITS GRID ===== */
 .bens{display:grid;gap:var(--s3);margin-top:var(--s5)}
 @media(min-width:600px){.bens{grid-template-columns:1fr 1fr}}
@@ -559,11 +607,33 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
     <p class="eyebrow reveal">Plateau Mont-Royal &middot; 961 rue Rachel Est</p>
     <h1 class="reveal">Pourquoi ta voix se serre<br><em>dès que quelqu'un écoute&nbsp;?</em></h1>
     <p class="hero-sub reveal">
-      Ce n'est pas un manque de talent. C'est la même gorge qui se serre quand tu
-      retiens tes larmes — elle a appris à se fermer, et ton souffle n'arrive plus
-      jusqu'en bas. Ça se travaille.
-      <b>Douze semaines, douze personnes, un soir par semaine</b> — pour la rouvrir.
+      Ce n'est pas un manque de talent — c'est une gorge qui a appris à se fermer.
+      <b>Douze semaines, douze personnes, un soir par semaine</b> pour la rouvrir.
     </p>
+
+    <div class="hero-rating reveal">
+      <span class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <b>5,0 sur Google</b>
+      <span>&middot; 8 ans d'ateliers</span>
+    </div>
+
+    <ul class="checks reveal">
+      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg>12 personnes maximum</li>
+      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg>12 séances</li>
+      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg>Dès le 1<sup>er</sup> septembre</li>
+    </ul>
+
+    <div class="picker reveal" id="cohortes">
+      <p class="picker-h">Choisis ton soir</p>
+      <div class="slots" id="slots-top"></div>
+    </div>
+
+    <!-- Directly under the CTA — the highest-value trust real estate. -->
+    <ul class="reassure reveal">
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Paiement sécurisé</li>
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Engagement 1<sup>re</sup> séance</li>
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg>Centre Soha &middot; Plateau</li>
+    </ul>
 
     <figure class="hero-media reveal">
       <img src="community-03.jpg" alt="Un cercle de participants allongés au sol, souriants, pendant une séance de travail somatique et vocal" width="1200" height="800" fetchpriority="high">
@@ -576,18 +646,6 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <blockquote>Les cercles de chant de Mamselle Ruiz sont des moments de pur plaisir, de détente et de camaraderie. Dès la première séance, on se sent bienvenu, peu importe notre expérience.</blockquote>
       <cite>Caroline Tardif &middot; Google</cite>
     </div>
-
-    <div class="picker reveal" id="cohortes">
-      <p class="picker-h">Choisis ton soir</p>
-      <div class="slots" id="slots-top"></div>
-    </div>
-
-    <ul class="trust reveal">
-      <li><span class="dot"></span>12 personnes maximum</li>
-      <li><span class="dot"></span>12 séances</li>
-      <li><span class="dot"></span>Dès le 1<sup>er</sup> septembre</li>
-      <li><span class="dot"></span>Google 5,0 &#9733;</li>
-    </ul>
   </div>
 </section>
 
@@ -934,6 +992,8 @@ function withMc(url){
   return url + (url.indexOf('?') === -1 ? '?' : '&') + 'mc_id=' + encodeURIComponent(mcId);
 }
 
+var SHIELD_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+
 var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
 
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
@@ -959,6 +1019,9 @@ function slotHTML(s){
     +   '<span class="slot-day">' + esc(s.day) + '</span>'
     +   '<span class="slot-time">' + esc(s.time) + ' &middot; ' + esc(s.start) + '</span>'
     + '</div>'
+    /* Price sits ABOVE the button, with the proof line beside it. */
+    + '<p class="slot-price">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + taxes'
+    +   '<small>Méthode éprouvée &middot; 8 ans d\'ateliers</small></p>'
     + '<div class="slot-track" role="img" aria-label="' + s.taken + ' places prises sur ' + CAP + '">'
     +   '<div class="slot-fill" style="width:' + pct + '%"></div>'
     + '</div>'
@@ -966,7 +1029,9 @@ function slotHTML(s){
     + '<a class="slot-cta js-book" href="' + esc(withMc(s.url)) + '"'
     +   ' data-day="' + esc(s.day) + '" data-left="' + left + '">'
     +   'Réserver ma place</a>'
-    + '<p class="slot-pay">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + taxes</p>'
+    /* Under the button: reassurance, not the price. */
+    + '<p class="slot-guarantee">' + SHIELD_SVG
+    +   'Viens à la 1<sup>re</sup> séance — sinon, séance privée offerte</p>'
     + '</div>';
 }
 
