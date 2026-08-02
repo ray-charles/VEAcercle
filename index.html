@@ -64,9 +64,11 @@ fbq('track','PageView');
 <style>
 /* ===== TOKENS — burgundy dominant + gold accent + cream ===== */
 :root{
-  --wine-deep:  #7A1B30;   /* claret — redder than the previous #6B2140 */
-  --wine-mid:   #9B2F43;
-  --wine-dark:  #4A0F1C;   /* oxblood, gradient end */
+  --wine-deep:  #8E2440;   /* claret, lifted from #7A1B30 — less muddy */
+  --wine-mid:   #A93750;
+  --wine-dark:  #5C1626;   /* oxblood gradient end, lifted from #4A0F1C:
+                              the old value sat close to black, which is
+                              what made the dark blocks read flat */
   --wine-pale:  #C9707E;
   --gold:       #d4af37;   /* 4.93:1 on claret — for dark grounds only */
   --gold-ink:   #a8851f;   /* 3.39:1 on cream/card — gold on LIGHT grounds */
@@ -188,9 +190,13 @@ strong{font-weight:700;color:var(--wine-deep)}
 @media(min-width:768px){.topbar img{height:32px}.topbar-cta{font-size:13px}}
 
 /* ===== HERO ===== */
+/* Two light sources instead of one flat gradient: a warm rose glow top
+   right and a subtler gold one bottom left. That depth is what the flat
+   version was missing — it read as a single dull slab of burgundy. */
 .hero{
   background:
-    radial-gradient(circle at 82% 12%,rgba(201,112,126,.30) 0%,rgba(201,112,126,0) 48%),
+    radial-gradient(circle at 82% 10%,rgba(214,132,146,.42) 0%,rgba(214,132,146,0) 52%),
+    radial-gradient(circle at 12% 92%,rgba(212,175,55,.16) 0%,rgba(212,175,55,0) 46%),
     linear-gradient(158deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
   color:#fff;padding:var(--s6) var(--s4) var(--s7);
 }
@@ -634,6 +640,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>Vitalité et clarté mentale</span></li>
       <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>Réduction du stress</span></li>
       <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>Meilleure respiration et posture</span></li>
+      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>Rencontres bienveillantes</span></li>
     </ul>
 
     <div class="hero-rating reveal">
@@ -643,7 +650,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
     </div>
 
     <div class="picker reveal" id="cohortes">
-      <p class="picker-h">Choisis ton soir</p>
+      <p class="picker-h">Choisis ta séance</p>
       <div class="slots" id="slots-top"></div>
     </div>
 
@@ -1061,7 +1068,7 @@ function slotHTML(s){
     +   'Réserver ma place</a>'
     /* Under the button: reassurance, not the price. */
     + '<p class="slot-guarantee">' + SHIELD_SVG
-    +   '<span>Viens à la 1<sup>re</sup> séance — sinon, séance privée offerte</span></p>'
+    +   '<span>On rembourse la 1<sup>re</sup> séance si tu n\'aimes pas</span></p>'
     + '</div>';
 }
 
