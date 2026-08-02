@@ -467,12 +467,14 @@ strong{font-weight:700;color:var(--wine-deep)}
   display:block;margin-top:3px;
   font-size:.72rem;font-weight:600;color:var(--ink-soft);letter-spacing:.01em;
 }
+/* Not flex: with flex the wrapped span takes the full width and shoves
+   the shield out to the far left. Inline keeps it against the first word. */
 .slot-guarantee{
-  margin-top:var(--s2);display:flex;align-items:center;justify-content:center;
+  margin-top:var(--s2);text-align:center;
   font-family:'Montserrat',sans-serif;font-size:.73rem;font-weight:600;
-  color:var(--ink-soft);line-height:1.35;text-align:center;
+  color:var(--ink-soft);line-height:1.35;
 }
-.slot-guarantee svg{color:var(--gold-ink);flex-shrink:0;margin-right:6px}
+.slot-guarantee svg{color:var(--gold-ink);display:inline-block;vertical-align:-2px;margin-right:5px}
 
 /* ===== BENEFITS GRID ===== */
 .bens{display:grid;gap:var(--s3);margin-top:var(--s5)}
