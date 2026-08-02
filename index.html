@@ -133,7 +133,9 @@ h1{
   font-size:clamp(1.9rem,6.6vw,3.2rem);line-height:1.12;letter-spacing:-.022em;
   color:#fff;
 }
-h1 em{font-family:'Dancing Script',cursive;font-style:normal;font-weight:700;color:var(--gold-soft);font-size:1.14em;line-height:1.05}
+/* Inherits Montserrat from h1 — the second line is set apart by colour
+   alone, not by a different typeface. (.sig still uses Dancing Script.) */
+h1 em{font-style:normal;color:var(--gold-soft)}
 
 h2{
   font-family:'Montserrat',sans-serif;font-weight:400;
