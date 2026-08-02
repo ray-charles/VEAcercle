@@ -64,12 +64,11 @@ fbq('track','PageView');
 <style>
 /* ===== TOKENS — burgundy dominant + gold accent + cream ===== */
 :root{
-  /* Saturation, not lightness, is what reads as "vibrant". These are
-     pushed hard on chroma and kept mid-dark so white copy still holds. */
-  --wine-deep:  #B81C3B;   /* cardinal — was the muted #7A1B30 */
-  --wine-mid:   #D6365A;
-  --wine-dark:  #7E1029;   /* still a real red at the gradient end, not
-                              the near-black #4A0F1C that read as mud */
+  /* Bordeaux profond — chosen from the six-way comparison.
+     Deepest of the set: white 11.67:1, gold-soft 9.01:1. */
+  --wine-deep:  #6E1330;
+  --wine-mid:   #8E2440;
+  --wine-dark:  #45091C;
   --wine-pale:  #C9707E;
   --gold:       #d4af37;   /* 4.93:1 on claret — for dark grounds only */
   --gold-ink:   #a8851f;   /* 3.39:1 on cream/card — gold on LIGHT grounds */
@@ -227,9 +226,10 @@ strong{font-weight:700;color:var(--wine-deep)}
 }
 
 .hero-proof{margin-top:var(--s5);text-align:center}
-/* gold-soft, not gold: on the vibrant red #d4af37 lands at 3.06:1, under
-   the 4.5 needed at this size. gold-soft measures 4.96:1. */
-.stars{color:var(--gold-soft);font-size:.9rem;letter-spacing:2.5px}
+/* --gold is back: on Bordeaux profond it measures 5.55:1, comfortably
+   over 4.5. It only had to drop to gold-soft while the ground was the
+   vibrant cardinal, where it fell to 3.06:1. */
+.stars{color:var(--gold);font-size:.9rem;letter-spacing:2.5px}
 /* gold is only legible on the dark ground; darken it on light cards (3.39:1) */
 .rev .stars,.g-badge .stars{color:var(--gold-ink)}
 
@@ -454,7 +454,7 @@ strong{font-weight:700;color:var(--wine-deep)}
   list-style:none;display:flex;align-items:center;
   font-family:'Montserrat',sans-serif;font-size:.83rem;font-weight:600;color:#fff;
 }
-.checks svg{color:var(--gold-soft);flex-shrink:0;margin-right:7px}
+.checks svg{color:var(--gold);flex-shrink:0;margin-right:7px}
 
 /* Reassurance sits directly under the CTA — the highest-value trust real
    estate. Kept to three short items; more reads as noise on mobile. */
