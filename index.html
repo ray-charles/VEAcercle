@@ -449,7 +449,10 @@ strong{font-weight:700;color:var(--wine-deep)}
 .rev q{font-size:.94rem;line-height:1.6;color:var(--ink);display:block;margin-top:var(--s2);quotes:"«\00A0" "\00A0»"}
 
 /* ===== MARQUEE ===== */
-.marquee{overflow:hidden;margin-top:var(--s5)}
+/* Full bleed: break out of .wrap's 1080px so the roll runs edge to edge.
+   Safe because body has overflow-x:hidden — the few px that overhang the
+   scrollbar are clipped rather than creating a horizontal scrollbar. */
+.marquee{overflow:hidden;margin-top:var(--s5);margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
 .marquee-track{display:flex;gap:var(--s3);width:max-content;animation:mq 58s linear infinite}
 /* WCAG 2.2.2 — auto-scrolling content must be stoppable; hover covers mice,
    focus-within covers keyboards, prefers-reduced-motion covers the OS setting */
