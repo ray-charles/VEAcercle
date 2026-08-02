@@ -415,21 +415,23 @@ strong{font-weight:700;color:var(--wine-deep)}
 }
 
 .checks{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s4);margin-top:var(--s4)}
+/* No flex `gap` here: gap would treat "1", <sup>er</sup> and " septembre"
+   as separate flex items and space them apart. Margin on the icon instead. */
 .checks li{
-  list-style:none;display:flex;align-items:center;gap:7px;
+  list-style:none;display:flex;align-items:center;
   font-family:'Montserrat',sans-serif;font-size:.83rem;font-weight:600;color:#fff;
 }
-.checks svg{color:var(--gold);flex-shrink:0}
+.checks svg{color:var(--gold);flex-shrink:0;margin-right:7px}
 
 /* Reassurance sits directly under the CTA — the highest-value trust real
    estate. Kept to three short items; more reads as noise on mobile. */
 .reassure{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s4);margin-top:var(--s4)}
 .reassure li{
-  list-style:none;display:flex;align-items:center;gap:6px;
+  list-style:none;display:flex;align-items:center;
   font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:600;
   color:var(--w-58);letter-spacing:.01em;
 }
-.reassure svg{color:var(--gold-soft);opacity:.85;flex-shrink:0}
+.reassure svg{color:var(--gold-soft);opacity:.85;flex-shrink:0;margin-right:6px}
 
 /* Price moved ABOVE the button; proof line sits beside it. */
 .slot-price{
@@ -442,10 +444,11 @@ strong{font-weight:700;color:var(--wine-deep)}
   font-size:.72rem;font-weight:600;color:var(--ink-soft);letter-spacing:.01em;
 }
 .slot-guarantee{
-  margin-top:var(--s2);display:flex;align-items:center;justify-content:center;gap:6px;
-  font-family:'Montserrat',sans-serif;font-size:.73rem;font-weight:600;color:var(--ink-soft);
+  margin-top:var(--s2);display:flex;align-items:center;justify-content:center;
+  font-family:'Montserrat',sans-serif;font-size:.73rem;font-weight:600;
+  color:var(--ink-soft);line-height:1.35;text-align:center;
 }
-.slot-guarantee svg{color:var(--gold-ink);flex-shrink:0}
+.slot-guarantee svg{color:var(--gold-ink);flex-shrink:0;margin-right:6px}
 
 /* ===== BENEFITS GRID ===== */
 .bens{display:grid;gap:var(--s3);margin-top:var(--s5)}
