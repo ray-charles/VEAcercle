@@ -399,6 +399,26 @@ strong{font-weight:700;color:var(--wine-deep)}
 .light .trust li,.paper .trust li{color:var(--wine-deep)}
 .trust .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
 
+/* ===== VIDEO SLOT =====
+   The frame is already the right shape. When the video exists, drop an
+   <iframe> straight in and delete the poster <img> + .video-ph overlay —
+   no CSS changes needed. */
+.hero-media iframe,.hero-media video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.hero-media.is-video img{opacity:.5}
+.video-ph{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:11px;pointer-events:none;
+}
+.video-ph .disc{
+  width:62px;height:62px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+}
+.video-ph .tag{
+  font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:800;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--gold-soft);
+}
+
 /* ===== ABOVE-THE-FOLD TRUST ROW =====
    Compact rating + ticks sit between the sub-head and the CTA so the
    whole value proposition fits a 375px viewport without scrolling. */
@@ -621,9 +641,9 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
     </div>
 
     <ul class="checks reveal">
-      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>12 personnes maximum</span></li>
-      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>12 séances</span></li>
-      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>Dès le 1<sup>er</sup> septembre</span></li>
+      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>Vitalité et clarté mentale</span></li>
+      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>Régulation du stress</span></li>
+      <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span>Meilleure respiration et posture</span></li>
     </ul>
 
     <div class="picker reveal" id="cohortes">
@@ -638,8 +658,20 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg><span>Centre Soha &middot; Plateau</span></li>
     </ul>
 
-    <figure class="hero-media reveal">
+    <!-- ============================================================
+         VIDEO SLOT — placeholder until the film is ready.
+         To go live: delete the <img> and the .video-ph <div>, and put
+         the embed in their place, e.g.
+           <iframe src="https://player.vimeo.com/video/ID"
+                   title="Cercle de Voix" allowfullscreen></iframe>
+         The frame, ratio and rounded corners already fit it.
+         ============================================================ -->
+    <figure class="hero-media is-video reveal">
       <img src="community-03.jpg" alt="Un cercle de participants allongés au sol, souriants, pendant une séance de travail somatique et vocal" width="1200" height="800" fetchpriority="high">
+      <div class="video-ph" aria-hidden="true">
+        <span class="disc"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <span class="tag">Vidéo à venir</span>
+      </div>
       <figcaption>Le Cercle de Voix &mdash; on commence par le corps, au sol.</figcaption>
     </figure>
 
