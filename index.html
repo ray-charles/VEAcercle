@@ -329,12 +329,13 @@ strong{font-weight:700;color:var(--wine-deep)}
   animation:mwalk 9s linear infinite;
 }
 @keyframes mwalk{to{stroke-dashoffset:-52}}
-.m-lbl text,.m-area{
+.m-lbl text,.m-area,.m-hood{
   font-family:'Montserrat',sans-serif;font-weight:500;
   fill:rgba(248,244,238,.40);letter-spacing:2.4px;text-anchor:middle;
 }
 .m-lbl text{font-size:15px}
 .m-area{font-size:17px;fill:rgba(246,224,176,.34);letter-spacing:3.4px}
+.m-hood{font-size:16px;fill:rgba(248,244,238,.26);letter-spacing:4.2px}
 
 /* --- markers laid over the map --- */
 .pin,.walk{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%)}
@@ -363,9 +364,9 @@ strong{font-weight:700;color:var(--wine-deep)}
   70%,100%{transform:scale(3.6);opacity:0}
 }
 .pin-here b{color:var(--gold-soft)}
-.pin-metro i{
-  width:11px;height:11px;background:var(--cream);
-  box-shadow:0 0 0 3.5px rgba(42,4,16,.85),0 0 0 4.8px rgba(248,244,238,.55);
+.metro-mark{
+  display:block;width:24px;height:24px;margin:0 auto;border-radius:50%;
+  box-shadow:0 0 0 3px rgba(42,4,16,.85),0 2px 10px rgba(0,0,0,.45);
 }
 .pin-metro b{color:rgba(248,244,238,.88)}
 /* Label above the dot: below it, the pill sat exactly where the walking
@@ -387,6 +388,7 @@ strong{font-weight:700;color:var(--wine-deep)}
   .pin-metro{top:57%}
   .walk{left:45%;top:73%}
   .pin-here i{width:13px;height:13px}
+  .metro-mark{width:19px;height:19px}
 }
 @media(prefers-reduced-motion:reduce){
   .m-route,.pin-here::before{animation:none}
@@ -774,6 +776,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
   .pin-metro{top:57%}
   .walk{left:45%;top:73%}
   .pin-here i{width:13px;height:13px}
+  .metro-mark{width:19px;height:19px}
 }
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
@@ -1097,11 +1100,16 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
               <text x="477" y="174" transform="rotate(-57.0 477 174)">RUE MARIE-ANNE EST</text>
               <text x="743" y="364" transform="rotate(32.5 743 364)">AV. DU PARC-LA FONTAINE</text>
             </g>
-            <text class="m-area" x="800" y="596">PARC LA FONTAINE</text>
+            <text class="m-area" x="712" y="187">PARC LA FONTAINE</text>
+            <text class="m-hood" x="232" y="118">PLATEAU MONT-ROYAL</text>
             <rect width="1000" height="704" fill="url(#mv)"/>
           </svg>
           <span class="pin pin-metro up" style="--x:19.7%;--y:52.4%">
-            <b><span class="lg">Métro </span>Mont-Royal</b><i aria-hidden="true"></i>
+            <b><span class="lg">Métro </span>Mont-Royal</b>
+            <svg class="metro-mark" viewBox="0 0 32 32" aria-hidden="true">
+              <circle cx="16" cy="16" r="15" fill="#fff"/>
+              <path d="M13 7 H19 V16 H25 L16 26 L7 16 H13 Z" fill="#150a0d"/>
+            </svg>
           </span>
           <span class="pin pin-here" style="--x:55.9%;--y:46.2%">
             <i aria-hidden="true"></i><b>Centre Soha</b>
