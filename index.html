@@ -1054,11 +1054,11 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
 var CAP = 12;
 var SLOTS = [
   { day:'Mardi',    time:'19 h 15 – 20 h 45', start:'dès le 1er sept.',
-    taken:5, locked:false,
+    key:'mardi', taken:5, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mardi' },
 
   { day:'Mercredi', time:'19 h 15 – 20 h 45', start:'dès le 2 sept.',
-    taken:3, locked:false,
+    key:'mercredi', taken:3, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mercredi' },
 
   { day:'Mardi',    time:'17 h 30 – 19 h 00', locked:true,
@@ -1150,12 +1150,45 @@ function slotHTML(s){
     + '</div>';
 }
 
-(function renderSlots(){
+function renderSlots(){
   var html = SLOTS.map(slotHTML).join('');
   ['slots-top','slots-bottom'].forEach(function(id){
     var el = document.getElementById(id);
     if(el) el.innerHTML = html;
   });
+}
+renderSlots();
+
+/* ================================================================
+   LIVE SEAT COUNTS
+   The numbers above are the fallback and render immediately. This then
+   asks the counter service for the real ones and re-renders if they
+   differ. Deliberately fail-quiet: if the service is down, blocked or
+   slow, the page keeps the hard-coded numbers rather than showing a
+   broken or empty card. Only ever moves a count UP, so a stale or
+   partial response can never re-open a cohort that has filled.
+   ================================================================ */
+var SEATS_API = 'https://cercle-seats.keating-sands.workers.dev/counts';
+
+(function liveSeats(){
+  if(!window.fetch) return;
+  var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  if(ctl) setTimeout(function(){ ctl.abort(); }, 4000);
+
+  fetch(SEATS_API, { signal: ctl && ctl.signal })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(counts){
+      if(!counts) return;
+      var changed = false;
+      SLOTS.forEach(function(s){
+        if(!s.key) return;
+        var n = counts[s.key];
+        if(typeof n !== 'number' || n < 0 || n > CAP) return;
+        if(n > s.taken){ s.taken = n; changed = true; }
+      });
+      if(changed) renderSlots();
+    })
+    .catch(function(){ /* keep the fallback numbers */ });
 })();
 
 /* ================================================================
