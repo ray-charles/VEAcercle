@@ -471,10 +471,9 @@ strong{font-weight:700;color:var(--wine-deep)}
 /* Same frame on a light section: the white border and deep shadow only
    read against the dark hero. */
 .hero-media.on-light{border-color:rgba(74,15,28,.14);box-shadow:0 16px 38px rgba(74,15,28,.16)}
-/* Caption under the frame, not over it — an overlay caption swallows the
-   video's control bar. Belt and braces: if a figcaption ever ends up on a
-   video frame again, it can't intercept clicks. */
-.media-cap{margin-top:var(--s2);text-align:center;font-size:.82rem;font-style:italic;color:var(--w-58)}
+/* Belt and braces: an overlay caption swallows the video's control bar, so
+   if a figcaption ever ends up on a video frame again it can't intercept
+   clicks. */
 .hero-media.is-video figcaption{pointer-events:none}
 .video-ph{
   position:absolute;inset:0;display:flex;flex-direction:column;
@@ -731,10 +730,6 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
         <source src="cercle-video.mp4" type="video/mp4">
       </video>
     </figure>
-    <!-- Caption lives OUTSIDE the frame: as a figcaption it was absolutely
-         positioned over the bottom of the box, which covered the video's
-         control bar — a fade over it and no way to reach the sound. -->
-    <p class="media-cap reveal">Le Cercle de Voix &mdash; on commence par le corps, au sol.</p>
 
     <div class="hero-proof reveal">
       <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -1183,7 +1178,7 @@ function slotHTML(s){
     +   'Réserver ma place</a>'
     /* Under the button: reassurance, not the price. */
     + '<p class="slot-guarantee">' + SHIELD_SVG
-    +   '<span>1<sup>re</sup> séance à 45 $ &mdash; le reste remboursé</span></p>'
+    +   '<span>Remboursement partiel offert si tu n\'aimes pas</span></p>'
     + '</div>';
 }
 
