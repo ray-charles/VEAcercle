@@ -297,25 +297,113 @@ strong{font-weight:700;color:var(--wine-deep)}
 .slot-left{font-size:.84rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .slot-left b{color:var(--alert)}
 
-/* ===== MAP + TRANSIT ===== */
-.map{
-  margin-top:var(--s4);border-radius:14px;overflow:hidden;
-  border:1px solid var(--line);box-shadow:0 12px 30px rgba(74,15,28,.14);
-  aspect-ratio:4/3;background:var(--cream);
+/* ===== ACCESS MAP =====
+   A dark inset on the paper section, echoing the hero. Everything the
+   visitor must be able to read (venue, station, walking time) is HTML on
+   top of the map, not text inside the SVG: it keeps Montserrat, scales
+   with rem instead of the viewBox, and stays selectable on a phone. */
+.access{margin:var(--s5) 0 0}
+.access-map{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:0 18px 44px rgba(74,15,28,.20), inset 0 0 0 1px rgba(246,224,176,.06);
+  aspect-ratio:5/4;background:#3B0718;
 }
-@media(min-width:768px){.map{aspect-ratio:16/9}}
-.map iframe{width:100%;height:100%;border:0;display:block}
-.transit{
-  display:grid;gap:var(--s2);margin-top:var(--s3);
-  grid-template-columns:1fr;
+@media(min-width:700px){.access-map{aspect-ratio:3/2}}
+.map-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* --- the drawn layers --- */
+.m-park{fill:rgba(246,224,176,.10);stroke:rgba(246,224,176,.16);stroke-width:1}
+.m-water{fill:rgba(198,222,232,.26);stroke:none}
+.m-min,.m-mid,.m-maj,.m-rachel,.m-rachel-glow,.m-route{
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
 }
-@media(min-width:600px){.transit{grid-template-columns:repeat(3,1fr)}}
-.transit li{
-  list-style:none;display:flex;align-items:baseline;gap:8px;
-  font-family:'Montserrat',sans-serif;font-size:.84rem;color:var(--ink-soft);
+.m-min{stroke:rgba(248,244,238,.115);stroke-width:1.7}
+.m-mid{stroke:rgba(248,244,238,.19);stroke-width:2.6}
+.m-maj{stroke:rgba(248,244,238,.28);stroke-width:3.8}
+.m-rachel-glow{stroke:rgba(246,224,176,.16);stroke-width:11}
+.m-rachel{stroke:rgba(246,224,176,.52);stroke-width:4}
+.m-route{
+  stroke:var(--gold-soft);stroke-width:3;opacity:.9;
+  stroke-dasharray:2 11;
+  animation:mwalk 9s linear infinite;
 }
-.transit b{color:var(--wine-deep);font-weight:800;font-size:.95rem;white-space:nowrap}
-.transit i{font-style:normal;opacity:.72}
+@keyframes mwalk{to{stroke-dashoffset:-52}}
+.m-lbl text,.m-area{
+  font-family:'Montserrat',sans-serif;font-weight:500;
+  fill:rgba(248,244,238,.40);letter-spacing:2.4px;text-anchor:middle;
+}
+.m-lbl text{font-size:15px}
+.m-area{font-size:17px;fill:rgba(246,224,176,.34);letter-spacing:3.4px}
+
+/* --- markers laid over the map --- */
+.pin,.walk{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%)}
+.pin{text-align:center;line-height:1}
+.pin i{display:block;margin:0 auto;border-radius:50%}
+.pin b{
+  display:inline-block;margin-top:7px;white-space:nowrap;
+  font-family:'Montserrat',sans-serif;font-size:.66rem;font-weight:700;
+  letter-spacing:.9px;text-transform:uppercase;
+  padding:4px 9px;border-radius:100px;
+  background:rgba(42,4,16,.78);
+}
+.pin-here i{
+  width:15px;height:15px;background:var(--gold);
+  box-shadow:0 0 0 4px rgba(42,4,16,.85),0 0 0 5.5px var(--gold-soft),0 0 22px rgba(214,175,55,.75);
+}
+/* The halo is the only thing moving on the card — it points the eye at the
+   venue without a caption having to say "here". */
+.pin-here::before{
+  content:'';position:absolute;left:50%;top:7.5px;width:15px;height:15px;
+  margin:-7.5px 0 0 -7.5px;border-radius:50%;border:1.5px solid var(--gold-soft);
+  animation:mhalo 2.8s ease-out infinite;
+}
+@keyframes mhalo{
+  0%{transform:scale(1);opacity:.7}
+  70%,100%{transform:scale(3.6);opacity:0}
+}
+.pin-here b{color:var(--gold-soft)}
+.pin-metro i{
+  width:11px;height:11px;background:var(--cream);
+  box-shadow:0 0 0 3.5px rgba(42,4,16,.85),0 0 0 4.8px rgba(248,244,238,.55);
+}
+.pin-metro b{color:rgba(248,244,238,.88)}
+/* Label above the dot: below it, the pill sat exactly where the walking
+   route leaves the station and hid its first 100 m. */
+.pin.up b{margin:0 0 7px}
+.walk{
+  font-family:'Montserrat',sans-serif;font-size:.66rem;font-weight:700;
+  letter-spacing:.9px;color:var(--gold-soft);white-space:nowrap;
+  padding:5px 11px;border-radius:100px;
+  background:rgba(42,4,16,.82);border:1px solid rgba(246,224,176,.28);
+}
+/* On a phone the card is a third of the width but the pills are sized in rem,
+   so at full size three of them pile onto the same 40 px band. Shrink the
+   type, drop the word "Métro", and push the walking pill down into the
+   empty part of the map. */
+@media(max-width:699px){
+  .pin b,.walk{font-size:.53rem;letter-spacing:.4px;padding:3px 7px}
+  .pin-metro .lg{display:none}
+  .pin-metro{top:57%}
+  .walk{left:45%;top:73%}
+  .pin-here i{width:13px;height:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  .m-route,.pin-here::before{animation:none}
+}
+
+/* --- the three facts under it --- */
+.access-facts{display:grid;gap:var(--s2);margin-top:var(--s3)}
+@media(min-width:700px){.access-facts{grid-template-columns:repeat(3,1fr);gap:var(--s3)}}
+.access-facts span{
+  font-family:'Montserrat',sans-serif;font-size:.8rem;line-height:1.5;
+  color:var(--ink-soft);text-align:left;
+}
+.access-facts b{
+  display:block;margin-bottom:3px;
+  font-size:.62rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--gold-ink);
+}
 
 /* ===== SOLD OUT =====
    A full cohort is the strongest scarcity signal on the page, so the
@@ -676,6 +764,17 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
 /* ===== REVEAL ===== */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
 .reveal.on{opacity:1;transform:none}
+/* On a phone the card is a third of the width but the pills are sized in rem,
+   so at full size three of them pile onto the same 40 px band. Shrink the
+   type, drop the word "Métro", and push the walking pill down into the
+   empty part of the map. */
+@media(max-width:699px){
+  .pin b,.walk{font-size:.53rem;letter-spacing:.4px;padding:3px 7px}
+  .pin-metro .lg{display:none}
+  .pin-metro{top:57%}
+  .walk{left:45%;top:73%}
+  .pin-here i{width:13px;height:13px}
+}
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
   .marquee-track{animation:none}
@@ -718,7 +817,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
     <!-- Directly under the CTA — the highest-value trust real estate. -->
     <ul class="reassure reveal">
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Paiement sécurisé</span></li>
-      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Engagement 1<sup>re</sup> séance</span></li>
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>1<sup>re</sup> séance découverte</span></li>
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg><span>Centre Soha &middot; Plateau</span></li>
     </ul>
 
@@ -962,22 +1061,60 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
         <span><span class="vt">Centre Soha</span><br><span class="vs">961 rue Rachel Est, Montréal &middot; Plateau Mont-Royal</span></span>
       </a>
 
-      <!-- OpenStreetMap, not Google: the Google Maps Embed API needs a
-           billing-enabled key. This renders the same plain street view
-           with no key, no tracking and no quota. Distances below are
-           measured from 961 Rachel Est, not estimated. -->
-      <div class="map reveal">
-        <iframe
-          src="https://www.openstreetmap.org/export/embed.html?bbox=-73.5865%2C45.5213%2C-73.5695%2C45.5292&amp;layer=mapnik&amp;marker=45.5251197%2C-73.5754972"
-          title="Carte — Centre Soha, 961 rue Rachel Est, Montréal"
-          loading="lazy" referrerpolicy="no-referrer"></iframe>
-      </div>
+      <!-- Hand-drawn from OpenStreetMap geometry rather than an embed: a
+           third-party map frame can't be themed and lands on the page looking
+           like someone else's product. This is the same streets in our own
+           palette, and every number under it is measured — the venue was
+           geocoded, the route is the real walking path the router returns. -->
+      <figure class="access reveal">
+        <div class="access-map">
+          <svg class="map-svg" viewBox="0 0 1000 704" preserveAspectRatio="xMidYMid slice"
+               role="img" aria-label="Plan du quartier : le Centre Soha au 961 rue Rachel Est, à 685 mètres à pied du métro Mont-Royal, en bordure du parc La Fontaine.">
+            <defs>
+              <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#5A1028"/><stop offset="1" stop-color="#3B0718"/>
+              </linearGradient>
+              <radialGradient id="mv" cx="50%" cy="46%" r="72%">
+                <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+                <stop offset="100%" stop-color="#2A0410" stop-opacity=".55"/>
+              </radialGradient>
+            </defs>
+            <rect width="1000" height="704" fill="url(#mg)"/>
+            <g>
+              <path class="m-park" d="M653,291 655,286 656,283 684,242 689,234 689,231 690,226 689,223 691,218 690,215 688,213 714,174 716,171 726,156 744,129 755,112 755,118 770,96 772,93 770,91 838,-8 871,-58 873,-55 884,-69 883,-73 889,-81 892,-82 914,-115 925,-108 927,-111 1058,-23 1178,55 1214,79 1228,90 1229,93 1216,149 1214,151 1210,167 1170,348 1166,350 1044,272 1034,284 1020,275 994,314 993,323 986,334 965,368 1007,396 1019,404 1130,478 1128,482 1125,488 1119,498 1112,508 1107,515 1104,519 1077,560 1088,566 1086,569 1083,574 1081,577 1000,525 956,496 949,492 837,418 706,334 662,306 658,303 655,299 653,295 653,291Z"/><path class="m-park" d="M71,463 51,494 43,489 34,484 27,481 37,463 40,461 47,449 71,463Z"/><path class="m-park" d="M-75,419 -68,408 -57,391 -56,389 -24,410 -27,415 -31,420 -24,425 -26,429 -18,434 -29,449 -75,419Z"/><path class="m-park" d="M454,567 464,552 475,559 485,543 460,527 457,528 440,554 439,557 441,559 453,567 454,567Z"/>
+              <path class="m-water" d="M308,177 310,173 308,175 308,177Z"/><path class="m-water" d="M320,150 324,154 325,156 330,154 327,154 323,151 320,149 320,150Z"/><path class="m-water" d="M312,172 317,171 320,170 324,163 324,158 326,162 323,166 319,173 316,178 316,175 314,172 312,172Z"/><path class="m-water" d="M309,163 311,165 316,163 317,159 316,155 311,155 310,158 309,162 309,163Z"/>
+              <path class="m-min" d="M330,1009 333,1004 354,973 356,969 358,965 377,936 379,933 380,931 382,928 402,898 404,894 407,890 426,860 429,856 431,853 440,839 452,822 454,818 457,814 465,801 468,797 478,780 480,777 482,775 493,759 503,742 505,740"/><path class="m-min" d="M-48,311 -52,316 -70,345 -82,364 -84,366"/><path class="m-min" d="M-36,319 -39,325 -40,328 -41,331 -41,334 -40,337 -28,361 -26,364 -25,367 -23,371 -21,377 -12,403 -11,406 -10,411"/><path class="m-min" d="M1011,705 1006,702 981,686 882,621 880,619 877,618 874,615"/><path class="m-min" d="M874,615 876,613 890,591 904,570 906,567 908,563 924,539 940,513 945,507"/><path class="m-min" d="M180,97 183,99 201,111 261,149 280,161 287,165 292,168 311,180 315,183 398,237 421,252 425,254 429,257 452,272 537,327 540,329 560,342 562,343 564,344"/><path class="m-min" d="M582,316 559,301 470,243 447,228 444,226 439,223 416,208 334,155 312,141 305,137 301,134 279,120 129,23 108,10 102,6 97,3 75,-11 44,-32 22,-45 16,-49"/><path class="m-min" d="M-51,161 -52,158 -51,155 -48,150 -41,140 -39,136 -37,133"/><path class="m-min" d="M-69,181 -64,184 -52,191 -29,206 52,258 64,266 69,269"/><path class="m-min" d="M98,221 96,224 85,243 82,247"/><path class="m-min" d="M674,216 650,199 522,115 518,112 514,109 404,38 388,27 385,26 380,23"/><path class="m-min" d="M83,34 85,31 99,9 102,6 104,2 133,-43 135,-46 136,-48 139,-52 162,-88 174,-106 177,-111"/><path class="m-min" d="M758,89 754,85 748,80 734,71 652,17 629,1 607,-13 602,-16 599,-18 576,-34 568,-39 560,-44 499,-85 494,-88 473,-102 466,-106"/><path class="m-min" d="M850,689 846,695 830,720 917,775"/><path class="m-min" d="M898,805 901,800 917,775 933,751 937,745"/><path class="m-min" d="M804,704 799,700 781,689 642,598 633,592 616,581 614,580 610,577"/><path class="m-min" d="M823,428 820,432 802,460 788,482 784,488"/><path class="m-min" d="M885,-59 934,-26 944,-19 994,14"/><path class="m-min" d="M238,786 240,783 261,752 263,749"/><path class="m-min" d="M-23,371 -26,371 -29,370 -32,370 -34,368 -67,347 -70,345 -73,343 -163,284 -182,272 -188,268"/><path class="m-min" d="M57,832 59,828 75,804 77,797 80,793 82,789 84,786 93,773 96,770 97,768 104,757 106,754 108,750 112,743 113,740 114,738 126,719 128,715 130,711 133,707 137,703 146,689 146,686 149,683 151,680 153,677 155,675 165,660 171,650 174,645 176,642 178,638 180,635 191,617 197,610 199,608 200,606 203,602 205,599 207,596 217,580 222,573 223,569 225,565 227,563 229,560"/><path class="m-min" d="M887,177 767,100 762,95"/><path class="m-min" d="M98,221 100,218 112,200 113,197 118,190 121,186"/><path class="m-min" d="M828,516 826,520 812,541 802,558 800,560 796,562"/><path class="m-min" d="M645,943 539,874 535,872 462,824 458,821 454,818 451,816 444,812 328,736 325,734 319,731 316,728 310,725 254,688 181,640 178,638 176,636 72,570 57,561 49,555 47,554 43,552"/><path class="m-min" d="M217,878 215,877 169,847 107,807 94,799 92,796 85,791 82,789 79,788 7,743 -26,722 -49,708 -54,704 -59,700 -83,684 -223,593 -229,590 -232,588 -312,536 -324,528 -338,519 -344,515"/><path class="m-min" d="M845,633 848,635 860,643 936,692 965,711 986,725 989,727 994,731"/><path class="m-min" d="M705,168 703,167 680,152 560,73 556,71 553,70 548,66 543,64 541,62 538,59 434,-9 418,-20 411,-24 406,-27 388,-39 215,-153 212,-155 208,-157 203,-161 152,-195 137,-205 133,-207 130,-209 124,-212"/><path class="m-min" d="M831,-16 828,-17 803,-34 787,-44 698,-103 676,-118 671,-121"/><path class="m-min" d="M875,622 862,642 850,634 850,631 860,616 863,615 868,618 875,622"/><path class="m-min" d="M994,14 1057,55 1100,83 1128,102 1135,106 1139,109 1146,114 1201,151 1206,155"/><path class="m-min" d="M-41,24 -46,22 -50,19 -54,16 -65,9 -67,7 -115,-24 -128,-32 -130,-34 -133,-35 -138,-39"/><path class="m-min" d="M568,347 571,349 594,364 654,403 698,431 703,434 706,437 779,484 781,486 784,488 788,490 825,514 828,516 832,518 903,565 906,567 909,568 928,581 1015,638 1035,650 1038,653 1042,655"/><path class="m-min" d="M336,399 332,397 285,366"/><path class="m-min" d="M189,315 184,311 172,303 165,299 132,278 106,262 88,250 85,248 82,247"/><path class="m-min" d="M823,671 824,668 826,664 844,635 845,633"/><path class="m-min" d="M726,-206 709,-180 707,-176 705,-173 674,-126 671,-121 668,-117 637,-69 634,-66 632,-63 605,-21 604,-19 602,-16 600,-13 579,19 576,23 574,26 563,43 552,60 548,66"/><path class="m-min" d="M342,688 338,686 286,652 279,648 208,601 205,599 202,597 98,530 75,515 68,511 64,509 52,502 47,499 45,497 39,494 32,490 26,487 19,484 12,481 -2,472 -19,462 -43,446 -75,425 -105,406 -108,404 -111,402 -136,386 -219,332 -226,328"/><path class="m-min" d="M-84,103 -80,106 -59,119 -52,124 -47,127 -42,130 -37,133"/><path class="m-min" d="M9,-53 5,-56 -15,-69 -65,-101 -84,-113 -91,-117"/><path class="m-min" d="M567,645 570,647 675,715 754,767 761,771"/><path class="m-min" d="M567,645 563,642 452,570 437,561 432,557"/><path class="m-min" d="M237,-202 241,-199 245,-197 262,-186 414,-84 432,-73 435,-70 441,-67 446,-64 468,-49 550,5 572,20 576,23 580,25 626,56 708,110 729,124 733,127"/><path class="m-min" d="M-33,-41 -15,-29 -13,-28 -9,-25"/><path class="m-min" d="M-108,-89 -103,-86 -83,-73 -34,-42 -33,-41"/><path class="m-min" d="M537,691 540,686 555,664 565,648 567,645 569,642 579,626 588,612 591,607"/><path class="m-min" d="M52,-103 56,-100 77,-87 110,-65 130,-53 133,-51 136,-48 141,-46 164,-31 315,67 334,79 336,80 341,83"/><path class="m-min" d="M613,257 617,260 620,263 622,266 624,271 626,275"/><path class="m-min" d="M380,23 376,20 358,8 184,-107 181,-109 177,-111 173,-114 122,-148 100,-162 94,-166"/><path class="m-min" d="M314,428 312,427 226,371 222,368"/><path class="m-min" d="M152,375 147,372 101,343 95,339 51,310 48,309 46,307"/><path class="m-min" d="M341,83 345,86 369,101 452,153 473,167 475,168 479,171 483,174 506,188 594,246 613,257"/><path class="m-min" d="M869,302 874,307 880,313 885,317 888,321 890,325 892,329 893,333 895,338 895,342 895,346 895,352 894,355 893,359 891,361 888,367 882,377 879,383 876,387 873,391 867,395 861,397 855,401 850,404 848,407 845,412 843,414 842,416"/><path class="m-min" d="M295,-289 298,-289 322,-273 445,-191 473,-173 488,-163 492,-160 499,-156 504,-152 507,-150 531,-134 593,-93 608,-83 631,-68 634,-66 638,-63 661,-49 766,21 790,36 793,39"/><path class="m-min" d="M336,399 340,402 353,410 469,486 471,487"/><path class="m-min" d="M16,-49 9,-53"/><path class="m-min" d="M741,376 747,367"/><path class="m-min" d="M823,428 827,431 941,505 945,507"/><path class="m-min" d="M1,617 -3,614 -28,598 -168,508 -173,505 -177,503 -203,486 -227,470 -231,468 -234,465 -258,450 -283,434 -290,430"/><path class="m-min" d="M845,633 847,630 857,615 858,611 859,608 858,605"/><path class="m-min" d="M780,591 776,589 711,547 677,522"/><path class="m-min" d="M677,522 659,510 655,508"/><path class="m-min" d="M290,465 288,468 278,484 275,491 267,503 264,507 261,513"/><path class="m-min" d="M314,428 312,431 302,447 293,461 290,465"/><path class="m-min" d="M336,399 321,423 319,425 316,426 314,428"/><path class="m-min" d="M356,368 352,374 336,399"/><path class="m-min" d="M380,331 361,361 356,368"/><path class="m-min" d="M396,305 394,308 380,331"/><path class="m-min" d="M199,406 202,408 249,439 284,462 287,464 290,465"/><path class="m-min" d="M428,555 425,553 336,495 294,468 290,465"/><path class="m-min" d="M505,740 509,742 694,862 698,865"/><path class="m-min" d="M370,652 374,655 409,678 500,736 505,740"/><path class="m-min" d="M229,560 231,561 312,615 362,647 364,649 366,650"/><path class="m-min" d="M845,633 843,631 782,593 780,591"/><path class="m-min" d="M747,367 743,364 661,312 653,306 650,302 648,298 647,294 648,290 648,288"/><path class="m-min" d="M1083,584 1079,583 984,521 953,501 950,498"/><path class="m-min" d="M629,282 631,287 637,300 639,304 641,308 647,314 735,372 737,373 741,376"/><path class="m-min" d="M548,66 546,69 533,90 523,105 521,107 518,112 514,117 502,135 483,165 482,167 479,171 477,174 446,223 444,226 441,229 427,251 425,254 423,257 409,279 398,296 396,299 396,303 396,305"/><path class="m-min" d="M796,562 790,560 786,558 680,489 675,486 671,483 667,481 663,478 605,441 544,401 539,398 536,396"/><path class="m-min" d="M797,568 794,570 782,588 780,591"/><path class="m-min" d="M858,605 801,568 797,568"/><path class="m-min" d="M684,224 679,219"/><path class="m-min" d="M674,904 671,902 484,780 480,777 477,775 385,716 351,694 346,690"/><path class="m-min" d="M-84,366 -81,368 -54,386 -18,409 -15,410 -10,411"/><path class="m-min" d="M-10,411 -8,417 -3,437 -0,445 2,461 2,463 1,467 -0,469 -2,472"/><path class="m-min" d="M-10,411 -5,410 -2,411 44,442 52,446 69,457 87,469 92,472"/><path class="m-min" d="M69,269 72,271 168,332 171,334 175,337"/><path class="m-min" d="M69,269 67,272 57,288 48,302 46,307"/><path class="m-min" d="M92,472 97,475 115,486 119,489 173,524 225,557 229,560"/><path class="m-min" d="M121,186 123,182 126,178 129,173 146,148 148,146"/><path class="m-min" d="M145,144 126,132 34,72 18,62 16,60 12,58"/><path class="m-min" d="M148,146 150,142 164,121 178,100 180,97"/><path class="m-min" d="M82,247 81,249 70,266 69,269"/><path class="m-min" d="M82,247 80,245 68,238 17,204 -15,184 -32,173 -50,162 -51,161"/><path class="m-min" d="M-14,99 -12,95 10,61 12,58"/><path class="m-min" d="M12,58 9,56 -10,44 -25,34 -28,32 -30,31 -34,28"/><path class="m-min" d="M12,58 14,55 29,33 41,14 44,11"/><path class="m-min" d="M-37,133 -36,131 -17,103 -14,99"/><path class="m-min" d="M-37,133 -34,135 -26,140 -22,143 -16,147 94,218 98,221"/><path class="m-min" d="M98,221 101,222 120,235 180,273 199,285 201,286 204,287 206,288"/><path class="m-min" d="M46,307 42,305 -10,272 -42,251 -69,234 -72,232 -75,230"/><path class="m-min" d="M46,307 44,310 34,326 22,346 20,349 17,354"/><path class="m-min" d="M229,560 231,557 241,541 246,535 249,531 255,521 258,517 261,513"/><path class="m-min" d="M505,740 507,737 518,720 531,700 533,697 537,691"/><path class="m-min" d="M591,607 593,604 609,580 610,577"/><path class="m-min" d="M591,607 594,608 644,640 678,662 721,689 729,695 759,714 771,722 775,726 778,728 781,730 783,732 785,734"/><path class="m-min" d="M780,591 778,594 761,619 756,627"/><path class="m-min" d="M655,508 667,489 669,486 671,483 673,481 687,459 699,439 703,434 705,431 721,407 737,381 741,376"/><path class="m-min" d="M610,577 607,575 481,493 475,490"/><path class="m-min" d="M610,577 625,554 626,552 630,546 634,540 655,508"/><path class="m-min" d="M532,393 526,389 399,307 396,305 390,301 368,286 279,229 264,220 262,218 260,217 255,214 250,211 245,208 229,198 170,160 151,147 148,146"/><path class="m-min" d="M314,428 318,431 402,485 448,515 452,517 456,520"/><path class="m-min" d="M971,766 975,760 993,732 1009,709 1011,705"/><path class="m-min" d="M874,615 871,613 858,605"/><path class="m-min" d="M-31,666 -27,669 103,752 106,754 108,755 238,839 242,842"/><path class="m-min" d="M266,805 259,800 238,786 131,717 128,715 126,713 -0,631 -6,628"/><path class="m-min" d="M19,589 23,593 84,632 150,676 153,677 155,679 163,684 263,749 277,758 287,765 290,767"/><path class="m-min" d="M346,690 342,688"/><path class="m-min" d="M366,650 370,652"/><path class="m-min" d="M471,487 475,490"/><path class="m-min" d="M536,396 532,393"/><path class="m-min" d="M564,344 568,347"/><path class="m-min" d="M835,-13 831,-16"/><path class="m-min" d="M793,39 798,42"/><path class="m-min" d="M762,95 758,89"/><path class="m-min" d="M733,127 738,130"/><path class="m-min" d="M710,171 705,168"/><path class="m-min" d="M679,219 674,216"/><path class="m-min" d="M626,275 629,282"/><path class="m-min" d="M586,319 582,316"/><path class="m-min" d="M872,-68 877,-65 883,-61 885,-59"/><path class="m-min" d="M152,375 157,378 160,380 193,402 199,406"/><path class="m-min" d="M456,520 460,523 467,528 472,531 476,533 585,603 588,605 590,606 591,607"/><path class="m-min" d="M432,557 428,555"/><path class="m-min" d="M-2,-21 2,-18 22,-5 26,-3 42,7 45,9 48,11 56,16 66,23 79,31 83,34 88,37 110,51 177,95 180,97"/><path class="m-min" d="M148,146 145,144"/><path class="m-min" d="M44,11 45,9"/><path class="m-min" d="M-201,548 -197,550 -56,642 -33,656 -26,660"/><path class="m-min" d="M-144,459 -141,461 -55,517 1,554 22,567 26,570 30,572"/><path class="m-min" d="M648,288 650,284 680,237 684,230 685,226 684,224"/><path class="m-min" d="M945,507 950,498"/><path class="m-min" d="M945,507 948,509 967,522 1055,579 1072,591 1076,595"/><path class="m-min" d="M950,498 947,496 833,423 828,420"/><path class="m-min" d="M828,420 753,370 747,367"/><path class="m-min" d="M741,376 745,378 823,428"/><path class="m-min" d="M828,420 823,428"/>
+              <path class="m-mid" d="M250,302 243,295 241,293 239,291 236,289 221,280 214,276"/><path class="m-mid" d="M228,254 223,251 214,245 203,238 143,200 126,189 124,188 121,186"/><path class="m-mid" d="M785,734 786,737 788,740 791,743 881,801 892,809"/><path class="m-mid" d="M823,671 828,674 850,689"/><path class="m-mid" d="M206,288 212,287 215,286 217,286 222,287 225,289 229,291 236,294 250,302"/><path class="m-mid" d="M930,828 928,826 925,824 923,822 920,820 917,818 911,813 898,805 840,767 794,737 791,736 788,734 785,734"/><path class="m-mid" d="M785,734 788,728 794,720 804,704 818,683 821,678 823,674 823,671"/><path class="m-mid" d="M495,459 499,462 520,475"/><path class="m-mid" d="M250,302 332,354 350,364 352,366 356,368"/><path class="m-mid" d="M630,546 634,549 652,560 756,627"/><path class="m-mid" d="M356,368 359,371 384,387"/><path class="m-mid" d="M756,627 794,652"/><path class="m-mid" d="M121,186 118,184 115,182 109,178 104,175 100,171 44,135 7,112 -3,106 -12,100 -14,99"/><path class="m-mid" d="M-14,99 -17,97 -24,92 -36,84 -55,72 -61,68"/><path class="m-mid" d="M761,771 762,768 769,759 780,742 782,739 785,734"/><path class="m-mid" d="M794,652 801,657 817,668 823,671"/><path class="m-mid" d="M520,475 601,528"/><path class="m-mid" d="M601,528 609,533 617,538 624,542 627,544 630,546"/><path class="m-mid" d="M464,439 471,444 487,454 491,457 495,459"/><path class="m-mid" d="M384,387 464,439"/><path class="m-mid" d="M850,689 937,745 941,747"/><path class="m-mid" d="M941,747 962,761 966,763 971,766"/>
+              <path class="m-maj" d="M175,337 174,340 172,343 156,369 154,372 152,375"/><path class="m-maj" d="M206,288 208,284 214,276 225,259 228,254"/><path class="m-maj" d="M402,604 398,601 390,596 377,588"/><path class="m-maj" d="M-61,68 -59,65 -36,31 -34,28"/><path class="m-maj" d="M-48,311 -51,310 -56,306 -68,298 -141,250"/><path class="m-maj" d="M122,423 118,420 112,416 100,408"/><path class="m-maj" d="M1,617 -6,628 -8,632 -24,656 -26,660 -31,666 -33,670 -42,685 -52,700 -54,704"/><path class="m-maj" d="M152,375 150,378 146,384 140,394"/><path class="m-maj" d="M341,83 344,79 346,76 376,29 380,23"/><path class="m-maj" d="M140,394 130,411 127,416 122,423"/><path class="m-maj" d="M30,572 19,589"/><path class="m-maj" d="M122,423 119,428 116,433 104,452 95,467 92,472"/><path class="m-maj" d="M175,337 177,334 179,332 187,318 189,315 191,312 202,295 206,288"/><path class="m-maj" d="M228,254 230,251 253,217 255,214"/><path class="m-maj" d="M305,137 308,133 335,92 337,89 339,86 341,83"/><path class="m-maj" d="M261,513 258,511 248,504 240,499"/><path class="m-maj" d="M537,691 534,689 466,645 425,619"/><path class="m-maj" d="M411,-24 414,-28 436,-60 438,-63 441,-67"/><path class="m-maj" d="M380,23 382,19 385,15 406,-17 409,-21 411,-24"/><path class="m-maj" d="M9,-53 7,-50 -6,-31 -9,-25"/><path class="m-maj" d="M16,-49 19,-52 48,-97 50,-100 52,-103"/><path class="m-maj" d="M287,165 289,162 290,159 303,140 305,137"/><path class="m-maj" d="M255,214 256,211 283,170 287,165"/><path class="m-maj" d="M17,354 14,352 12,351 -3,341"/><path class="m-maj" d="M19,589 16,593 4,613 1,617"/><path class="m-maj" d="M87,-170 84,-166 50,-114 46,-108 43,-104 12,-57 9,-53"/><path class="m-maj" d="M-54,704 -56,707 -77,738 -81,745"/><path class="m-maj" d="M912,-129 920,-124 926,-120 993,-75 1028,-52 1031,-50 1035,-47"/><path class="m-maj" d="M43,552 33,567 30,572"/><path class="m-maj" d="M-9,-25 -11,-22 -37,18 -39,21 -41,24"/><path class="m-maj" d="M-3,341 -36,319"/><path class="m-maj" d="M100,408 93,404 63,384 21,357 19,356 17,354"/><path class="m-maj" d="M92,472 91,475 70,508 68,511 66,515 43,552"/><path class="m-maj" d="M157,445 153,443 145,438 133,429 127,426 124,424 122,423"/><path class="m-maj" d="M240,499 208,478"/><path class="m-maj" d="M281,526 265,515 262,513 261,513"/><path class="m-maj" d="M377,588 326,554 285,528 281,526"/><path class="m-maj" d="M425,619 410,609 407,607 402,604"/><path class="m-maj" d="M615,742 575,716 542,695 538,692 537,691"/><path class="m-maj" d="M-34,28 -33,26 -5,-16 -2,-21 0,-24 14,-45 16,-49"/><path class="m-maj" d="M-41,24 -43,27 -64,59 -67,64"/><path class="m-maj" d="M634,755 625,749 615,742"/><path class="m-maj" d="M-36,319 -43,315 -45,313 -48,311"/><path class="m-maj" d="M188,465 175,457 157,445"/><path class="m-maj" d="M208,478 198,472 188,465"/>
+              <path class="m-rachel-glow" d="M679,219 675,226 648,268 644,273 639,276 635,279 629,282"/><path class="m-rachel-glow" d="M872,-68 871,-65 869,-62 835,-13 833,-10 800,39 798,42 766,89 762,95"/><path class="m-rachel-glow" d="M552,371 541,389 538,393 536,396"/><path class="m-rachel-glow" d="M629,282 624,284 622,285"/><path class="m-rachel-glow" d="M762,95 759,99 757,102 740,126 738,130 714,166 710,171"/><path class="m-rachel-glow" d="M346,690 344,694 333,709 321,727 319,731 317,734 306,752 298,764 296,766 294,770"/><path class="m-rachel-glow" d="M402,604 399,609 396,612 383,633 373,648 370,652"/><path class="m-rachel-glow" d="M586,319 571,342 568,347"/><path class="m-rachel-glow" d="M568,347 566,350 552,371"/><path class="m-rachel-glow" d="M622,285 604,294 599,299 586,319"/><path class="m-rachel-glow" d="M536,396 535,398 520,421 500,452 495,459"/><path class="m-rachel-glow" d="M710,171 708,175 705,178 684,212 681,215 679,219"/><path class="m-rachel-glow" d="M370,652 368,656 349,685 346,690"/><path class="m-rachel-glow" d="M456,520 454,523 444,539 434,554 432,557 430,560 420,576 407,595 405,599 402,604"/><path class="m-rachel-glow" d="M495,459 492,465 475,490 459,516 456,520"/>
+              <path class="m-rachel" d="M679,219 675,226 648,268 644,273 639,276 635,279 629,282"/><path class="m-rachel" d="M872,-68 871,-65 869,-62 835,-13 833,-10 800,39 798,42 766,89 762,95"/><path class="m-rachel" d="M552,371 541,389 538,393 536,396"/><path class="m-rachel" d="M629,282 624,284 622,285"/><path class="m-rachel" d="M762,95 759,99 757,102 740,126 738,130 714,166 710,171"/><path class="m-rachel" d="M346,690 344,694 333,709 321,727 319,731 317,734 306,752 298,764 296,766 294,770"/><path class="m-rachel" d="M402,604 399,609 396,612 383,633 373,648 370,652"/><path class="m-rachel" d="M586,319 571,342 568,347"/><path class="m-rachel" d="M568,347 566,350 552,371"/><path class="m-rachel" d="M622,285 604,294 599,299 586,319"/><path class="m-rachel" d="M536,396 535,398 520,421 500,452 495,459"/><path class="m-rachel" d="M710,171 708,175 705,178 684,212 681,215 679,219"/><path class="m-rachel" d="M370,652 368,656 349,685 346,690"/><path class="m-rachel" d="M456,520 454,523 444,539 434,554 432,557 430,560 420,576 407,595 405,599 402,604"/><path class="m-rachel" d="M495,459 492,465 475,490 459,516 456,520"/>
+              <path class="m-route" d="M552,336 560,342 562,343 564,344 568,347 566,350 565,352 552,371 551,373 541,389 538,393 536,396 535,399 520,421 500,452 499,453 495,459 491,457 489,455 487,454 471,444 464,439 384,387 361,372 359,371 356,368 352,374 336,399 321,423 320,424 318,425 316,427 315,428 312,427 226,371 222,368 220,371 215,380"/>
+            </g>
+            <g class="m-lbl">
+              <text x="430" y="560" transform="rotate(-57.1 430 560)">RUE RACHEL EST</text>
+              <text x="253" y="217" transform="rotate(-56.6 253 217)">AV. DU MONT-ROYAL EST</text>
+              <text x="248" y="504" transform="rotate(33.1 248 504)">RUE SAINT-DENIS</text>
+              <text x="477" y="174" transform="rotate(-57.0 477 174)">RUE MARIE-ANNE EST</text>
+              <text x="743" y="364" transform="rotate(32.5 743 364)">AV. DU PARC-LA FONTAINE</text>
+            </g>
+            <text class="m-area" x="800" y="596">PARC LA FONTAINE</text>
+            <rect width="1000" height="704" fill="url(#mv)"/>
+          </svg>
+          <span class="pin pin-metro up" style="--x:19.7%;--y:52.4%">
+            <b><span class="lg">Métro </span>Mont-Royal</b><i aria-hidden="true"></i>
+          </span>
+          <span class="pin pin-here" style="--x:55.9%;--y:46.2%">
+            <i aria-hidden="true"></i><b>Centre Soha</b>
+          </span>
+          <span class="walk" style="--x:40.7%;--y:57.1%">9 min à pied</span>
+        </div>
 
-      <ul class="transit reveal">
-        <li><b>6 min</b><span>à pied du métro Mont-Royal <i>(480 m)</i></span></li>
-        <li><b>1 min</b><span>de l'arrêt Rachel / de Mentana <i>(25 m)</i></span></li>
-        <li><b>11 min</b><span>à pied du métro Sherbrooke <i>(920 m)</i></span></li>
-      </ul>
+        <figcaption class="access-facts">
+          <span><b>Métro</b>Mont-Royal, 9 min à pied &mdash; 685 m par la rue</span>
+          <span><b>Bus</b>29, 11 et 14 &mdash; l&rsquo;arrêt est sur Rachel, devant le centre</span>
+          <span><b>Repère</b>au coin du parc La Fontaine, Plateau Mont-Royal</span>
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
