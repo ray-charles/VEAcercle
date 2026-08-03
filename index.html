@@ -190,13 +190,15 @@ strong{font-weight:700;color:var(--wine-deep)}
 @media(min-width:768px){.topbar img{height:32px}.topbar-cta{font-size:13px}}
 
 /* ===== HERO ===== */
-/* Two light sources instead of one flat gradient: a warm rose glow top
-   right and a subtler gold one bottom left. That depth is what the flat
-   version was missing — it read as a single dull slab of burgundy. */
+/* Burgundy velvet photograph under a wine scrim. The scrim is what keeps
+   the copy readable — white measures 11.67:1 on the flat colour, and at
+   86–93% opacity it still clears ~6.8:1 even over the image's brightest
+   gold highlight. The flat colour stays as the last fallback so the hero
+   is never bare if the jpg fails to load. */
 .hero{
   background:
-    radial-gradient(circle at 82% 8%,rgba(240,86,120,.50) 0%,rgba(240,86,120,0) 55%),
-    radial-gradient(circle at 10% 94%,rgba(230,179,37,.20) 0%,rgba(230,179,37,0) 48%),
+    linear-gradient(158deg,rgba(110,19,48,.86) 0%,rgba(69,9,28,.94) 100%),
+    url('hero-velvet.jpg') center/cover no-repeat,
     linear-gradient(158deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
   color:#fff;padding:var(--s6) var(--s4) var(--s7);
 }
