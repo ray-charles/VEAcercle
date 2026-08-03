@@ -1237,11 +1237,14 @@ var CAP = 12;
 var SLOTS = [
   { day:'Mardi',    time:'19 h 15 – 20 h 45', start:'dès le 1er sept.',
     key:'mardi', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mardi' },
+    /* ?locale=fr — Circle falls back to the COMMUNITY default (Spanish, this is
+       Voz Esencia Academy) for logged-out visitors, so every ad click landed on a
+       Spanish payment form. Logged-in admins see English and never notice. */
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mardi?locale=fr' },
 
   { day:'Mercredi', time:'19 h 15 – 20 h 45', start:'dès le 2 sept.',
     key:'mercredi', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mercredi' },
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mercredi?locale=fr' },
 
   { day:'Mardi',    time:'17 h 30 – 19 h 00', locked:true,
     why:"S'ouvre quand la cohorte du mardi soir est complète." },
