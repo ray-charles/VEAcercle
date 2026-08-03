@@ -198,9 +198,21 @@ strong{font-weight:700;color:var(--wine-deep)}
 .hero{
   background:
     linear-gradient(158deg,rgba(110,19,48,.78) 0%,rgba(69,9,28,.90) 100%),
-    url('hero-velvet.jpg') center/cover no-repeat,
+    url('hero-silk-v2.jpg') center/cover no-repeat,
     linear-gradient(158deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
   color:#fff;padding:var(--s6) var(--s4) var(--s7);
+}
+/* Phones: the hero is roughly 1:5, so `cover` throws away most of the
+   picture. Pin the silk full-width at the top instead — the whole
+   composition is visible, uncropped, exactly where the headline sits —
+   and let the gradient carry the rest of the column. */
+@media(max-width:767px){
+  .hero{
+    background:
+      linear-gradient(180deg,rgba(110,19,48,.66) 0%,rgba(110,19,48,.80) 34%,rgba(69,9,28,.97) 66%,var(--wine-dark) 100%),
+      url('hero-silk-v2.jpg') top center/100% auto no-repeat,
+      linear-gradient(158deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
+  }
 }
 @media(min-width:768px){.hero{padding:var(--s7) var(--s6) 72px}}
 .hero .narrow{max-width:760px}
@@ -439,6 +451,11 @@ strong{font-weight:700;color:var(--wine-deep)}
 /* Same frame on a light section: the white border and deep shadow only
    read against the dark hero. */
 .hero-media.on-light{border-color:rgba(74,15,28,.14);box-shadow:0 16px 38px rgba(74,15,28,.16)}
+/* Caption under the frame, not over it — an overlay caption swallows the
+   video's control bar. Belt and braces: if a figcaption ever ends up on a
+   video frame again, it can't intercept clicks. */
+.media-cap{margin-top:var(--s2);text-align:center;font-size:.82rem;font-style:italic;color:var(--w-58)}
+.hero-media.is-video figcaption{pointer-events:none}
 .video-ph{
   position:absolute;inset:0;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:11px;pointer-events:none;
@@ -693,8 +710,11 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
              aria-label="Vidéo de présentation du Cercle de Voix">
         <source src="cercle-video.mp4" type="video/mp4">
       </video>
-      <figcaption>Le Cercle de Voix &mdash; on commence par le corps, au sol.</figcaption>
     </figure>
+    <!-- Caption lives OUTSIDE the frame: as a figcaption it was absolutely
+         positioned over the bottom of the box, which covered the video's
+         control bar — a fade over it and no way to reach the sound. -->
+    <p class="media-cap reveal">Le Cercle de Voix &mdash; on commence par le corps, au sol.</p>
 
     <div class="hero-proof reveal">
       <div class="stars" aria-label="5 étoiles sur 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
