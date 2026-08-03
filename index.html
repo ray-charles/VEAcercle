@@ -1236,11 +1236,11 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
 var CAP = 12;
 var SLOTS = [
   { day:'Mardi',    time:'19 h 15 – 20 h 45', start:'dès le 1er sept.',
-    key:'mardi', taken:5, locked:false,
+    key:'mardi', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mardi' },
 
   { day:'Mercredi', time:'19 h 15 – 20 h 45', start:'dès le 2 sept.',
-    key:'mercredi', taken:3, locked:false,
+    key:'mercredi', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mercredi' },
 
   { day:'Mardi',    time:'17 h 30 – 19 h 00', locked:true,
@@ -1361,12 +1361,16 @@ var SEATS_API = 'https://cercle-seats.keating-sands.workers.dev/counts';
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(counts){
       if(!counts) return;
+      /* Stripe is the record of who paid, so its number wins outright —
+         raise or lower. The old rule only ever raised, which meant a
+         hand-typed starting figure became a floor the truth couldn't get
+         under, and the page advertised seats that were never sold. */
       var changed = false;
       SLOTS.forEach(function(s){
         if(!s.key) return;
         var n = counts[s.key];
         if(typeof n !== 'number' || n < 0 || n > CAP) return;
-        if(n > s.taken){ s.taken = n; changed = true; }
+        if(n !== s.taken){ s.taken = n; changed = true; }
       });
       if(changed) renderSlots();
     })
