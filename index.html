@@ -282,6 +282,20 @@ strong{font-weight:700;color:var(--wine-deep)}
 .slot-fill{height:100%;background:var(--btn);border-radius:999px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
 .slot-left{font-size:.84rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .slot-left b{color:var(--alert)}
+
+/* ===== SOLD OUT =====
+   A full cohort is the strongest scarcity signal on the page, so the
+   stamp is deliberately loud. The bar fills red rather than gold: gold
+   means "still open", red means "closed". */
+.slot.full .slot-fill{background:var(--alert)}
+.slot-stamp{
+  display:block;width:max-content;margin:var(--s4) auto var(--s2);
+  font-family:'Montserrat',sans-serif;font-weight:800;
+  font-size:1.15rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--alert);border:3px solid var(--alert);border-radius:9px;
+  padding:7px 16px 7px 22px;transform:rotate(-3.5deg);
+}
+.slot-left-full{text-align:center}
 .slot-cta{
   margin-top:var(--s3);
   background:var(--btn);color:var(--ink);
@@ -1072,6 +1086,27 @@ function slotHTML(s){
   var left = Math.max(0, CAP - s.taken);
   var pct  = Math.round((s.taken / CAP) * 100);
   var plural = left > 1 ? 's' : '';
+
+  /* Sold out: bump `taken` to CAP and the card closes itself — stamp on,
+     checkout link gone (not just disabled, so it can't be clicked or
+     opened in a new tab), waitlist offered instead so a full cohort
+     still captures the lead. */
+  if(left === 0){
+    return '<div class="slot full">'
+      + '<div class="slot-top">'
+      +   '<span class="slot-day">' + esc(s.day) + '</span>'
+      +   '<span class="slot-time">' + esc(s.time) + ' &middot; ' + esc(s.start) + '</span>'
+      + '</div>'
+      + '<div class="slot-track" role="img" aria-label="' + CAP + ' places prises sur ' + CAP + '">'
+      +   '<div class="slot-fill" style="width:100%"></div>'
+      + '</div>'
+      + '<p class="slot-stamp">Complet</p>'
+      + '<p class="slot-left slot-left-full">Les ' + CAP + ' places sont prises.</p>'
+      + '<button type="button" class="slot-note js-lock" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
+      +   'Préviens-moi s\'il se libère une place</button>'
+      + '</div>';
+  }
+
   return '<div class="slot">'
     + '<div class="slot-top">'
     +   '<span class="slot-day">' + esc(s.day) + '</span>'
