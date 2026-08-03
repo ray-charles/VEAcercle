@@ -297,6 +297,26 @@ strong{font-weight:700;color:var(--wine-deep)}
 .slot-left{font-size:.84rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .slot-left b{color:var(--alert)}
 
+/* ===== MAP + TRANSIT ===== */
+.map{
+  margin-top:var(--s4);border-radius:14px;overflow:hidden;
+  border:1px solid var(--line);box-shadow:0 12px 30px rgba(74,15,28,.14);
+  aspect-ratio:4/3;background:var(--cream);
+}
+@media(min-width:768px){.map{aspect-ratio:16/9}}
+.map iframe{width:100%;height:100%;border:0;display:block}
+.transit{
+  display:grid;gap:var(--s2);margin-top:var(--s3);
+  grid-template-columns:1fr;
+}
+@media(min-width:600px){.transit{grid-template-columns:repeat(3,1fr)}}
+.transit li{
+  list-style:none;display:flex;align-items:baseline;gap:8px;
+  font-family:'Montserrat',sans-serif;font-size:.84rem;color:var(--ink-soft);
+}
+.transit b{color:var(--wine-deep);font-weight:800;font-size:.95rem;white-space:nowrap}
+.transit i{font-style:normal;opacity:.72}
+
 /* ===== SOLD OUT =====
    A full cohort is the strongest scarcity signal on the page, so the
    stamp is deliberately loud. The bar fills red rather than gold: gold
@@ -946,6 +966,23 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
         </span>
         <span><span class="vt">Centre Soha</span><br><span class="vs">961 rue Rachel Est, Montréal &middot; Plateau Mont-Royal</span></span>
       </a>
+
+      <!-- OpenStreetMap, not Google: the Google Maps Embed API needs a
+           billing-enabled key. This renders the same plain street view
+           with no key, no tracking and no quota. Distances below are
+           measured from 961 Rachel Est, not estimated. -->
+      <div class="map reveal">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-73.5865%2C45.5213%2C-73.5695%2C45.5292&amp;layer=mapnik&amp;marker=45.5251197%2C-73.5754972"
+          title="Carte — Centre Soha, 961 rue Rachel Est, Montréal"
+          loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+
+      <ul class="transit reveal">
+        <li><b>6 min</b><span>à pied du métro Mont-Royal <i>(480 m)</i></span></li>
+        <li><b>1 min</b><span>de l'arrêt Rachel / de Mentana <i>(25 m)</i></span></li>
+        <li><b>11 min</b><span>à pied du métro Sherbrooke <i>(920 m)</i></span></li>
+      </ul>
     </div>
   </div>
 </section>
