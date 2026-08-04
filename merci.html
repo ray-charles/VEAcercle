@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C'est confirmé — Cercle de Voix</title>
+<!-- A confirmation page has nothing to offer a search result, and being
+     indexed would let people land here without ever having paid. -->
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine-deep:#6E1330; --wine-mid:#8E2440; --wine-dark:#45091C;
+  --gold:#d4af37; --gold-ink:#a8851f; --gold-soft:#f6e0b0;
+  --ink:#2A1119; --ink-soft:#6E5059;
+  --cream:#F8F4EE; --card:#fffdfa; --line:rgba(212,175,55,.30);
+  --s2:8px; --s3:14px; --s4:22px; --s5:34px; --s6:52px; --s7:74px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--cream);color:var(--ink);
+  font-family:'Montserrat',system-ui,sans-serif;font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:660px;margin:0 auto;padding:0 var(--s4)}
+
+/* ===== CONFIRMATION BANNER ===== */
+.top{
+  background:linear-gradient(162deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
+  color:#fff;text-align:center;padding:var(--s7) var(--s4) var(--s6);
+}
+.tick{
+  width:66px;height:66px;margin:0 auto var(--s4);border-radius:50%;
+  background:rgba(246,224,176,.14);border:1.5px solid var(--gold-soft);
+  display:flex;align-items:center;justify-content:center;color:var(--gold-soft);
+  animation:pop .5s cubic-bezier(.2,1.4,.4,1) both;
+}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.top h1{
+  font-weight:300;font-size:clamp(2rem,7vw,2.9rem);line-height:1.15;
+  letter-spacing:-.5px;margin-bottom:var(--s3);
+}
+.top h1 em{font-style:normal;color:var(--gold-soft);font-weight:500}
+.top p{color:rgba(255,255,255,.82);font-size:1.02rem;max-width:44ch;margin:0 auto}
+
+/* ===== SESSION CARD ===== */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 16px 40px rgba(74,15,28,.13);
+  margin-top:calc(var(--s6) * -1);padding:var(--s5) var(--s4);
+}
+.eyebrow{
+  font-size:.68rem;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;
+  color:var(--gold-ink);text-align:center;margin-bottom:var(--s3);
+}
+.soir{
+  text-align:center;font-weight:300;font-size:clamp(1.5rem,5.5vw,2rem);
+  color:var(--wine-deep);line-height:1.2;margin-bottom:var(--s4);
+}
+.soir b{font-weight:600}
+.facts{list-style:none;display:grid;gap:var(--s3);margin-bottom:var(--s5)}
+.facts li{display:flex;gap:var(--s3);align-items:flex-start;font-size:.94rem}
+.facts svg{flex-shrink:0;color:var(--gold-ink);margin-top:3px}
+.facts b{display:block;font-weight:600;color:var(--ink)}
+.facts span{color:var(--ink-soft);font-size:.88rem}
+
+/* ===== BUTTONS ===== */
+.btns{display:grid;gap:var(--s2)}
+@media(min-width:520px){.btns{grid-template-columns:1fr 1fr}}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:15px 18px;border-radius:100px;text-decoration:none;
+  font-size:.86rem;font-weight:700;letter-spacing:.3px;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:var(--wine-dark);box-shadow:0 8px 22px rgba(212,175,55,.36)}
+.btn-gold:hover{box-shadow:0 12px 28px rgba(212,175,55,.46)}
+.btn-out{background:transparent;color:var(--wine-deep);border:1.5px solid var(--line)}
+.btn-out:hover{border-color:var(--gold);background:rgba(212,175,55,.07)}
+.btn-wine{
+  background:linear-gradient(162deg,var(--wine-mid),var(--wine-deep));color:#fff;
+  box-shadow:0 10px 26px rgba(110,19,48,.30);
+}
+.btn-wine:hover{box-shadow:0 14px 32px rgba(110,19,48,.40)}
+
+/* ===== INCLUDED ===== */
+.section{padding:var(--s6) 0}
+.section h2{
+  font-weight:300;font-size:clamp(1.4rem,5vw,1.85rem);color:var(--wine-deep);
+  text-align:center;line-height:1.25;margin-bottom:var(--s5);
+}
+.section h2 em{font-style:normal;color:var(--gold-ink);font-weight:500}
+.incl{display:grid;gap:var(--s3);margin-bottom:var(--s5)}
+.incl li{
+  list-style:none;background:var(--card);border:1px solid var(--line);
+  border-radius:13px;padding:var(--s4);display:flex;gap:var(--s3);align-items:flex-start;
+}
+.incl-ic{
+  flex-shrink:0;width:38px;height:38px;border-radius:11px;
+  background:rgba(212,175,55,.15);color:var(--gold-ink);
+  display:flex;align-items:center;justify-content:center;
+}
+.incl h3{font-size:.95rem;font-weight:700;margin-bottom:3px}
+.incl p{font-size:.87rem;color:var(--ink-soft);line-height:1.5}
+.incl .free{
+  display:inline-block;margin-left:7px;vertical-align:1px;
+  font-size:.6rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--gold-ink);background:rgba(212,175,55,.16);
+  padding:3px 7px;border-radius:100px;
+}
+
+/* ===== SIGN-OFF ===== */
+.off{text-align:center;padding:0 0 var(--s7)}
+.off p{font-size:.92rem;color:var(--ink-soft);max-width:46ch;margin:0 auto var(--s3)}
+.off a{color:var(--wine-deep)}
+.sig{
+  font-family:'Dancing Script',cursive;font-size:1.9rem;font-weight:600;
+  color:var(--wine-deep);margin-top:var(--s4);
+}
+footer{
+  border-top:1px solid var(--line);padding:var(--s5) var(--s4);text-align:center;
+}
+footer p{font-size:.76rem;color:var(--ink-soft)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="tick" aria-hidden="true">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>
+  </div>
+  <h1>Ta place est <em>réservée.</em></h1>
+  <p>Le paiement est passé et ton nom est sur la liste. Il reste une chose à faire&nbsp;: mettre les douze soirs dans ton agenda.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="card">
+    <p class="eyebrow">Ton cercle</p>
+    <p class="soir"><b id="soir-nom">Les mardis et mercredis</b><br><span id="soir-dates">dès le 1<sup>er</sup> septembre</span></p>
+
+    <ul class="facts">
+      <li>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span><b id="fact-when">12 séances hebdomadaires</b><span id="fact-range">Douze semaines consécutives, sans interruption.</span></span>
+      </li>
+      <li>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span><b>19 h 15 à 20 h 45</b><span>Arrive cinq minutes avant. On commence au sol, alors mets-toi à l'aise.</span></span>
+      </li>
+      <li>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span><b>Centre Soha &middot; 961 rue Rachel Est</b><span>Métro Mont-Royal à 9 min à pied &middot; bus 29, 11 et 14 devant la porte.</span></span>
+      </li>
+    </ul>
+
+    <div class="btns">
+      <a class="btn btn-gold" id="cal-google" href="#" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>
+        Google Agenda
+      </a>
+      <a class="btn btn-out" id="cal-ics" href="cercle-mardi.ics" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Apple / Outlook
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Ce qui vient <em>avec ta place</em></h2>
+    <ul class="incl">
+      <li>
+        <span class="incl-ic" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </span>
+        <div>
+          <h3>La bibliothèque d'exercices<span class="free">Offerte</span></h3>
+          <p>Tous les exercices de respiration et de voix, filmés, à refaire chez toi entre deux séances. Tu y as accès dès aujourd'hui et tu la gardes.</p>
+        </div>
+      </li>
+      <li>
+        <span class="incl-ic" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </span>
+        <div>
+          <h3>Le groupe de discussion<span class="free">Offert</span></h3>
+          <p>Le fil où le cercle continue entre les mardis&nbsp;: les questions, les petites victoires, et moi qui réponds. Tu n'attends pas la semaine suivante pour être entendu·e.</p>
+        </div>
+      </li>
+      <li>
+        <span class="incl-ic" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <div>
+          <h3>Onze autres personnes</h3>
+          <p>Le cercle est plafonné à douze. Les mêmes visages pendant douze semaines&nbsp;— c'est ce qui fait que la voix finit par sortir.</p>
+        </div>
+      </li>
+    </ul>
+
+    <a class="btn btn-wine" href="https://voz-esencia-academy-cbf28a.circle.so/?locale=fr" target="_blank" rel="noopener">
+      Rejoindre la communauté
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <div class="off">
+    <p>Connecte-toi avec la même adresse courriel que tu viens d'utiliser&nbsp;— ton accès est déjà rattaché.</p>
+    <p>Une question d'ici la première séance&nbsp;? Écris-moi&nbsp;: <a href="mailto:info@veacademy.studio">info@veacademy.studio</a></p>
+    <p class="sig">Mamselle</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Voix Essence™ &middot; Centre Soha, 961 rue Rachel Est, Montréal</p>
+</footer>
+
+<script>
+(function(){
+  /* One page, two cohorts. Circle sends people here with ?soir=mardi or
+     ?soir=mercredi — one file to keep right instead of two that drift.
+     Without the parameter the page still stands up and names both. */
+  var COHORTS = {
+    mardi:    { nom:'Les mardis',    debut:'1<sup>er</sup> septembre', fin:'17 novembre',
+                d0:'20260901' },
+    mercredi: { nom:'Les mercredis', debut:'2 septembre',              fin:'18 novembre',
+                d0:'20260902' }
+  };
+  var soir = new URLSearchParams(location.search).get('soir');
+  var c = COHORTS[soir];
+  if(!c){
+    /* No cohort, or a mangled one. The generic copy in the markup already
+       covers both nights, but the buttons can't: defaulting them to mardi
+       would hand a Wednesday booker the wrong twelve dates. Offer both. */
+    document.querySelector('.btns').innerHTML =
+      '<a class="btn btn-out" href="cercle-mardi.ics" download>Les mardis (.ics)</a>' +
+      '<a class="btn btn-out" href="cercle-mercredi.ics" download>Les mercredis (.ics)</a>';
+    return;
+  }
+
+  document.getElementById('soir-nom').innerHTML   = c.nom;
+  document.getElementById('soir-dates').innerHTML = 'dès le ' + c.debut;
+  document.getElementById('fact-when').textContent  = '12 séances, ' + c.nom.toLowerCase();
+  document.getElementById('fact-range').textContent =
+    'Du ' + c.debut.replace(/<[^>]+>/g,'') + ' au ' + c.fin + ', sans interruption.';
+  document.title = 'C’est confirmé — Cercle de Voix, ' + soir;
+
+  document.getElementById('cal-ics').href = 'cercle-' + soir + '.ics';
+
+  /* ctz + local times rather than UTC: the series crosses the end of daylight
+     time on 1 November, and a UTC instant would drag the last three séances
+     back to 18 h 15. */
+  var g = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text='     + encodeURIComponent('Cercle de Voix — ' + soir)
+    + '&dates='    + c.d0 + 'T191500/' + c.d0 + 'T204500'
+    + '&ctz=America/Toronto'
+    + '&recur='    + encodeURIComponent('RRULE:FREQ=WEEKLY;COUNT=12')
+    + '&location=' + encodeURIComponent('Centre Soha, 961 rue Rachel Est, Montréal, QC')
+    + '&details='  + encodeURIComponent(
+        'Cercle de Voix — 12 séances, 12 personnes.\n\n'
+      + 'Arrive 5 minutes avant. Porte des vêtements confortables : '
+      + 'on commence au sol, par le corps et le souffle.\n\n'
+      + 'Métro Mont-Royal à 9 min à pied, bus 29, 11 et 14 devant le centre.\n'
+      + 'https://cercle.veacademy.studio/');
+  document.getElementById('cal-google').href = g;
+})();
+</script>
+</body>
+</html>
