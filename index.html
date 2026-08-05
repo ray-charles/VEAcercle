@@ -1267,11 +1267,16 @@ var SLOTS = [
     key:'mercredi', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mercredi?locale=fr' },
 
-  { day:'Mardi',    time:'17 h 30 – 19 h 00', locked:true,
-    why:"S'ouvre quand la cohorte du mardi soir est complète." },
+  /* Ouvertes le 3 août 2026. Les slugs Circle ne suivent pas la même
+     convention que les deux premières — 1730 d'un côté, 17h30 de l'autre —
+     donc chacune est écrite telle que Circle l'a créée. */
+  { day:'Mardi',    time:'17 h 30 – 19 h 00', start:'dès le 1er sept.',
+    key:'mardi-1730', taken:0, locked:false,
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-1730?locale=fr' },
 
-  { day:'Mercredi', time:'17 h 30 – 19 h 00', locked:true,
-    why:"S'ouvre quand la cohorte du mercredi soir est complète." }
+  { day:'Mercredi', time:'17 h 30 – 19 h 00', start:'dès le 2 sept.',
+    key:'mercredi-1730', taken:0, locked:false,
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mercredi-17h30?locale=fr' }
 ];
 
 /* ⚠️ The Circle checkout currently charges 396 $ as a SINGLE payment.
