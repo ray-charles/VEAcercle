@@ -839,7 +839,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
     </div>
 
     <div class="picker reveal" id="cohortes">
-      <p class="picker-h">Choisis ta séance</p>
+      <p class="picker-h">Choisis ta séance de 1 h 30</p>
       <div class="slots" id="slots-top"></div>
     </div>
 
@@ -1348,9 +1348,10 @@ function slotHTML(s){
     +   '<span class="slot-day">' + esc(s.day) + '</span>'
     +   '<span class="slot-time">' + esc(s.time) + ' &middot; ' + esc(s.start) + '</span>'
     + '</div>'
-    /* Price sits ABOVE the button, with the proof line beside it. */
-    + '<p class="slot-price">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + taxes'
-    +   '<small>Méthode éprouvée &middot; 8 ans d\'ateliers</small></p>'
+    /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
+       here too; it is still stated once above the picker, and repeating it
+       on all four cards was four copies of the same sentence. */
+    + '<p class="slot-price">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + taxes</p>'
     + '<div class="slot-track" role="img" aria-label="' + s.taken + ' places prises sur ' + CAP + '">'
     +   '<div class="slot-fill" style="width:' + pct + '%"></div>'
     + '</div>'
@@ -1358,9 +1359,6 @@ function slotHTML(s){
     + '<a class="slot-cta js-book" href="' + esc(withMc(s.url)) + '"'
     +   ' data-day="' + esc(s.day) + '" data-left="' + left + '">'
     +   'Réserver ma place</a>'
-    /* Under the button: reassurance, not the price. */
-    + '<p class="slot-guarantee">' + SHIELD_SVG
-    +   '<span>Remboursement partiel offert si tu n\'aimes pas</span></p>'
     + '</div>';
 }
 
