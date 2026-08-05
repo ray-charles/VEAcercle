@@ -328,6 +328,9 @@ strong{font-weight:700;color:var(--wine-deep)}
   font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.06rem;
   letter-spacing:.04em;color:var(--wine-deep);
 }
+/* The hours sit on the same line as the day but are not the thing being
+   chosen, so they carry no weight of their own. */
+.slot-hours{font-weight:400;letter-spacing:0}
 .slot-time{font-size:.82rem;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .slot-track{
   height:8px;border-radius:999px;background:rgba(122,27,48,.14);
@@ -1330,7 +1333,7 @@ function slotHTML(s){
     return '<div class="slot locked">'
       + '<div class="slot-top">'
       +   '<span class="slot-day slot-day-lock">' + LOCK_SVG
-      +     esc(s.day).toUpperCase() + ' ' + esc(s.time) + '</span>'
+      +     esc(s.day) + 's <span class="slot-hours">' + esc(s.time) + '</span>' + '</span>'
       + '</div>'
       + '<p class="slot-why">' + esc(s.why) + '</p>'
       + '<button type="button" class="slot-note js-lock" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
@@ -1348,7 +1351,7 @@ function slotHTML(s){
   if(left === 0){
     return '<div class="slot full">'
       + '<div class="slot-top">'
-      +   '<span class="slot-day">' + esc(s.day).toUpperCase() + ' ' + esc(s.time) + '</span>'
+      +   '<span class="slot-day">' + esc(s.day) + 's <span class="slot-hours">' + esc(s.time) + '</span>' + '</span>'
       + '</div>'
       + '<div class="slot-track" role="img" aria-label="' + CAP + ' places prises sur ' + CAP + '">'
       +   '<div class="slot-fill" style="width:100%"></div>'
@@ -1362,7 +1365,7 @@ function slotHTML(s){
 
   return '<div class="slot">'
     + '<div class="slot-top">'
-    +   '<span class="slot-day">' + esc(s.day).toUpperCase() + ' ' + esc(s.time) + '</span>'
+    +   '<span class="slot-day">' + esc(s.day) + 's <span class="slot-hours">' + esc(s.time) + '</span>' + '</span>'
     + '</div>'
     /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
        here too; it is still stated once above the picker, and repeating it
