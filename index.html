@@ -855,7 +855,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
     </div>
 
     <div class="picker reveal" id="cohortes">
-      <p class="picker-h">Un parcours de <em>12&nbsp;séances</em> de <em>1&nbsp;h&nbsp;30</em></p>
+      <p class="picker-h">Un parcours de <em>12&nbsp;séances</em></p>
       <div class="slots" id="slots-top"></div>
     </div>
 
@@ -1275,25 +1275,25 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
    ================================================================ */
 var CAP = 12;
 var SLOTS = [
-  { day:'Mardi',    time:'19 h 15 – 20 h 45', start:'dès le 1er sept.',
+  { day:'Mardi',    time:'19 h 15 à 20 h 45', start:'dès le 1er sept.',
     key:'mardi', taken:0, locked:false,
     /* ?locale=fr — Circle falls back to the COMMUNITY default (Spanish, this is
        Voz Esencia Academy) for logged-out visitors, so every ad click landed on a
        Spanish payment form. Logged-in admins see English and never notice. */
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mardi?locale=fr' },
 
-  { day:'Mercredi', time:'19 h 15 – 20 h 45', start:'dès le 2 sept.',
+  { day:'Mercredi', time:'19 h 15 à 20 h 45', start:'dès le 2 sept.',
     key:'mercredi', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-saison-ete-automne-mercredi?locale=fr' },
 
   /* Ouvertes le 3 août 2026. Les slugs Circle ne suivent pas la même
      convention que les deux premières — 1730 d'un côté, 17h30 de l'autre —
      donc chacune est écrite telle que Circle l'a créée. */
-  { day:'Mardi',    time:'17 h 30 – 19 h 00', start:'dès le 1er sept.',
+  { day:'Mardi',    time:'17 h 30 à 19 h 00', start:'dès le 1er sept.',
     key:'mardi-1730', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-1730?locale=fr' },
 
-  { day:'Mercredi', time:'17 h 30 – 19 h 00', start:'dès le 2 sept.',
+  { day:'Mercredi', time:'17 h 30 à 19 h 00', start:'dès le 2 sept.',
     key:'mercredi-1730', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mercredi-17h30?locale=fr' }
 ];
@@ -1325,14 +1325,12 @@ function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
 
 /* The card shows when it starts, not the full range — the heading above the
    picker already says every séance runs 1 h 30. */
-function startOf(s){ return s.time.split('–')[0].trim(); }
-
 function slotHTML(s){
   if(s.locked){
     return '<div class="slot locked">'
       + '<div class="slot-top">'
       +   '<span class="slot-day slot-day-lock">' + LOCK_SVG
-      +     esc(s.day).toUpperCase() + ' ' + esc(startOf(s)) + '</span>'
+      +     esc(s.day).toUpperCase() + ' ' + esc(s.time) + '</span>'
       + '</div>'
       + '<p class="slot-why">' + esc(s.why) + '</p>'
       + '<button type="button" class="slot-note js-lock" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
@@ -1350,7 +1348,7 @@ function slotHTML(s){
   if(left === 0){
     return '<div class="slot full">'
       + '<div class="slot-top">'
-      +   '<span class="slot-day">' + esc(s.day).toUpperCase() + ' ' + esc(startOf(s)) + '</span>'
+      +   '<span class="slot-day">' + esc(s.day).toUpperCase() + ' ' + esc(s.time) + '</span>'
       + '</div>'
       + '<div class="slot-track" role="img" aria-label="' + CAP + ' places prises sur ' + CAP + '">'
       +   '<div class="slot-fill" style="width:100%"></div>'
@@ -1364,7 +1362,7 @@ function slotHTML(s){
 
   return '<div class="slot">'
     + '<div class="slot-top">'
-    +   '<span class="slot-day">' + esc(s.day).toUpperCase() + ' ' + esc(startOf(s)) + '</span>'
+    +   '<span class="slot-day">' + esc(s.day).toUpperCase() + ' ' + esc(s.time) + '</span>'
     + '</div>'
     /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
        here too; it is still stated once above the picker, and repeating it
