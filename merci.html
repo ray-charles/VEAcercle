@@ -182,9 +182,18 @@ body{
 .off{text-align:center;padding:0 0 var(--s7)}
 .off p{font-size:.92rem;color:var(--ink-soft);max-width:46ch;margin:0 auto var(--s3)}
 .off a{color:var(--wine-deep)}
+/* Same portrait as the landing page close. The shadow is re-tuned: the
+   landing page sits it on a dark section, and that black cast reads as
+   grime against cream. */
+.portrait{
+  width:150px;height:150px;object-fit:cover;object-position:center 20%;
+  border-radius:50%;margin:var(--s5) auto 0;display:block;
+  border:3px solid rgba(212,175,55,.55);
+  box-shadow:0 14px 36px rgba(74,15,28,.22);
+}
 .sig{
-  font-family:'Dancing Script',cursive;font-size:1.9rem;font-weight:600;
-  color:var(--wine-deep);margin-top:var(--s4);
+  font-family:'Dancing Script',cursive;font-size:2.1rem;font-weight:700;
+  color:var(--wine-deep);margin-top:var(--s2);
 }
 footer{
   border-top:1px solid var(--line);padding:var(--s5) var(--s4);text-align:center;
@@ -251,7 +260,8 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
 
   <div class="off">
     <p>Si tu as besoin d'aide, n'hésite pas à me contacter&nbsp;: <a href="tel:+15146626274">514-662-6274</a><br>ou par courriel&nbsp;: <a href="mailto:mamselle@veacademy.studio">mamselle@veacademy.studio</a></p>
-    <p class="sig">Mamselle</p>
+    <img class="portrait" src="mamselle-close.jpg" alt="Mamselle Ruiz, coach vocale" width="150" height="150" loading="lazy">
+    <p class="sig">Mamselle Ruiz</p>
   </div>
 
 </div>
