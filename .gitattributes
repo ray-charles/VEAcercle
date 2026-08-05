@@ -1,0 +1,5 @@
+# iCalendar mandates CRLF (RFC 5545 §3.1). Git's autocrlf normalises line
+# endings to LF on commit, which is what GitHub Pages then serves — Google and
+# Apple tolerate it, Outlook can reject the file. Treat these as binary so the
+# bytes reach the browser exactly as generated.
+*.ics -text
