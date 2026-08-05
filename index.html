@@ -328,10 +328,12 @@ strong{font-weight:700;color:var(--wine-deep)}
   font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.06rem;
   letter-spacing:.04em;color:var(--wine-deep);
 }
-/* The hours sit on the same line as the day but are not the thing being
-   chosen, so they carry no weight of their own. */
-.slot-hours{font-weight:400;letter-spacing:0}
-.slot-time{font-size:.82rem;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+/* Opposite end of the row from the day. No longer nested inside .slot-day,
+   so it states its own type rather than inheriting it. */
+.slot-hours{
+  font-family:'Montserrat',sans-serif;font-weight:400;font-size:1.06rem;
+  letter-spacing:0;color:var(--wine-deep);white-space:nowrap;
+}
 .slot-track{
   height:8px;border-radius:999px;background:rgba(122,27,48,.14);
   margin:var(--s3) 0 var(--s2);overflow:hidden;
@@ -490,7 +492,7 @@ strong{font-weight:700;color:var(--wine-deep)}
   box-shadow:none;
 }
 .slot.locked:hover{transform:none;box-shadow:none}
-.slot.locked .slot-day,.slot.locked .slot-time{color:var(--ink-soft)}
+.slot.locked .slot-day,.slot.locked .slot-hours{color:var(--ink-soft)}
 .slot-day-lock{display:inline-flex;align-items:center;gap:7px}
 .slot-why{
   font-size:.84rem;font-style:italic;color:var(--ink-soft);
@@ -509,7 +511,7 @@ strong{font-weight:700;color:var(--wine-deep)}
 
 /* locked slots sit inside dark sections — restate them for that ground */
 .dark .slot.locked{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.30)}
-.dark .slot.locked .slot-day,.dark .slot.locked .slot-time{color:var(--w-82)}
+.dark .slot.locked .slot-day,.dark .slot.locked .slot-hours{color:var(--w-82)}
 .dark .slot.locked .slot-why{color:var(--w-58)}
 .dark .slot-note{background:rgba(246,224,176,.20);color:var(--gold-soft)}
 .dark .slot-note:hover{background:rgba(246,224,176,.32)}
@@ -1333,7 +1335,8 @@ function slotHTML(s){
     return '<div class="slot locked">'
       + '<div class="slot-top">'
       +   '<span class="slot-day slot-day-lock">' + LOCK_SVG
-      +     esc(s.day) + 's <span class="slot-hours">' + esc(s.time) + '</span>' + '</span>'
+      +     esc(s.day).toUpperCase() + 'S</span>'
+      +   '<span class="slot-hours">' + esc(s.time) + '</span>'
       + '</div>'
       + '<p class="slot-why">' + esc(s.why) + '</p>'
       + '<button type="button" class="slot-note js-lock" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
@@ -1351,7 +1354,8 @@ function slotHTML(s){
   if(left === 0){
     return '<div class="slot full">'
       + '<div class="slot-top">'
-      +   '<span class="slot-day">' + esc(s.day) + 's <span class="slot-hours">' + esc(s.time) + '</span>' + '</span>'
+      +   '<span class="slot-day">' + esc(s.day).toUpperCase() + 'S</span>'
+      +   '<span class="slot-hours">' + esc(s.time) + '</span>'
       + '</div>'
       + '<div class="slot-track" role="img" aria-label="' + CAP + ' places prises sur ' + CAP + '">'
       +   '<div class="slot-fill" style="width:100%"></div>'
@@ -1365,7 +1369,8 @@ function slotHTML(s){
 
   return '<div class="slot">'
     + '<div class="slot-top">'
-    +   '<span class="slot-day">' + esc(s.day) + 's <span class="slot-hours">' + esc(s.time) + '</span>' + '</span>'
+    +   '<span class="slot-day">' + esc(s.day).toUpperCase() + 'S</span>'
+      +   '<span class="slot-hours">' + esc(s.time) + '</span>'
     + '</div>'
     /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
        here too; it is still stated once above the picker, and repeating it
