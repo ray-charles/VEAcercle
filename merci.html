@@ -32,7 +32,13 @@ body{
 
 /* ===== CONFIRMATION BANNER ===== */
 .top{
-  background:linear-gradient(162deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
+  /* Same drape as the landing-page hero, same layer order: tint over the
+     silk, flat wine underneath so the panel never shows through white while
+     the photo loads. */
+  background:
+    linear-gradient(158deg,rgba(110,19,48,.78) 0%,rgba(69,9,28,.90) 100%),
+    url('hero-silk-v2.jpg') center/cover no-repeat,
+    linear-gradient(158deg,var(--wine-deep) 0%,var(--wine-dark) 100%);
   color:#fff;text-align:center;padding:var(--s7) var(--s4) var(--s6);
 }
 .tick{
@@ -150,11 +156,11 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
     <ul class="facts">
       <li>
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <span><b id="fact-when">12 séances hebdomadaires</b><span id="fact-range">Douze semaines consécutives, sans interruption.</span></span>
+        <span><b id="fact-when">12 séances hebdomadaires</b><span id="fact-range">Douze semaines consécutives.</span></span>
       </li>
       <li>
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <span><b>19 h 15 à 20 h 45</b><span>Arrive cinq minutes avant. On commence au sol, alors mets-toi à l'aise.</span></span>
+        <span><b id="fact-heure">19 h 15 à 20 h 45</b><span>Arrive cinq minutes avant. Porte des vêtements confortables et amène une bouteille d'eau.</span></span>
       </li>
       <li>
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -214,7 +220,7 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
 
   <div class="off">
     <p>Connecte-toi avec la même adresse courriel que tu viens d'utiliser&nbsp;— ton accès est déjà rattaché.</p>
-    <p>Une question d'ici la première séance&nbsp;? Écris-moi&nbsp;: <a href="mailto:info@veacademy.studio">info@veacademy.studio</a></p>
+    <p>Si tu as besoin d'aide, n'hésite pas à me contacter&nbsp;: <a href="tel:+15146626274">514-662-6274</a><br>ou par courriel&nbsp;: <a href="mailto:info@veacademy.studio">info@veacademy.studio</a></p>
     <p class="sig">Mamselle</p>
   </div>
 
@@ -230,10 +236,14 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
      ?soir=mercredi — one file to keep right instead of two that drift.
      Without the parameter the page still stands up and names both. */
   var COHORTS = {
-    mardi:    { nom:'Les mardis',    debut:'1<sup>er</sup> septembre', fin:'17 novembre',
-                d0:'20260901' },
-    mercredi: { nom:'Les mercredis', debut:'2 septembre',              fin:'18 novembre',
-                d0:'20260902' }
+    'mardi':         { nom:'Les mardis',    debut:'1<sup>er</sup> septembre', fin:'17 novembre',
+                       d0:'20260901', t0:'191500', t1:'204500', heure:'19 h 15 à 20 h 45' },
+    'mercredi':      { nom:'Les mercredis', debut:'2 septembre',              fin:'18 novembre',
+                       d0:'20260902', t0:'191500', t1:'204500', heure:'19 h 15 à 20 h 45' },
+    'mardi-1730':    { nom:'Les mardis',    debut:'1<sup>er</sup> septembre', fin:'17 novembre',
+                       d0:'20260901', t0:'173000', t1:'190000', heure:'17 h 30 à 19 h 00' },
+    'mercredi-1730': { nom:'Les mercredis', debut:'2 septembre',              fin:'18 novembre',
+                       d0:'20260902', t0:'173000', t1:'190000', heure:'17 h 30 à 19 h 00' }
   };
   var soir = new URLSearchParams(location.search).get('soir');
   var c = COHORTS[soir];
@@ -241,9 +251,11 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
     /* No cohort, or a mangled one. The generic copy in the markup already
        covers both nights, but the buttons can't: defaulting them to mardi
        would hand a Wednesday booker the wrong twelve dates. Offer both. */
-    document.querySelector('.btns').innerHTML =
-      '<a class="btn btn-out" href="cercle-mardi.ics" download>Les mardis (.ics)</a>' +
-      '<a class="btn btn-out" href="cercle-mercredi.ics" download>Les mercredis (.ics)</a>';
+    document.querySelector('.btns').innerHTML = Object.keys(COHORTS).map(function(k){
+      return '<a class="btn btn-out" href="cercle-' + k + '.ics" download>'
+           + COHORTS[k].nom.replace('Les ','') + ' ' + COHORTS[k].heure.split(' à ')[0]
+           + '</a>';
+    }).join('');
     return;
   }
 
@@ -251,8 +263,10 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
   document.getElementById('soir-dates').innerHTML = 'dès le ' + c.debut;
   document.getElementById('fact-when').textContent  = '12 séances, ' + c.nom.toLowerCase();
   document.getElementById('fact-range').textContent =
-    'Du ' + c.debut.replace(/<[^>]+>/g,'') + ' au ' + c.fin + ', sans interruption.';
-  document.title = 'C’est confirmé — Cercle de Voix, ' + soir;
+    'Du ' + c.debut.replace(/<[^>]+>/g,'') + ' au ' + c.fin + '.';
+  document.getElementById('fact-heure').textContent = c.heure;
+  document.title = 'C’est confirmé — Cercle de Voix, ' + c.nom.replace('Les ','').replace(/s$/,'')
+                 + ' ' + c.heure.split(' à ')[0];
 
   document.getElementById('cal-ics').href = 'cercle-' + soir + '.ics';
 
@@ -260,8 +274,8 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
      time on 1 November, and a UTC instant would drag the last three séances
      back to 18 h 15. */
   var g = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-    + '&text='     + encodeURIComponent('Cercle de Voix — ' + soir)
-    + '&dates='    + c.d0 + 'T191500/' + c.d0 + 'T204500'
+    + '&text='     + encodeURIComponent('Cercle de Voix — ' + c.nom.replace('Les ','').replace(/s$/,'') + ' ' + c.heure.split(' à ')[0])
+    + '&dates='    + c.d0 + 'T' + c.t0 + '/' + c.d0 + 'T' + c.t1
     + '&ctz=America/Toronto'
     + '&recur='    + encodeURIComponent('RRULE:FREQ=WEEKLY;COUNT=12')
     + '&location=' + encodeURIComponent('Centre Soha, 961 rue Rachel Est, Montréal, QC')

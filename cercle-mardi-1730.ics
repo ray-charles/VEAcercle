@@ -22,12 +22,12 @@ RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:cercle-de-voix-mardi-2026@veacademy.studio
+UID:cercle-de-voix-mardi-1730-2026@veacademy.studio
 DTSTAMP:20260803T120000Z
-DTSTART;TZID=America/Toronto:20260901T191500
-DTEND;TZID=America/Toronto:20260901T204500
+DTSTART;TZID=America/Toronto:20260901T173000
+DTEND;TZID=America/Toronto:20260901T190000
 RRULE:FREQ=WEEKLY;COUNT=12
-SUMMARY:Cercle de Voix — mardi soir
+SUMMARY:Cercle de Voix — mardi 17 h 30
 LOCATION:Centre Soha\, 961 rue Rachel Est\, Montréal\, QC
 DESCRIPTION:Cercle de Voix — 12 séances, 12 personnes.
 

@@ -27,21 +27,24 @@ DTSTAMP:20260803T120000Z
 DTSTART;TZID=America/Toronto:20260902T191500
 DTEND;TZID=America/Toronto:20260902T204500
 RRULE:FREQ=WEEKLY;COUNT=12
-SUMMARY:Cercle de Voix - mercredi
-LOCATION:Centre Soha\, 961 rue Rachel Est\, Montreal\, QC
-DESCRIPTION:Cercle de Voix - 12 seances, 12 personnes.
+SUMMARY:Cercle de Voix — mercredi soir
+LOCATION:Centre Soha\, 961 rue Rachel Est\, Montréal\, QC
+DESCRIPTION:Cercle de Voix — 12 séances, 12 personnes.
 
-Arrive 5 minutes a
- vant. Porte des vetements confortables : on commence au sol, par le corps
-  et le souffle.
+Arrive 5 minute
+ s avant. Porte des vêtements confortables et amène une bouteille d'eau.
+ 
 
-Centre Soha, 961 rue Rachel Est, Montreal - metro Mont-R
- oyal a 9 min a pied, arret de bus (29, 11, 14) devant le centre.
+Centre Soha, 961 rue Rachel Est, Montréal — métro Mont-Royal à 9 m
+ in à pied, bus 29, 11 et 14 devant le centre.
+
+Si tu as besoin d'aide, n
+ 'hésite pas à me contacter : 514-662-6274 — Mamselle Ruiz
 URL:https://cercle.veacademy.studio/
 BEGIN:VALARM
 TRIGGER:-PT2H
 ACTION:DISPLAY
-DESCRIPTION:Cercle de Voix ce soir - 19 h 15 au Centre Soha
+DESCRIPTION:Cercle de Voix ce soir — Centre Soha
 END:VALARM
 END:VEVENT
 END:VCALENDAR
