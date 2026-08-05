@@ -287,9 +287,12 @@ strong{font-weight:700;color:var(--wine-deep)}
 
 /* ===== SLOT PICKER ===== */
 .picker{margin-top:var(--s3)}
+/* Set like a headline rather than an eyebrow: same weight, same negative
+   tracking, roughly twice the size. Caps and wide letter-spacing are what
+   made it read as a label — dropping them is most of the change. */
 .picker-h{
-  font-family:'Montserrat',sans-serif;font-weight:700;
-  font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  font-family:'Montserrat',sans-serif;font-weight:400;
+  font-size:clamp(1.5rem,4.6vw,2.35rem);line-height:1.18;letter-spacing:-.015em;
   color:var(--gold-soft);text-align:center;margin-bottom:var(--s4);
 }
 .light .picker-h,.paper .picker-h{color:var(--wine-deep)}
