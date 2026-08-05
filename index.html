@@ -294,6 +294,9 @@ strong{font-weight:700;color:var(--wine-deep)}
   font-family:'Montserrat',sans-serif;font-weight:400;
   font-size:clamp(1.5rem,4.6vw,2.35rem);line-height:1.18;letter-spacing:-.015em;
   color:var(--gold-soft);text-align:center;margin-bottom:var(--s4);
+  /* On a phone this runs to two lines and left "1 h 30" alone on the second.
+     balance splits them evenly; browsers without it just wrap as before. */
+  text-wrap:balance;
 }
 .light .picker-h,.paper .picker-h{color:var(--wine-deep)}
 .slots{display:grid;gap:var(--s4)}
@@ -848,7 +851,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
     </div>
 
     <div class="picker reveal" id="cohortes">
-      <p class="picker-h">Choisis ta séance de 1 h 30</p>
+      <p class="picker-h">Un parcours de 12 séances de 1&nbsp;h&nbsp;30</p>
       <div class="slots" id="slots-top"></div>
     </div>
 
