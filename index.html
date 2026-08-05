@@ -298,6 +298,10 @@ strong{font-weight:700;color:var(--wine-deep)}
      balance splits them evenly; browsers without it just wrap as before. */
   text-wrap:balance;
 }
+/* The two numbers in white against the gold — the inverse of the h1, which
+   is white with a gold accent. */
+.picker-h em{font-style:normal;color:#fff}
+.light .picker-h em,.paper .picker-h em{color:var(--wine-deep)}
 .light .picker-h,.paper .picker-h{color:var(--wine-deep)}
 .slots{display:grid;gap:var(--s4)}
 @media(min-width:820px){.slots{grid-template-columns:1fr 1fr;align-items:start}}
@@ -851,7 +855,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
     </div>
 
     <div class="picker reveal" id="cohortes">
-      <p class="picker-h">Un parcours de 12 séances de 1&nbsp;h&nbsp;30</p>
+      <p class="picker-h">Un parcours de <em>12&nbsp;séances</em> de <em>1&nbsp;h&nbsp;30</em></p>
       <div class="slots" id="slots-top"></div>
     </div>
 
@@ -1365,7 +1369,7 @@ function slotHTML(s){
     /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
        here too; it is still stated once above the picker, and repeating it
        on all four cards was four copies of the same sentence. */
-    + '<p class="slot-price">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + taxes</p>'
+    + '<p class="slot-price">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + tx</p>'
     + '<div class="slot-track" role="img" aria-label="' + s.taken + ' places prises sur ' + CAP + '">'
     +   '<div class="slot-fill" style="width:' + pct + '%"></div>'
     + '</div>'
