@@ -296,8 +296,17 @@ strong{font-weight:700;color:var(--wine-deep)}
   color:var(--gold-soft);text-align:center;margin-bottom:var(--s4);
 }
 .light .picker-h,.paper .picker-h{color:var(--wine-deep)}
-.slots{display:grid;gap:var(--s3)}
-@media(min-width:820px){.slots{grid-template-columns:1fr 1fr}}
+.slots{display:grid;gap:var(--s4)}
+@media(min-width:820px){.slots{grid-template-columns:1fr 1fr;align-items:start}}
+.slot-group{display:grid;gap:var(--s3);align-content:start}
+/* The day's start date, said once over its pair of cards. */
+.slot-group-h{
+  font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold-soft);text-align:center;margin-bottom:var(--s2);
+}
+.slot-group-h sup{font-size:.65em;vertical-align:.45em}
+.light .slot-group-h,.paper .slot-group-h{color:var(--gold-ink)}
 
 .slot{
   background:var(--card);
@@ -310,7 +319,7 @@ strong{font-weight:700;color:var(--wine-deep)}
 .slot-top{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s2);flex-wrap:wrap}
 .slot-day{
   font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.06rem;
-  letter-spacing:.04em;color:var(--wine-deep);text-transform:uppercase;
+  letter-spacing:.04em;color:var(--wine-deep);
 }
 .slot-time{font-size:.82rem;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .slot-track{
@@ -318,7 +327,7 @@ strong{font-weight:700;color:var(--wine-deep)}
   margin:var(--s3) 0 var(--s2);overflow:hidden;
 }
 .slot-fill{height:100%;background:var(--btn);border-radius:999px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
-.slot-left{font-size:.84rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.slot-left{text-align:center;font-size:.84rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .slot-left b{color:var(--alert)}
 
 /* ===== ACCESS MAP =====
@@ -1307,12 +1316,16 @@ var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stro
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
+/* The card shows when it starts, not the full range — the heading above the
+   picker already says every séance runs 1 h 30. */
+function startOf(s){ return s.time.split('–')[0].trim(); }
+
 function slotHTML(s){
   if(s.locked){
     return '<div class="slot locked">'
       + '<div class="slot-top">'
-      +   '<span class="slot-day slot-day-lock">' + LOCK_SVG + esc(s.day) + '</span>'
-      +   '<span class="slot-time">' + esc(s.time) + '</span>'
+      +   '<span class="slot-day slot-day-lock">' + LOCK_SVG
+      +     esc(s.day).toUpperCase() + ' ' + esc(startOf(s)) + '</span>'
       + '</div>'
       + '<p class="slot-why">' + esc(s.why) + '</p>'
       + '<button type="button" class="slot-note js-lock" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
@@ -1330,8 +1343,7 @@ function slotHTML(s){
   if(left === 0){
     return '<div class="slot full">'
       + '<div class="slot-top">'
-      +   '<span class="slot-day">' + esc(s.day) + '</span>'
-      +   '<span class="slot-time">' + esc(s.time) + ' &middot; ' + esc(s.start) + '</span>'
+      +   '<span class="slot-day">' + esc(s.day).toUpperCase() + ' ' + esc(startOf(s)) + '</span>'
       + '</div>'
       + '<div class="slot-track" role="img" aria-label="' + CAP + ' places prises sur ' + CAP + '">'
       +   '<div class="slot-fill" style="width:100%"></div>'
@@ -1345,8 +1357,7 @@ function slotHTML(s){
 
   return '<div class="slot">'
     + '<div class="slot-top">'
-    +   '<span class="slot-day">' + esc(s.day) + '</span>'
-    +   '<span class="slot-time">' + esc(s.time) + ' &middot; ' + esc(s.start) + '</span>'
+    +   '<span class="slot-day">' + esc(s.day).toUpperCase() + ' ' + esc(startOf(s)) + '</span>'
     + '</div>'
     /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
        here too; it is still stated once above the picker, and repeating it
@@ -1362,8 +1373,24 @@ function slotHTML(s){
     + '</div>';
 }
 
+/* Grouped by day rather than laid out as one four-card grid: the start date
+   is a property of the day, so saying it once above each pair beats
+   repeating it on all four cards. Falls out right on both layouts — side by
+   side at 820px, stacked with its own date heading below that. */
+var GROUPS = [
+  { day:'Mardi',    date:'Dès le 1<sup>er</sup> septembre' },
+  { day:'Mercredi', date:'Dès le 2 septembre' }
+];
+
 function renderSlots(){
-  var html = SLOTS.map(slotHTML).join('');
+  var html = GROUPS.map(function(g){
+    var cards = SLOTS.filter(function(s){ return s.day === g.day; });
+    if(!cards.length) return '';
+    return '<div class="slot-group">'
+      + '<p class="slot-group-h">' + g.date + '</p>'
+      + cards.map(slotHTML).join('')
+      + '</div>';
+  }).join('');
   ['slots-top','slots-bottom'].forEach(function(id){
     var el = document.getElementById(id);
     if(el) el.innerHTML = html;
