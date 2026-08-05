@@ -281,11 +281,16 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
      Note the link is a join link: anyone holding it can join. Turn on
      "Approuver les nouveaux participants" in each group, or reset the link
      from WhatsApp if it ever spreads. */
+  /* Codes checked against the group each one actually opens, rather than
+     trusting the order they were pasted in — the two 17 h 30 groups differ
+     from their evening twins by four characters, and a buyer sent to the
+     wrong one finds out on the wrong night. The ?s=sw&p=a&ilr=0 the share
+     sheet appends is WhatsApp's own analytics and is not needed to join. */
   var WHATSAPP = {
-    'mardi':         '',   /* mardi 19 h 15    — https://chat.whatsapp.com/... */
-    'mercredi':      '',   /* mercredi 19 h 15 */
-    'mardi-1730':    '',   /* mardi 17 h 30    */
-    'mercredi-1730': ''    /* mercredi 17 h 30 */
+    'mardi':         'https://chat.whatsapp.com/Fi8QYxSd84PKOzfUBOx3wr',  /* mardi 19h15    */
+    'mercredi':      'https://chat.whatsapp.com/HtLAny3ZKjlHGIPQ0BadWH',  /* mercredi 19h15 */
+    'mardi-1730':    'https://chat.whatsapp.com/Bf43xfnz8skHR9x4MuPhRb',  /* mardi 17h30    */
+    'mercredi-1730': 'https://chat.whatsapp.com/LftMRUQ5MOsIHELPBAhrXd'   /* mercredi 17h30 */
   };
 
   var soir = new URLSearchParams(location.search).get('soir');
