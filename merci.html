@@ -9,6 +9,57 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="32x32">
+<!-- ================================================================
+     META PIXEL — Purchase
+     Both pixels, same pair and same order as the landing page: an event
+     that reaches only one dataset leaves the other with a funnel that
+     stops at InitiateCheckout.
+     This fires HERE rather than in Circle's conversion-tracking field
+     because the paywall now redirects straight to this page — the Circle
+     confirmation step the pixel would have sat on gets skipped.
+     ================================================================ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1888097325094612');
+fbq('init','635919952572462');
+fbq('track','PageView');
+(function(){
+  var LABEL = {
+    'mardi':'Mardi 19 h 15', 'mercredi':'Mercredi 19 h 15',
+    'mardi-1730':'Mardi 17 h 30', 'mercredi-1730':'Mercredi 17 h 30'
+  };
+  var soir = '';
+  try { soir = new URLSearchParams(location.search).get('soir') || ''; } catch(e){}
+
+  /* A confirmation page gets refreshed, bookmarked and reopened. Without a
+     stable event id every reload books another purchase, and the campaign
+     optimises towards a number that never happened. Meta dedupes on this. */
+  var eid = 'cercle-' + (soir || 'na') + '-' + (function(){
+    var k = 'cercle_eid';
+    try {
+      var v = sessionStorage.getItem(k);
+      if(!v){ v = String(Date.now()) + '-' + Math.random().toString(36).slice(2,8);
+              sessionStorage.setItem(k, v); }
+      return v;
+    } catch(e){ return String(Date.now()); }
+  })();
+
+  fbq('track','Purchase',{
+    content_name: 'Cercle de Voix · ' + (LABEL[soir] || 'cohorte inconnue'),
+    content_category: 'Cercle',
+    value: 396.00, currency: 'CAD'
+  }, { eventID: eid });
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1888097325094612&ev=Purchase&noscript=1"/>
+<img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=635919952572462&ev=Purchase&noscript=1"/></noscript>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
