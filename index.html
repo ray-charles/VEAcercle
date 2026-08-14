@@ -1399,9 +1399,27 @@ var GROUPS = [
   { day:'Mercredi', date:'Dès le 2 septembre' }
 ];
 
+/* Anything nobody can book right now — sold out, or not yet open. */
+function bookable(s){
+  return !s.locked && (CAP - s.taken) > 0;
+}
+
 function renderSlots(){
-  var html = GROUPS.map(function(g){
-    var cards = SLOTS.filter(function(s){ return s.day === g.day; });
+  /* Sold-out cards sink, within their day and then across days, so the top
+     of the picker is never spent on a COMPLET stamp. Sorted on a copy and
+     keyed off the live seat count rather than reordering SLOTS itself: a
+     refund has to be able to float a cohort back to where it was declared,
+     and mutating the source would lose that order after the first sort.
+     Array.sort is stable, so the declared order survives inside each half. */
+  var groups = GROUPS.slice().sort(function(a, b){
+    var av = SLOTS.some(function(s){ return s.day === a.day && bookable(s); });
+    var bv = SLOTS.some(function(s){ return s.day === b.day && bookable(s); });
+    return (bv ? 1 : 0) - (av ? 1 : 0);
+  });
+
+  var html = groups.map(function(g){
+    var cards = SLOTS.filter(function(s){ return s.day === g.day; })
+      .sort(function(a, b){ return (bookable(b) ? 1 : 0) - (bookable(a) ? 1 : 0); });
     if(!cards.length) return '';
     return '<div class="slot-group">'
       + '<p class="slot-group-h">' + g.date + '</p>'
