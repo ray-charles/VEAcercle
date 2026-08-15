@@ -39,6 +39,25 @@
 <meta name="twitter:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. Dès le 1er septembre.">
 <meta name="twitter:image" content="https://cercle.veacademy.studio/og-cercle.jpg">
 
+<!-- The seat counts decide whether a cohort renders as bookable or COMPLET.
+     Fetching them from a script at the foot of the page meant the picker
+     painted "12 places restantes" first and corrected itself a moment later —
+     on a phone that read as a lag, and briefly advertised a full cohort as
+     open. The request now leaves in <head>, with the connection warmed, so
+     the answer is usually in hand before the picker paints. -->
+<link rel="preconnect" href="https://cercle-seats.keating-sands.workers.dev" crossorigin>
+<script>
+window.SEATS_READY = (function(){
+  if(!window.fetch) return null;
+  var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  if(ctl) setTimeout(function(){ ctl.abort(); }, 4000);
+  return fetch('https://cercle-seats.keating-sands.workers.dev/counts',
+               { signal: ctl && ctl.signal })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .catch(function(){ return null; });
+})();
+</script>
+
 <link rel="preload"
   href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&family=Dancing+Script:wght@600;700&display=swap"
   as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -1366,8 +1385,6 @@ function slotHTML(s){
       + '</div>'
       + '<p class="slot-stamp">Complet</p>'
       + '<p class="slot-left slot-left-full">Les ' + CAP + ' places sont prises.</p>'
-      + '<button type="button" class="slot-note js-lock" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
-      +   'Préviens-moi s\'il se libère une place</button>'
       + '</div>';
   }
 
@@ -1445,28 +1462,23 @@ renderSlots();
 var SEATS_API = 'https://cercle-seats.keating-sands.workers.dev/counts';
 
 (function liveSeats(){
-  if(!window.fetch) return;
-  var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-  if(ctl) setTimeout(function(){ ctl.abort(); }, 4000);
-
-  fetch(SEATS_API, { signal: ctl && ctl.signal })
-    .then(function(r){ return r.ok ? r.json() : null; })
-    .then(function(counts){
-      if(!counts) return;
-      /* Stripe is the record of who paid, so its number wins outright —
-         raise or lower. The old rule only ever raised, which meant a
-         hand-typed starting figure became a floor the truth couldn't get
-         under, and the page advertised seats that were never sold. */
-      var changed = false;
-      SLOTS.forEach(function(s){
-        if(!s.key) return;
-        var n = counts[s.key];
-        if(typeof n !== 'number' || n < 0 || n > CAP) return;
-        if(n !== s.taken){ s.taken = n; changed = true; }
-      });
-      if(changed) renderSlots();
-    })
-    .catch(function(){ /* keep the fallback numbers */ });
+  /* The request was already sent from <head>; this only applies the answer. */
+  if(!window.SEATS_READY) return;
+  window.SEATS_READY.then(function(counts){
+    if(!counts) return;
+    /* Stripe is the record of who paid, so its number wins outright —
+       raise or lower. The old rule only ever raised, which meant a
+       hand-typed starting figure became a floor the truth couldn't get
+       under, and the page advertised seats that were never sold. */
+    var changed = false;
+    SLOTS.forEach(function(s){
+      if(!s.key) return;
+      var n = counts[s.key];
+      if(typeof n !== 'number' || n < 0 || n > CAP) return;
+      if(n !== s.taken){ s.taken = n; changed = true; }
+    });
+    if(changed) renderSlots();
+  });
 })();
 
 /* ================================================================
