@@ -1624,5 +1624,42 @@ document.getElementById('wl-form').addEventListener('submit', function(e){
      Google sont en français : les récupérer mot pour mot et remplacer.
   3. CAISSE — l'interface Circle s'affiche en espagnol. Passer en FR.
 -->
+<script>
+/* ================================================================
+   RETOUR — le bouton « précédent » renvoie vers le site des séances.
+   L'entrée sentinelle est poussée au PREMIER geste du visiteur, pas au
+   chargement : Chrome et Safari sautent les entrées ajoutées sans
+   interaction, et quelqu'un qui repart aussitôt n'a rien à se voir
+   imposer. Le lien #cohortes défile sans écrire dans l'historique,
+   sinon un retour depuis l'ancre sortirait du site au lieu de remonter.
+   ================================================================ */
+(function () {
+  var EXIT = 'https://courschantmamselleruiz.com/';
+  if (!window.history || !history.pushState) return;
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  var armed = false;
+  function arm() {
+    if (armed) return;
+    armed = true;
+    history.pushState(null, '', location.href);
+  }
+  document.addEventListener('pointerdown', arm, true);
+  document.addEventListener('keydown', arm, true);
+
+  window.addEventListener('popstate', function () {
+    location.replace(EXIT);
+  });
+}());
+</script>
+
 </body>
 </html>
