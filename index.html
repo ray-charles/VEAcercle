@@ -1281,7 +1281,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m20 6-11 11-5-5"/></svg>
     </div>
     <h3>C'est noté.</h3>
-    <p>Tu es sur la liste pour le créneau <b id="wl-slot"></b>. Je t'écris dès qu'il ouvre.</p>
+    <p>Tu es sur la liste pour le créneau <b id="wl-slot"></b>. Je t'écris dès qu'une place se libère ou que la prochaine session ouvre.</p>
     <button type="button" class="wl-submit" id="wl-close2" style="margin-top:20px">Fermer</button>
   </div>
 </dialog>
@@ -1385,6 +1385,8 @@ function slotHTML(s){
       + '</div>'
       + '<p class="slot-stamp">Complet</p>'
       + '<p class="slot-left slot-left-full">Les ' + CAP + ' places sont prises.</p>'
+      + '<button type="button" class="slot-note js-lock" data-full="1" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
+      +   'Préviens-moi pour la prochaine session</button>'
       + '</div>';
   }
 
@@ -1522,7 +1524,7 @@ document.addEventListener('click', function(e){
   }
 
   if(lock){
-    openWaitlist(lock.getAttribute('data-day'));
+    openWaitlist(lock.getAttribute('data-day'), lock.getAttribute('data-full') === '1');
   }
 });
 
@@ -1538,10 +1540,17 @@ var FORMSPREE = 'https://formspree.io/f/maqrgbrl';
 var dlg = document.getElementById('wl');
 var wlSlot = '';
 
-function openWaitlist(slotLabel){
+function openWaitlist(slotLabel, isFull){
   wlSlot = slotLabel || '';
-  document.getElementById('wl-sub').textContent =
-    'Le créneau ' + wlSlot + ' n\'est pas encore ouvert. Laisse-moi tes coordonnées — tu seras prévenu·e en premier.';
+  /* Two different situations share this dialog: a cohort that has not opened
+     yet, and one whose twelve places are gone. Same form, different promise. */
+  document.getElementById('wl-title').textContent =
+    isFull ? "On t'écrit pour la prochaine session ?" : 'On te garde une place ?';
+  document.getElementById('wl-sub').textContent = isFull
+    ? 'Les ' + CAP + ' places du créneau ' + wlSlot + ' sont prises. Laisse-moi tes coordonnées — tu seras prévenu·e en premier quand la prochaine session ouvre.'
+    : 'Le créneau ' + wlSlot + " n'est pas encore ouvert. Laisse-moi tes coordonnées — tu seras prévenu·e en premier.";
+  document.getElementById('wl-submit').textContent =
+    isFull ? 'Préviens-moi en premier' : "Préviens-moi à l'ouverture";
   if(typeof fbq !== 'undefined') fbq('trackCustom','SeatLocked_Click',{ creneau: wlSlot });
   if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
   document.documentElement.style.overflow = 'hidden';   /* no scrolling behind the modal */
