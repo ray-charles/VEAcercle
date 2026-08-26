@@ -1382,7 +1382,8 @@ function slotHTML(s){
       +   '<span class="slot-hours">' + esc(s.time) + '</span>'
       + '</div>'
       + '<p class="slot-why">' + esc(s.why) + '</p>'
-      + '<button type="button" class="slot-note js-lock" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
+      + '<button type="button" class="slot-note js-lock"'
+      +   ' data-key="' + esc(s.key || '') + '" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
       +   'Ce créneau m\'intéresserait' + '</button>'
       + '</div>';
   }
@@ -1405,7 +1406,8 @@ function slotHTML(s){
       + '</div>'
       + '<p class="slot-stamp">Complet</p>'
       + '<p class="slot-left slot-left-full">Les ' + CAP + ' places sont prises.</p>'
-      + '<button type="button" class="slot-note is-cta js-lock" data-full="1" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
+      + '<button type="button" class="slot-note is-cta js-lock" data-full="1"'
+      +   ' data-key="' + esc(s.key || '') + '" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
       +   'Préviens-moi pour la prochaine session</button>'
       + '</div>';
   }
@@ -1544,7 +1546,9 @@ document.addEventListener('click', function(e){
   }
 
   if(lock){
-    openWaitlist(lock.getAttribute('data-day'), lock.getAttribute('data-full') === '1');
+    openWaitlist(lock.getAttribute('data-day'),
+                 lock.getAttribute('data-full') === '1',
+                 lock.getAttribute('data-key') || '');
   }
 });
 
@@ -1564,9 +1568,13 @@ document.addEventListener('click', function(e){
 var FORMSPREE = 'https://formspree.io/f/maqrgbrl';
 var dlg = document.getElementById('wl');
 var wlSlot = '';
+var wlKey  = '';
+var wlFull = false;
 
-function openWaitlist(slotLabel, isFull){
+function openWaitlist(slotLabel, isFull, slotKey){
   wlSlot = slotLabel || '';
+  wlKey  = slotKey || '';
+  wlFull = !!isFull;
   /* Two different situations share this dialog: a cohort that has not opened
      yet, and one whose twelve places are gone. Same form, different promise. */
   document.getElementById('wl-title').textContent =
@@ -1612,7 +1620,8 @@ document.getElementById('wl-form').addEventListener('submit', function(e){
       telephone: f.telephone.value.trim(),
       email:     f.email.value.trim(),
       creneau:   wlSlot,
-      source:    'cercle-locked-slot',
+      cohorte:   wlKey,
+      source:    wlFull ? 'cercle-complet' : 'cercle-locked-slot',
       _subject:  'Cercle de Voix — liste d\'attente (' + wlSlot + ')'
     })
   }).then(function(r){
