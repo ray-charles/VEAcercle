@@ -536,6 +536,26 @@ strong{font-weight:700;color:var(--wine-deep)}
 .dark .slot-note:hover{background:rgba(246,224,176,.32)}
 .dark .slot-note:disabled{background:rgba(255,255,255,.08);color:var(--w-58)}
 
+/* On a sold-out card this is the only thing left to click, and .slot-note is
+   deliberately quiet — worse, `.dark .slot-note` paints it pale gold, which
+   on the cream card read as disabled text. Declared after the .dark rules,
+   and scoped to both grounds, so the cascade cannot undo it. Wine rather
+   than the gold of "Réserver ma place": a full cohort must never look
+   bookable. */
+.slot-note.is-cta,
+.dark .slot-note.is-cta{
+  margin-top:var(--s4);
+  background:linear-gradient(162deg,var(--wine-mid),var(--wine-deep));
+  color:#fff;font-size:.92rem;font-weight:800;letter-spacing:.01em;
+  border-radius:11px;padding:15px var(--s4);min-height:52px;
+  box-shadow:0 8px 22px rgba(110,19,48,.30);
+}
+.slot-note.is-cta:hover,
+.dark .slot-note.is-cta:hover{
+  background:linear-gradient(162deg,var(--wine-deep),var(--wine-dark));
+  box-shadow:0 12px 28px rgba(110,19,48,.40);
+}
+
 /* ===== WAITLIST DIALOG ===== */
 .wl{
   border:none;padding:0;border-radius:20px;
@@ -1385,7 +1405,7 @@ function slotHTML(s){
       + '</div>'
       + '<p class="slot-stamp">Complet</p>'
       + '<p class="slot-left slot-left-full">Les ' + CAP + ' places sont prises.</p>'
-      + '<button type="button" class="slot-note js-lock" data-full="1" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
+      + '<button type="button" class="slot-note is-cta js-lock" data-full="1" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
       +   'Préviens-moi pour la prochaine session</button>'
       + '</div>';
   }
