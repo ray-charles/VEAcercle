@@ -1532,9 +1532,14 @@ document.addEventListener('click', function(e){
    WAITLIST — native <dialog> gives us Escape, backdrop and focus
    handling; native form validation gives us the error states.
    Leads land in the dedicated "Cercle de Voix - liste d'attente"
-   Formspree form, which webhooks the Worker, which tags them in Kit
-   (idioma-fr + the créneau tag). Separate form from the quiz on
-   purpose — separate inbox, separate volume, no shared automations.
+   Formspree form, separate from the quiz on purpose — separate inbox,
+   separate volume, no shared automations.
+
+   ⚠️ This used to claim Formspree webhooks a Worker that tags them in
+   Kit. No such Worker exists in this repo, and nothing here receives
+   Formspree. Whatever put the four current names into Kit was done by
+   another route (by hand, or a Zap). Until that is confirmed, treat a
+   submission as reaching Charles's inbox and nothing else.
    ================================================================ */
 var FORMSPREE = 'https://formspree.io/f/maqrgbrl';
 var dlg = document.getElementById('wl');
