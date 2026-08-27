@@ -1626,6 +1626,22 @@ document.getElementById('wl-form').addEventListener('submit', function(e){
     })
   }).then(function(r){
     if(!r.ok) throw new Error('http ' + r.status);
+    /* Formspree has them — that is the record and the notification. This
+       second call is what puts them in Kit: the sequence and the tag for the
+       night they wanted. Fired after Formspree succeeded and deliberately not
+       awaited, so Kit being slow or down never keeps someone staring at
+       "Envoi…" for a lead that is already saved. */
+    fetch(SEATS_API.replace(/\/counts$/, '/waitlist'), {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        prenom:    f.prenom.value.trim(),
+        telephone: f.telephone.value.trim(),
+        email:     f.email.value.trim(),
+        creneau:   wlSlot,
+        cohorte:   wlKey
+      })
+    }).catch(function(){ /* Formspree already holds the lead */ });
     if(typeof fbq !== 'undefined') fbq('trackCustom','Cercle_WaitlistLead',{ creneau: wlSlot });
     document.getElementById('wl-slot').textContent = wlSlot;
     document.getElementById('wl-panel').hidden = true;
