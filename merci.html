@@ -45,7 +45,7 @@ if (PURCHASE_HERE) (function(){
          return v; }catch(e){ return String(Date.now()); }
   })();
   fbq('track','Purchase',
-      { value:396, currency:'CAD', content_name:'Cercle de Voix' },
+      { value:468, currency:'CAD', content_name:'Cercle de Voix' },
       { eventID: eid });
 })();
 </script>
@@ -285,6 +285,12 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
      ?soir=mercredi — one file to keep right instead of two that drift.
      Without the parameter the page still stands up and names both. */
   var COHORTS = {
+    /* Saison 2 — les mardis matin, 12 séances du 29 septembre au 15 décembre. */
+    'mardi-0900':    { nom:'Les mardis',    debut:'29 septembre',             fin:'15 décembre',
+                       d0:'20260929', t0:'090000', t1:'103000', heure:'9 h 00 à 10 h 30' },
+    'mardi-1045':    { nom:'Les mardis',    debut:'29 septembre',             fin:'15 décembre',
+                       d0:'20260929', t0:'104500', t1:'121500', heure:'10 h 45 à 12 h 15' },
+
     'mardi':         { nom:'Les mardis',    debut:'1<sup>er</sup> septembre', fin:'17 novembre',
                        d0:'20260901', t0:'191500', t1:'204500', heure:'19 h 15 à 20 h 45' },
     'mercredi':      { nom:'Les mercredis', debut:'2 septembre',              fin:'18 novembre',
@@ -311,7 +317,12 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
     'mardi':         'https://chat.whatsapp.com/Fi8QYxSd84PKOzfUBOx3wr',  /* mardi 19h15    */
     'mercredi':      'https://chat.whatsapp.com/HtLAny3ZKjlHGIPQ0BadWH',  /* mercredi 19h15 */
     'mardi-1730':    'https://chat.whatsapp.com/Bf43xfnz8skHR9x4MuPhRb',  /* mardi 17h30    */
-    'mercredi-1730': 'https://chat.whatsapp.com/LftMRUQ5MOsIHELPBAhrXd'   /* mercredi 17h30 */
+    'mercredi-1730': 'https://chat.whatsapp.com/LftMRUQ5MOsIHELPBAhrXd',  /* mercredi 17h30 */
+    /* Les deux groupes du matin n'existent pas encore. Tant que la valeur est
+       vide, le bloc WhatsApp reste caché — pas de bouton mort sur une page
+       que seuls les acheteurs voient. Colle l'invitation ici et il apparaît. */
+    'mardi-0900':    '',                                                     /* mardi 9 h 00   */
+    'mardi-1045':    ''                                                      /* mardi 10 h 45  */
   };
 
   var soir = new URLSearchParams(location.search).get('soir');

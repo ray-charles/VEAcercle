@@ -16,14 +16,14 @@
 <meta name="theme-color" content="#6E1330">
 
 <title>Cercle de Voix — 12 semaines, 12 personnes · Plateau Mont-Royal</title>
-<meta name="description" content="Toujours en quête de développement personnel ? Un cercle de 12 personnes, 12 séances, les mardis ou mercredis 19 h 15 au Centre Soha, Plateau Mont-Royal. Dès le 1er septembre.">
+<meta name="description" content="Toujours en quête de développement personnel ? Un cercle de 12 personnes, 12 séances, les mardis matin au Centre Soha, Plateau Mont-Royal. Dès le 29 septembre.">
 
 <!-- Share card. Without og:image the scrapers pick a photo off the page at
      random — the last share went out with the back of someone's head. This
      is a rendered 1200x630 card carrying the same headline and type as the
      hero, so the preview looks like the page it opens. -->
 <meta property="og:title" content="Toujours en quête de développement personnel ?">
-<meta property="og:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. Les mardis ou mercredis, dès le 1er septembre.">
+<meta property="og:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. Les mardis matin, dès le 29 septembre.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CA">
 <meta property="og:site_name" content="Cercle de Voix">
@@ -36,7 +36,7 @@
 <meta property="og:image:alt" content="Cercle de Voix — Toujours en quête de développement personnel ? 12 séances, 12 personnes, Plateau Mont-Royal.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Toujours en quête de développement personnel ?">
-<meta name="twitter:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. Dès le 1er septembre.">
+<meta name="twitter:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. Dès le 29 septembre.">
 <meta name="twitter:image" content="https://cercle.veacademy.studio/og-cercle.jpg">
 
 <!-- The seat counts decide whether a cohort renders as bookable or COMPLET.
@@ -1091,7 +1091,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <li class="step"><span class="step-n">5</span><p>Des espaces de résonance collective, d'écoute et de présence.</p></li>
     </ul>
     <p class="muted reveal" style="margin-top:var(--s4);font-style:italic">
-      Douze séances consécutives, les mardis ou les mercredis de 19 h 15 à 20 h 45, au Centre Soha.
+      Douze séances consécutives, une fois par semaine, au Centre Soha.
     </p>
   </div>
 </section>
@@ -1240,8 +1240,8 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
   <div class="narrow center">
     <div class="reveal">
       <p class="eyebrow">Il reste des places</p>
-      <h2>On se voit <em>le 1<sup>er</sup> septembre&nbsp;?</em></h2>
-      <p class="lede">Douze personnes, douze semaines. Un mardi ou un mercredi soir, au 961 rue Rachel Est.</p>
+      <h2>On se voit <em>le 29 septembre&nbsp;?</em></h2>
+      <p class="lede">Douze personnes, douze semaines. Le mardi matin, au 961 rue Rachel Est.</p>
     </div>
 
     <div class="picker reveal">
@@ -1318,40 +1318,58 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
    ponytail: manual counts. Wire to Circle only if editing gets old.
    ================================================================ */
 var CAP = 12;
-/* Order is display order. The mardi 17 h 30 cohort leads because mardi
-   19 h 15 sold out — leading with a COMPLET stamp spends the top of the
-   picker telling people they are too late. Cards are grouped by day, so
-   each pair reads together. */
+
+/* Price travels with the cohort, not with the page. The autumn season costs
+   more than the summer one, and a part refund can re-open a summer card
+   months later — a single page-wide number would then advertise 179,33 $ on
+   a paywall that still charges 132 $. */
+var PRIX_ETE     = { total:396, versement:'132' };      /* sept. 2026  */
+var PRIX_AUTOMNE = { total:468, versement:'179,33' };   /* 29 sept. 2026 */
+/* Order is display order, and `grp` is the start date a card is filed
+   under — no longer the day, because the autumn cohorts run on Tuesday
+   mornings and the summer ones on Tuesday evenings. Two groups, both
+   MARDIS, different first séance.
+
+   Sold-out cards and sold-out groups sink on their own (see renderSlots),
+   so the four summer cohorts stay on the page as proof it fills without
+   ever spending the top of the picker on a COMPLET stamp. */
 var SLOTS = [
-  { day:'Mardi',    time:'17 h 30 à 19 h 00', start:'dès le 1er sept.',
+  /* ---- Saison 2 : les mardis matin, dès le 29 septembre 2026 ---- */
+  { day:'Mardi',    time:'9 h 00 à 10 h 30',  grp:'sept29', prix:PRIX_AUTOMNE,
+    key:'mardi-0900', taken:0, locked:false,
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-9h00?locale=fr' },
+
+  { day:'Mardi',    time:'10 h 45 à 12 h 15', grp:'sept29', prix:PRIX_AUTOMNE,
+    key:'mardi-1045', taken:0, locked:false,
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-10h45?locale=fr' },
+
+  /* ---- Saison 1 : complètes, gardées comme preuve ---- */
+  { day:'Mardi',    time:'17 h 30 à 19 h 00', grp:'sept1', prix:PRIX_ETE,
     key:'mardi-1730', taken:0, locked:false,
     /* Ouvertes le 3 août 2026. Les slugs Circle ne suivent pas la même
        convention que les deux premières — 1730 d'un côté, 17h30 de l'autre —
        donc chacune est écrite telle que Circle l'a créée. */
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-17h30?locale=fr' },
 
-  { day:'Mardi',    time:'19 h 15 à 20 h 45', start:'dès le 1er sept.',
+  { day:'Mardi',    time:'19 h 15 à 20 h 45', grp:'sept1', prix:PRIX_ETE,
     key:'mardi', taken:0, locked:false,
     /* ?locale=fr — Circle falls back to the COMMUNITY default (Spanish, this is
        Voz Esencia Academy) for logged-out visitors, so every ad click landed on a
        Spanish payment form. Logged-in admins see English and never notice. */
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-19h15?locale=fr' },
 
-  { day:'Mercredi', time:'19 h 15 à 20 h 45', start:'dès le 2 sept.',
+  { day:'Mercredi', time:'19 h 15 à 20 h 45', grp:'sept2', prix:PRIX_ETE,
     key:'mercredi', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mercredi-19h15?locale=fr' },
 
-  { day:'Mercredi', time:'17 h 30 à 19 h 00', start:'dès le 2 sept.',
+  { day:'Mercredi', time:'17 h 30 à 19 h 00', grp:'sept2', prix:PRIX_ETE,
     key:'mercredi-1730', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mercredi-17h30?locale=fr' }
 ];
 
-/* ⚠️ The Circle checkout currently charges 396 $ as a SINGLE payment.
-   These values are display-only — Circle must be switched to a
-   3-instalment plan or the page and the checkout contradict. */
-var PRICE_TOTAL  = 396;
-var INSTALMENTS  = 3;
-var INSTALMENT   = 132;
+/* Page-level value, used only for the Meta pixel. Per-card amounts come
+   from s.prix; this is the headline offer being advertised right now. */
+var PRICE_TOTAL  = 468;
 var CURRENCY     = 'CAD';
 
 /* mc_id passthrough — same contract as vsl-v1.html */
@@ -1420,13 +1438,15 @@ function slotHTML(s){
     /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
        here too; it is still stated once above the picker, and repeating it
        on all four cards was four copies of the same sentence. */
-    + '<p class="slot-price">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + tx</p>'
+    + '<p class="slot-price">' + s.prix.total + ' $ + tx'
+    +   '<small>ou 3 versements de ' + s.prix.versement + ' $ + tx</small></p>'
     + '<div class="slot-track" role="img" aria-label="' + s.taken + ' places prises sur ' + CAP + '">'
     +   '<div class="slot-fill" style="width:' + pct + '%"></div>'
     + '</div>'
     + '<p class="slot-left"><b>' + left + ' place' + plural + ' restante' + plural + '</b> sur ' + CAP + '</p>'
     + '<a class="slot-cta js-book" href="' + esc(withMc(s.url)) + '"'
-    +   ' data-day="' + esc(s.day) + '" data-left="' + left + '">'
+    +   ' data-day="' + esc(s.day) + '" data-left="' + left + '"'
+    +   ' data-value="' + s.prix.total + '">'
     +   'Réserver ma place</a>'
     + '</div>';
 }
@@ -1436,8 +1456,9 @@ function slotHTML(s){
    repeating it on all four cards. Falls out right on both layouts — side by
    side at 820px, stacked with its own date heading below that. */
 var GROUPS = [
-  { day:'Mardi',    date:'Dès le 1<sup>er</sup> septembre' },
-  { day:'Mercredi', date:'Dès le 2 septembre' }
+  { id:'sept29', date:'Dès le 29 septembre' },
+  { id:'sept1',  date:'Dès le 1<sup>er</sup> septembre' },
+  { id:'sept2',  date:'Dès le 2 septembre' }
 ];
 
 /* Anything nobody can book right now — sold out, or not yet open. */
@@ -1453,13 +1474,13 @@ function renderSlots(){
      and mutating the source would lose that order after the first sort.
      Array.sort is stable, so the declared order survives inside each half. */
   var groups = GROUPS.slice().sort(function(a, b){
-    var av = SLOTS.some(function(s){ return s.day === a.day && bookable(s); });
-    var bv = SLOTS.some(function(s){ return s.day === b.day && bookable(s); });
+    var av = SLOTS.some(function(s){ return s.grp === a.id && bookable(s); });
+    var bv = SLOTS.some(function(s){ return s.grp === b.id && bookable(s); });
     return (bv ? 1 : 0) - (av ? 1 : 0);
   });
 
   var html = groups.map(function(g){
-    var cards = SLOTS.filter(function(s){ return s.day === g.day; })
+    var cards = SLOTS.filter(function(s){ return s.grp === g.id; })
       .sort(function(a, b){ return (bookable(b) ? 1 : 0) - (bookable(a) ? 1 : 0); });
     if(!cards.length) return '';
     return '<div class="slot-group">'
@@ -1537,7 +1558,8 @@ document.addEventListener('click', function(e){
       fbq('track','InitiateCheckout',{
         content_name:'Cercle de Voix · ' + book.getAttribute('data-day'),
         content_category:'Cercle',
-        value:PRICE_TOTAL, currency:CURRENCY
+        value:Number(book.getAttribute('data-value')) || PRICE_TOTAL,
+        currency:CURRENCY
       });
     }
     /* 300ms so the pixel flushes before navigation */
@@ -1674,10 +1696,10 @@ document.getElementById('wl-form').addEventListener('submit', function(e){
 
 <!--
   ⚠️ AVANT DE DÉPENSER
-  1. PRIX — le checkout Circle facture 396 $ en UN paiement ("Pago único").
-     Cette page annonce 3 versements de 132 $ + taxes. Il faut activer
-     un plan en 3 versements dans Circle, sinon la page et la caisse
-     se contredisent au moment de payer.
+  1. PRIX — les deux nouvelles caisses (mardi 9 h 00, mardi 10 h 45) doivent
+     offrir 468 $ + tx en un paiement ET un plan en 3 versements de 179,33 $
+     + tx. Cette page annonce les deux ; si Circle n'en propose qu'un, la
+     page et la caisse se contredisent au moment de payer.
   2. AVIS — les 6 avis + la citation du hero sont rendus en français à
      partir des traductions espagnoles de vsl-v1.html. Les originaux
      Google sont en français : les récupérer mot pour mot et remplacer.
