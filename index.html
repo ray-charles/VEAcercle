@@ -1348,11 +1348,14 @@ var SLOTS = [
   /* ---- Saison 2 : les mardis matin, dès le 29 septembre 2026 ---- */
   { day:'Mardi',    time:'9 h 00 à 10 h 30',  grp:'sept29',
     key:'mardi-0900', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-9h00?locale=fr' },
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-9h?locale=fr' },
 
   { day:'Mardi',    time:'10 h 45 à 12 h 15', grp:'sept29',
     key:'mardi-1045', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-10h45?locale=fr' }
+    /* 10h15 is the URL Circle minted; the paywall itself is called
+       "Cercle de Voix mardi 10h45" and the séance runs 10 h 45. Verified by
+       opening it, not assumed. Do not "correct" this to 10h45. */
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-10h15?locale=fr' }
 ];
 
 /* mc_id passthrough — same contract as vsl-v1.html */
