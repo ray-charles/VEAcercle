@@ -323,7 +323,15 @@ strong{font-weight:700;color:var(--wine-deep)}
 .light .picker-h em,.paper .picker-h em{color:var(--wine-deep)}
 .light .picker-h,.paper .picker-h{color:var(--wine-deep)}
 .slots{display:grid;gap:var(--s4)}
-@media(min-width:820px){.slots{grid-template-columns:1fr 1fr;align-items:start}}
+@media(min-width:820px){
+  .slots{grid-template-columns:1fr 1fr;align-items:start}
+  /* Two groups sit side by side. One group on its own would take the left
+     column and leave the right half of the picker empty, so it spans the row
+     and puts its own cards side by side instead. Reverts by itself the
+     moment a second group comes back. */
+  .slot-group:only-child{grid-column:1/-1;grid-template-columns:1fr 1fr}
+  .slot-group:only-child .slot-group-h{grid-column:1/-1}
+}
 .slot-group{display:grid;gap:var(--s3);align-content:start}
 /* The day's start date, said once over its pair of cards. */
 .slot-group-h{
@@ -1319,58 +1327,33 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
    ================================================================ */
 var CAP = 12;
 
-/* Price travels with the cohort, not with the page. The autumn season costs
-   more than the summer one, and a part refund can re-open a summer card
-   months later — a single page-wide number would then advertise 179,33 $ on
-   a paywall that still charges 132 $. */
-var PRIX_ETE     = { total:396, versement:'132' };      /* sept. 2026  */
-var PRIX_AUTOMNE = { total:468, versement:'179,33' };   /* 29 sept. 2026 */
-/* Order is display order, and `grp` is the start date a card is filed
-   under — no longer the day, because the autumn cohorts run on Tuesday
-   mornings and the summer ones on Tuesday evenings. Two groups, both
-   MARDIS, different first séance.
+/* One season on sale, so one price. It lived on each cohort while the sold-out
+   summer ones were still on the page at 396 $; with those gone there is
+   nothing left for a per-card amount to disagree with. */
+var PRICE_TOTAL  = 468;
+var INSTALMENTS  = 3;
+var INSTALMENT   = '179,33';
+var CURRENCY     = 'CAD';
+/* Order is display order. `grp` is the start date a card is filed under
+   rather than its weekday: the four summer cohorts were all MARDIS or
+   MERCREDIS too, and only the first séance told them apart. They were
+   removed on 9 sept. 2026 once they were full and under way. Adding a
+   cohort on a new start date means a new GROUPS entry, not a new weekday.
 
-   Sold-out cards and sold-out groups sink on their own (see renderSlots),
-   so the four summer cohorts stay on the page as proof it fills without
-   ever spending the top of the picker on a COMPLET stamp. */
+   ?locale=fr on every checkout — Circle falls back to the COMMUNITY default
+   (Spanish, this is Voz Esencia Academy) for logged-out visitors, so without
+   it every ad click lands on a Spanish payment form. Logged-in admins see
+   English and never notice. */
 var SLOTS = [
   /* ---- Saison 2 : les mardis matin, dès le 29 septembre 2026 ---- */
-  { day:'Mardi',    time:'9 h 00 à 10 h 30',  grp:'sept29', prix:PRIX_AUTOMNE,
+  { day:'Mardi',    time:'9 h 00 à 10 h 30',  grp:'sept29',
     key:'mardi-0900', taken:0, locked:false,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-9h00?locale=fr' },
 
-  { day:'Mardi',    time:'10 h 45 à 12 h 15', grp:'sept29', prix:PRIX_AUTOMNE,
+  { day:'Mardi',    time:'10 h 45 à 12 h 15', grp:'sept29',
     key:'mardi-1045', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-10h45?locale=fr' },
-
-  /* ---- Saison 1 : complètes, gardées comme preuve ---- */
-  { day:'Mardi',    time:'17 h 30 à 19 h 00', grp:'sept1', prix:PRIX_ETE,
-    key:'mardi-1730', taken:0, locked:false,
-    /* Ouvertes le 3 août 2026. Les slugs Circle ne suivent pas la même
-       convention que les deux premières — 1730 d'un côté, 17h30 de l'autre —
-       donc chacune est écrite telle que Circle l'a créée. */
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-17h30?locale=fr' },
-
-  { day:'Mardi',    time:'19 h 15 à 20 h 45', grp:'sept1', prix:PRIX_ETE,
-    key:'mardi', taken:0, locked:false,
-    /* ?locale=fr — Circle falls back to the COMMUNITY default (Spanish, this is
-       Voz Esencia Academy) for logged-out visitors, so every ad click landed on a
-       Spanish payment form. Logged-in admins see English and never notice. */
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-19h15?locale=fr' },
-
-  { day:'Mercredi', time:'19 h 15 à 20 h 45', grp:'sept2', prix:PRIX_ETE,
-    key:'mercredi', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mercredi-19h15?locale=fr' },
-
-  { day:'Mercredi', time:'17 h 30 à 19 h 00', grp:'sept2', prix:PRIX_ETE,
-    key:'mercredi-1730', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mercredi-17h30?locale=fr' }
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-10h45?locale=fr' }
 ];
-
-/* Page-level value, used only for the Meta pixel. Per-card amounts come
-   from s.prix; this is the headline offer being advertised right now. */
-var PRICE_TOTAL  = 468;
-var CURRENCY     = 'CAD';
 
 /* mc_id passthrough — same contract as vsl-v1.html */
 var mcId = (function(){
@@ -1438,15 +1421,14 @@ function slotHTML(s){
     /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
        here too; it is still stated once above the picker, and repeating it
        on all four cards was four copies of the same sentence. */
-    + '<p class="slot-price">' + s.prix.total + ' $ + tx'
-    +   '<small>ou 3 versements de ' + s.prix.versement + ' $ + tx</small></p>'
+    + '<p class="slot-price">' + PRICE_TOTAL + ' $ + tx'
+    +   '<small>ou ' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + tx</small></p>'
     + '<div class="slot-track" role="img" aria-label="' + s.taken + ' places prises sur ' + CAP + '">'
     +   '<div class="slot-fill" style="width:' + pct + '%"></div>'
     + '</div>'
     + '<p class="slot-left"><b>' + left + ' place' + plural + ' restante' + plural + '</b> sur ' + CAP + '</p>'
     + '<a class="slot-cta js-book" href="' + esc(withMc(s.url)) + '"'
-    +   ' data-day="' + esc(s.day) + '" data-left="' + left + '"'
-    +   ' data-value="' + s.prix.total + '">'
+    +   ' data-day="' + esc(s.day) + '" data-left="' + left + '">'
     +   'Réserver ma place</a>'
     + '</div>';
 }
@@ -1456,9 +1438,7 @@ function slotHTML(s){
    repeating it on all four cards. Falls out right on both layouts — side by
    side at 820px, stacked with its own date heading below that. */
 var GROUPS = [
-  { id:'sept29', date:'Dès le 29 septembre' },
-  { id:'sept1',  date:'Dès le 1<sup>er</sup> septembre' },
-  { id:'sept2',  date:'Dès le 2 septembre' }
+  { id:'sept29', date:'Dès le 29 septembre' }
 ];
 
 /* Anything nobody can book right now — sold out, or not yet open. */
@@ -1558,8 +1538,7 @@ document.addEventListener('click', function(e){
       fbq('track','InitiateCheckout',{
         content_name:'Cercle de Voix · ' + book.getAttribute('data-day'),
         content_category:'Cercle',
-        value:Number(book.getAttribute('data-value')) || PRICE_TOTAL,
-        currency:CURRENCY
+        value:PRICE_TOTAL, currency:CURRENCY
       });
     }
     /* 300ms so the pixel flushes before navigation */
