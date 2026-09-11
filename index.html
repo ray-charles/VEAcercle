@@ -933,6 +933,13 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <blockquote>Les cercles de chant de Mamselle Ruiz sont des moments de pur plaisir, de détente et de camaraderie. Dès la première séance, on se sent bienvenu, peu importe notre expérience.</blockquote>
       <cite>Caroline Tardif &middot; Google</cite>
     </div>
+
+    <!-- The four summer cohorts, full and under way. Proof, not a picker:
+         kept out of both booking lists so the only cards next to a buy
+         button are ones you can buy. Filled by renderSlots(). -->
+    <div class="picker reveal">
+      <div class="slots" id="slots-past"></div>
+    </div>
   </div>
 </section>
 
@@ -1473,18 +1480,22 @@ function renderSlots(){
     return (bv ? 1 : 0) - (av ? 1 : 0);
   });
 
-  var html = groups.map(function(g){
-    var cards = SLOTS.filter(function(s){ return s.grp === g.id; })
-      .sort(function(a, b){ return (bookable(b) ? 1 : 0) - (bookable(a) ? 1 : 0); });
-    if(!cards.length) return '';
-    return '<div class="slot-group">'
-      + '<p class="slot-group-h">' + g.date + '</p>'
-      + cards.map(slotHTML).join('')
-      + '</div>';
-  }).join('');
-  ['slots-top','slots-bottom'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el) el.innerHTML = html;
+  function groupsHTML(keep){
+    return groups.map(function(g){
+      var cards = SLOTS.filter(function(s){ return s.grp === g.id && keep(s); })
+        .sort(function(a, b){ return (bookable(b) ? 1 : 0) - (bookable(a) ? 1 : 0); });
+      if(!cards.length) return '';
+      return '<div class="slot-group">'
+        + '<p class="slot-group-h">' + g.date + '</p>'
+        + cards.map(slotHTML).join('')
+        + '</div>';
+    }).join('');
+  }
+  var live = groupsHTML(function(s){ return !s.done; });
+  var past = groupsHTML(function(s){ return  s.done; });
+  [['slots-top', live], ['slots-bottom', live], ['slots-past', past]].forEach(function(t){
+    var el = document.getElementById(t[0]);
+    if(el) el.innerHTML = t[1];
   });
 }
 renderSlots();
