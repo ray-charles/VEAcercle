@@ -933,13 +933,6 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <blockquote>Les cercles de chant de Mamselle Ruiz sont des moments de pur plaisir, de détente et de camaraderie. Dès la première séance, on se sent bienvenu, peu importe notre expérience.</blockquote>
       <cite>Caroline Tardif &middot; Google</cite>
     </div>
-
-    <!-- The four summer cohorts, full and under way. Proof, not a picker:
-         kept out of both booking lists so the only cards next to a buy
-         button are ones you can buy. Filled by renderSlots(). -->
-    <div class="picker reveal">
-      <div class="slots" id="slots-past"></div>
-    </div>
   </div>
 </section>
 
@@ -1342,10 +1335,10 @@ var INSTALMENTS  = 3;
 var INSTALMENT   = '156';
 var CURRENCY     = 'CAD';
 /* Order is display order. `grp` is the start date a card is filed under
-   rather than its weekday: the four summer cohorts are MARDIS or MERCREDIS
-   too, and only the first séance tells them apart. Adding a cohort on a new
-   start date means a new GROUPS entry, not a new weekday. Full groups sink
-   below bookable ones on their own (see renderSlots).
+   rather than its weekday: the four summer cohorts were all MARDIS or
+   MERCREDIS too, and only the first séance told them apart. They were
+   removed on 9 sept. 2026 once they were full and under way. Adding a
+   cohort on a new start date means a new GROUPS entry, not a new weekday.
 
    ?locale=fr on every checkout — Circle falls back to the COMMUNITY default
    (Spanish, this is Voz Esencia Academy) for logged-out visitors, so without
@@ -1359,18 +1352,7 @@ var SLOTS = [
 
   { day:'Mardi',    time:'10 h 45 à 12 h 15', grp:'sept29',
     key:'mardi-1045', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-10h45?locale=fr' },
-
-  /* ---- Saison 1 : complètes et commencées, affichées comme preuve ----
-     Stamped full by hand, and deliberately cut off from the live counter:
-     no `key`, so a refund can never re-open one (mardi 19 h 15 has a seat
-     freed that way, and would otherwise sell a place in a course already
-     under way). No `url`, so there is nothing to click. `done` drops the
-     waitlist button, which a cohort that fills normally still offers. */
-  { day:'Mardi',    time:'17 h 30 à 19 h 00', grp:'sept1', taken:CAP, done:true },
-  { day:'Mardi',    time:'19 h 15 à 20 h 45', grp:'sept1', taken:CAP, done:true },
-  { day:'Mercredi', time:'17 h 30 à 19 h 00', grp:'sept2', taken:CAP, done:true },
-  { day:'Mercredi', time:'19 h 15 à 20 h 45', grp:'sept2', taken:CAP, done:true }
+    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-10h45?locale=fr' }
 ];
 
 /* mc_id passthrough — same contract as vsl-v1.html */
@@ -1425,10 +1407,9 @@ function slotHTML(s){
       + '</div>'
       + '<p class="slot-stamp">Complet</p>'
       + '<p class="slot-left slot-left-full">Les ' + CAP + ' places sont prises.</p>'
-      + (s.done ? '' :
-          '<button type="button" class="slot-note is-cta js-lock" data-full="1"'
-        +   ' data-key="' + esc(s.key || '') + '" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
-        +   'Préviens-moi pour la prochaine session</button>')
+      + '<button type="button" class="slot-note is-cta js-lock" data-full="1"'
+      +   ' data-key="' + esc(s.key || '') + '" data-day="' + esc(s.day) + ' ' + esc(s.time) + '">'
+      +   'Préviens-moi pour la prochaine session</button>'
       + '</div>';
   }
 
@@ -1457,9 +1438,7 @@ function slotHTML(s){
    repeating it on all four cards. Falls out right on both layouts — side by
    side at 820px, stacked with its own date heading below that. */
 var GROUPS = [
-  { id:'sept29', date:'Dès le 29 septembre' },
-  { id:'sept1',  date:'Dès le 1<sup>er</sup> septembre' },
-  { id:'sept2',  date:'Dès le 2 septembre' }
+  { id:'sept29', date:'Dès le 29 septembre' }
 ];
 
 /* Anything nobody can book right now — sold out, or not yet open. */
@@ -1480,22 +1459,18 @@ function renderSlots(){
     return (bv ? 1 : 0) - (av ? 1 : 0);
   });
 
-  function groupsHTML(keep){
-    return groups.map(function(g){
-      var cards = SLOTS.filter(function(s){ return s.grp === g.id && keep(s); })
-        .sort(function(a, b){ return (bookable(b) ? 1 : 0) - (bookable(a) ? 1 : 0); });
-      if(!cards.length) return '';
-      return '<div class="slot-group">'
-        + '<p class="slot-group-h">' + g.date + '</p>'
-        + cards.map(slotHTML).join('')
-        + '</div>';
-    }).join('');
-  }
-  var live = groupsHTML(function(s){ return !s.done; });
-  var past = groupsHTML(function(s){ return  s.done; });
-  [['slots-top', live], ['slots-bottom', live], ['slots-past', past]].forEach(function(t){
-    var el = document.getElementById(t[0]);
-    if(el) el.innerHTML = t[1];
+  var html = groups.map(function(g){
+    var cards = SLOTS.filter(function(s){ return s.grp === g.id; })
+      .sort(function(a, b){ return (bookable(b) ? 1 : 0) - (bookable(a) ? 1 : 0); });
+    if(!cards.length) return '';
+    return '<div class="slot-group">'
+      + '<p class="slot-group-h">' + g.date + '</p>'
+      + cards.map(slotHTML).join('')
+      + '</div>';
+  }).join('');
+  ['slots-top','slots-bottom'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.innerHTML = html;
   });
 }
 renderSlots();
