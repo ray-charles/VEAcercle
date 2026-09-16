@@ -270,6 +270,15 @@ strong{font-weight:700;color:var(--wine-deep)}
   aspect-ratio:3/2;background:var(--wine-dark);
 }
 @media(min-width:768px){.hero-media{aspect-ratio:16/10}}
+/* Days to the first séance, just above the video. Filled by the script right
+   after it; hidden until then so a visitor without JavaScript never sees a
+   stale number. */
+.countdown{
+  margin-top:var(--s5);text-align:center;
+  font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:600;
+  color:#fff;letter-spacing:.01em;line-height:1.4;
+}
+.countdown b{color:var(--gold-soft);font-weight:800}
 .hero-media img{width:100%;height:100%;object-fit:cover}
 .hero-media figcaption{
   position:absolute;left:0;right:0;bottom:0;
@@ -917,6 +926,25 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>1<sup>re</sup> séance découverte</span></li>
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg><span>Centre Soha &middot; Plateau</span></li>
     </ul>
+
+    <p class="countdown" id="countdown" hidden></p>
+    <script>
+    (function(){
+      /* Counted in Montréal calendar days, so the number turns over at
+         midnight there and not at midnight wherever the visitor is. */
+      var START = Date.UTC(2026, 8, 29);   /* mardi 29 septembre 2026 */
+      var today = new Date().toLocaleDateString('en-CA', { timeZone:'America/Toronto' });
+      var p = today.split('-');
+      var n = Math.round((START - Date.UTC(+p[0], p[1] - 1, +p[2])) / 86400000);
+      if(!(n >= 0)) return;   /* started, or the date could not be read */
+      var el = document.getElementById('countdown');
+      el.innerHTML = (n === 0 ? '<b>Début aujourd’hui</b>'
+                    : n === 1 ? '<b>Début demain</b>'
+                    : 'Début dans <b>' + n + ' jours</b>')
+                   + ' : mardi 29 septembre';
+      el.hidden = false;
+    })();
+    </script>
 
     <!-- preload="none": the poster is a 51 KB jpg; the 8.8 MB mp4 only
          downloads if someone presses play, so it costs nothing on load. -->
