@@ -50,7 +50,7 @@
 window.SEATS_READY = (function(){
   if(!window.fetch) return null;
   var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-  if(ctl) setTimeout(function(){ ctl.abort(); }, 4000);
+  if(ctl) setTimeout(function(){ ctl.abort(); }, 10000);
   return fetch('https://cercle-seats.keating-sands.workers.dev/counts',
                { signal: ctl && ctl.signal })
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -385,6 +385,7 @@ strong{font-weight:700;color:var(--wine-deep)}
   font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.06rem;
   letter-spacing:0;color:var(--wine-deep);white-space:nowrap;
 }
+.is-pending{visibility:hidden}
 .slot-track{
   height:8px;border-radius:999px;background:rgba(122,27,48,.14);
   margin:var(--s3) 0 var(--s2);overflow:hidden;
@@ -1384,6 +1385,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
    ponytail: manual counts. Wire to Circle only if editing gets old.
    ================================================================ */
 var CAP = 12;
+var SEATS_KNOWN = false;   /* true once the live counter has answered */
 
 /* One season on sale, so one price. It lived on each cohort while the sold-out
    summer ones were still on the page at 396 $; with those gone there is
@@ -1447,6 +1449,11 @@ function slotHTML(s){
       + '</div>';
   }
   var left = Math.max(0, CAP - s.taken);
+  /* Until the counter answers, `taken` is a placeholder, so the bar and the
+     count keep their space but stay invisible rather than claim 12 free.
+     In a slow in-app browser that never gets an answer, they stay hidden:
+     the card still books, it just makes no claim it cannot back. */
+  var pending = SEATS_KNOWN ? '' : ' is-pending';
   var pct  = Math.round((s.taken / CAP) * 100);
   var plural = left > 1 ? 's' : '';
 
@@ -1480,10 +1487,10 @@ function slotHTML(s){
        here too; it is still stated once above the picker, and repeating it
        on all four cards was four copies of the same sentence. */
     + '<p class="slot-price">' + INSTALMENTS + ' versements de ' + INSTALMENT + ' $ + tx</p>'
-    + '<div class="slot-track" role="img" aria-label="' + s.taken + ' places prises sur ' + CAP + '">'
+    + '<div class="slot-track' + pending + '" role="img" aria-label="' + s.taken + ' places prises sur ' + CAP + '">'
     +   '<div class="slot-fill" style="width:' + pct + '%"></div>'
     + '</div>'
-    + '<p class="slot-left"><b>' + left + ' place' + plural + ' restante' + plural + '</b> sur ' + CAP + '</p>'
+    + '<p class="slot-left' + pending + '"><b>' + left + ' place' + plural + ' restante' + plural + '</b> sur ' + CAP + '</p>'
     + '<a class="slot-cta js-book" href="' + esc(withMc(s.url)) + '"'
     +   ' data-day="' + esc(s.day) + '" data-left="' + left + '">'
     +   'Réserver ma place</a>'
@@ -1552,14 +1559,14 @@ var SEATS_API = 'https://cercle-seats.keating-sands.workers.dev/counts';
        raise or lower. The old rule only ever raised, which meant a
        hand-typed starting figure became a floor the truth couldn't get
        under, and the page advertised seats that were never sold. */
-    var changed = false;
     SLOTS.forEach(function(s){
       if(!s.key) return;
       var n = counts[s.key];
       if(typeof n !== 'number' || n < 0 || n > CAP) return;
-      if(n !== s.taken){ s.taken = n; changed = true; }
+      s.taken = n;
     });
-    if(changed) renderSlots();
+    SEATS_KNOWN = true;
+    renderSlots();
   });
 })();
 
