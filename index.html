@@ -16,14 +16,14 @@
 <meta name="theme-color" content="#6E1330">
 
 <title>Cercle de Voix — 12 semaines, 12 personnes · Plateau Mont-Royal</title>
-<meta name="description" content="Toujours en quête de développement personnel ? Un cercle de 12 personnes, 12 séances, les mardis matin au Centre Soha, Plateau Mont-Royal. Dès le 29 septembre.">
+<meta name="description" content="Un cercle de 12 personnes, 12 séances, au Centre Soha, Plateau Mont-Royal. La saison d'automne est complète : inscris-toi pour être prévenu·e de la prochaine.">
 
 <!-- Share card. Without og:image the scrapers pick a photo off the page at
      random — the last share went out with the back of someone's head. This
      is a rendered 1200x630 card carrying the same headline and type as the
      hero, so the preview looks like the page it opens. -->
 <meta property="og:title" content="Toujours en quête de développement personnel ?">
-<meta property="og:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. Les mardis matin, dès le 29 septembre.">
+<meta property="og:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. La saison d'automne est complète.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_CA">
 <meta property="og:site_name" content="Cercle de Voix">
@@ -36,7 +36,7 @@
 <meta property="og:image:alt" content="Cercle de Voix — Toujours en quête de développement personnel ? 12 séances, 12 personnes, Plateau Mont-Royal.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Toujours en quête de développement personnel ?">
-<meta name="twitter:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. Dès le 29 septembre.">
+<meta name="twitter:description" content="12 séances, 12 personnes maximum, au Centre Soha dans le Plateau. La saison d'automne est complète.">
 <meta name="twitter:image" content="https://cercle.veacademy.studio/og-cercle.jpg">
 
 <!-- The seat counts decide whether a cohort renders as bookable or COMPLET.
@@ -265,35 +265,6 @@ strong{font-weight:700;color:var(--wine-deep)}
   aspect-ratio:3/2;background:var(--wine-dark);
 }
 @media(min-width:768px){.hero-media{aspect-ratio:16/10}}
-/* Live countdown to the first séance, just above the video. Same cream card
-   and gold border as the cohort cards so it reads as part of the offer.
-   Hidden until the script fills it, so a visitor without JavaScript never
-   sees frozen digits, and hidden again once the course has started. */
-.countdown{margin:var(--s5) auto 0;max-width:420px;text-align:center}
-.cd-h{
-  font-family:'Montserrat',sans-serif;font-weight:700;font-size:.8rem;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);
-  margin-bottom:var(--s2);
-}
-.cd-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.cd-box{
-  background:var(--card);border:1.5px solid var(--gold);border-radius:14px;
-  padding:12px 4px 10px;box-shadow:0 12px 28px rgba(0,0,0,.28);
-}
-.cd-n{
-  display:block;font-family:'Montserrat',sans-serif;font-weight:800;
-  font-size:clamp(1.7rem,7vw,2.3rem);line-height:1;color:var(--wine-deep);
-  font-variant-numeric:tabular-nums;
-}
-.cd-u{
-  display:block;margin-top:6px;font-family:'Montserrat',sans-serif;
-  font-weight:600;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-soft);
-}
-.cd-date{
-  margin-top:var(--s2);font-family:'Montserrat',sans-serif;font-weight:600;
-  font-size:.85rem;color:#fff;
-}
 .hero-media img{width:100%;height:100%;object-fit:cover}
 .hero-media figcaption{
   position:absolute;left:0;right:0;bottom:0;
@@ -355,6 +326,9 @@ strong{font-weight:700;color:var(--wine-deep)}
      moment a second group comes back. */
   .slot-group:only-child{grid-column:1/-1;grid-template-columns:1fr 1fr}
   .slot-group:only-child .slot-group-h{grid-column:1/-1}
+  /* ...and a lone card in that lone group sits centred at card width rather
+     than pinned to the left half. */
+  .slot-group:only-child:has(> .slot:only-child){grid-template-columns:minmax(0,420px);justify-content:center}
 }
 .slot-group{display:grid;gap:var(--s3);align-content:start}
 /* The day's start date, said once over its pair of cards. */
@@ -941,42 +915,6 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg><span>Centre Soha &middot; Plateau</span></li>
     </ul>
 
-    <div class="countdown" id="countdown" role="timer" hidden>
-      <p class="cd-h">Le Cercle commence dans</p>
-      <div class="cd-row">
-        <div class="cd-box"><span class="cd-n">0</span><span class="cd-u">jours</span></div>
-        <div class="cd-box"><span class="cd-n">00</span><span class="cd-u">heures</span></div>
-        <div class="cd-box"><span class="cd-n">00</span><span class="cd-u">min</span></div>
-        <div class="cd-box"><span class="cd-n">00</span><span class="cd-u">sec</span></div>
-      </div>
-      <p class="cd-date">Mardi 29 septembre, 9 h 00</p>
-    </div>
-    <script>
-    (function(){
-      /* An absolute instant, so every visitor counts to the same moment
-         wherever they are: mardi 29 septembre 2026, 9 h 00 à Montréal,
-         which is 13 h 00 UTC while daylight time (HAE, UTC-4) is on. */
-      var END = Date.UTC(2026, 8, 29, 13, 0, 0);
-      var el = document.getElementById('countdown');
-      var n = el.querySelectorAll('.cd-n');
-      var dayUnit = el.querySelector('.cd-u');
-      function pad(x){ return (x < 10 ? '0' : '') + x; }
-      function tick(){
-        var t = Math.floor((END - Date.now()) / 1000);
-        if(t <= 0){ el.hidden = true; clearInterval(timer); return; }
-        var d = Math.floor(t / 86400);
-        n[0].textContent = d;
-        dayUnit.textContent = d === 1 ? 'jour' : 'jours';
-        n[1].textContent = pad(Math.floor(t % 86400 / 3600));
-        n[2].textContent = pad(Math.floor(t % 3600 / 60));
-        n[3].textContent = pad(t % 60);
-        el.hidden = false;
-      }
-      var timer = setInterval(tick, 1000);
-      tick();
-    })();
-    </script>
-
     <!-- preload="none": the poster is a 51 KB jpg; the 8.8 MB mp4 only
          downloads if someone presses play, so it costs nothing on load. -->
     <figure class="hero-media is-video reveal">
@@ -1306,9 +1244,9 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
 <section class="section dark">
   <div class="narrow center">
     <div class="reveal">
-      <p class="eyebrow">Il reste des places</p>
-      <h2>On se voit <em>le 29 septembre&nbsp;?</em></h2>
-      <p class="lede">Douze personnes, douze semaines. Le mardi matin, au 961 rue Rachel Est.</p>
+      <p class="eyebrow">Prochaine session</p>
+      <h2>La saison d'automne <em>est complète</em></h2>
+      <p class="lede">Laisse-moi tes coordonnées et tu seras prévenu·e en premier quand la prochaine session ouvre.</p>
     </div>
 
     <div class="picker reveal">
@@ -1358,7 +1296,7 @@ footer p{font-size:.78rem;color:var(--ink-soft)}
         </div>
         <button type="submit" class="wl-submit" id="wl-submit">Préviens-moi à l'ouverture</button>
         <p class="wl-err" id="wl-err" hidden></p>
-        <p class="wl-fine">Aucun paiement. Je t'écris seulement quand ce créneau ouvre.</p>
+        <p class="wl-fine">Aucun paiement. Je t'écris seulement quand la prochaine session ouvre.</p>
       </form>
     </div>
   </div>
@@ -1404,16 +1342,12 @@ var CURRENCY     = 'CAD';
    (Spanish, this is Voz Esencia Academy) for logged-out visitors, so without
    it every ad click lands on a Spanish payment form. Logged-in admins see
    English and never notice. */
-var SLOTS = [
-  /* ---- Saison 2 : les mardis matin, dès le 29 septembre 2026 ---- */
-  { day:'Mardi',    time:'9 h 00 à 10 h 30',  grp:'sept29',
-    key:'mardi-0900', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-9h?locale=fr' },
-
-  { day:'Mardi',    time:'10 h 45 à 12 h 15', grp:'sept29',
-    key:'mardi-1045', taken:0, locked:false,
-    url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mardi-10h45?locale=fr' }
-];
+/* The autumn season is closed: both cohorts were cancelled and refunded on
+   20 Sep 2026 because they did not fill. Nothing is on sale, so the picker
+   falls back to one COMPLET card (see seasonFullHTML) and the only thing a
+   visitor can do is ask to be told about the next season. Put a cohort back
+   in here, with its GROUPS entry, and the picker returns on its own. */
+var SLOTS = [];
 
 /* mc_id passthrough — same contract as vsl-v1.html */
 var mcId = (function(){
@@ -1501,13 +1435,22 @@ function slotHTML(s){
    is a property of the day, so saying it once above each pair beats
    repeating it on all four cards. Falls out right on both layouts — side by
    side at 820px, stacked with its own date heading below that. */
-var GROUPS = [
-  { id:'sept29', date:'Dès le 29 septembre' }
-];
+var GROUPS = [];
 
 /* Anything nobody can book right now — sold out, or not yet open. */
 function bookable(s){
   return !s.locked && (CAP - s.taken) > 0;
+}
+
+/* Shown when nothing is on sale. No day, no hour, no date: the season is
+   closed as a whole, so naming a créneau would invent one. */
+function seasonFullHTML(){
+  return '<div class="slot-group"><div class="slot full">'
+    + '<p class="slot-stamp">Complet</p>'
+    + '<p class="slot-left slot-left-full">Les Cercles de Voix, saison d’automne, sont remplis.</p>'
+    + '<button type="button" class="slot-note is-cta js-lock" data-full="1" data-key="" data-day="">'
+    +   'Préviens-moi pour la prochaine session</button>'
+    + '</div></div>';
 }
 
 function renderSlots(){
@@ -1531,7 +1474,7 @@ function renderSlots(){
       + '<p class="slot-group-h">' + g.date + '</p>'
       + cards.map(slotHTML).join('')
       + '</div>';
-  }).join('');
+  }).join('') || seasonFullHTML();
   ['slots-top','slots-bottom'].forEach(function(id){
     var el = document.getElementById(id);
     if(el) el.innerHTML = html;
@@ -1645,7 +1588,9 @@ function openWaitlist(slotLabel, isFull, slotKey){
   document.getElementById('wl-title').textContent =
     isFull ? "On t'écrit pour la prochaine session ?" : 'On te garde une place ?';
   document.getElementById('wl-sub').textContent = isFull
-    ? 'Les ' + CAP + ' places du créneau ' + wlSlot + ' sont prises. Laisse-moi tes coordonnées — tu seras prévenu·e en premier quand la prochaine session ouvre.'
+    ? (wlSlot
+        ? 'Les ' + CAP + ' places du créneau ' + wlSlot + ' sont prises. Laisse-moi tes coordonnées, tu seras prévenu·e en premier quand la prochaine session ouvre.'
+        : 'Laisse-moi tes coordonnées, tu seras prévenu·e en premier quand la prochaine session ouvre.')
     : 'Le créneau ' + wlSlot + " n'est pas encore ouvert. Laisse-moi tes coordonnées — tu seras prévenu·e en premier.";
   document.getElementById('wl-submit').textContent =
     isFull ? 'Préviens-moi en premier' : "Préviens-moi à l'ouverture";
