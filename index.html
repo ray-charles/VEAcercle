@@ -367,6 +367,16 @@ strong{font-weight:700;color:var(--wine-deep)}
 .slot-fill{height:100%;background:var(--btn);border-radius:999px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
 .slot-left{text-align:center;font-size:.84rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .slot-left b{color:var(--alert)}
+/* "Niveau 2*" pill + its footnote, under the day on the 19 h 15 cards. */
+.slot-level{
+  margin-top:var(--s2);font-family:'Montserrat',sans-serif;
+  font-size:.76rem;font-weight:600;font-style:italic;line-height:1.4;color:var(--ink-soft);
+}
+.slot-level b{
+  display:table;margin-bottom:var(--s1);padding:3px 10px;border-radius:999px;
+  background:var(--wine-deep);color:#fff;font-style:normal;
+  font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+}
 
 /* ===== ACCESS MAP =====
    A dark inset on the paper section, echoing the hero. Everything the
@@ -1352,7 +1362,7 @@ var SLOTS = [
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mercredi-17h30?locale=fr' },
 
   { day:'Mercredi', time:'19 h 15 à 20 h 45', grp:'mars3',
-    key:'mercredi', taken:0, locked:false,
+    key:'mercredi', taken:0, locked:false, niveau2:true,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-mercredi-19h15?locale=fr' },
 
   { day:'Jeudi',    time:'17 h 30 à 19 h 00', grp:'mars4',
@@ -1360,7 +1370,7 @@ var SLOTS = [
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-jeudi-17h30?locale=fr' },
 
   { day:'Jeudi',    time:'19 h 15 à 20 h 45', grp:'mars4',
-    key:'jeudi', taken:0, locked:false,
+    key:'jeudi', taken:0, locked:false, niveau2:true,
     url:'https://voz-esencia-academy-cbf28a.circle.so/checkout/cercle-de-voix-jeudi-19h15?locale=fr' }
 ];
 
@@ -1380,6 +1390,14 @@ var LOCK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stro
 
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+/* The 19 h 15 cohorts are for returning students (Charles, 10 nov. 2026). */
+function levelHTML(s){
+  return s.niveau2
+    ? '<p class="slot-level"><b>Niveau 2*</b>'
+      + '* Pour les personnes qui ont déjà fait une saison du Cercle de Voix.</p>'
+    : '';
+}
 
 /* The card shows when it starts, not the full range — the heading above the
    picker already says every séance runs 1 h 30. */
@@ -1416,6 +1434,7 @@ function slotHTML(s){
       +   '<span class="slot-day">' + esc(s.day).toUpperCase() + 'S</span>'
       +   '<span class="slot-hours">' + esc(s.time) + '</span>'
       + '</div>'
+      + levelHTML(s)
       + '<div class="slot-track" role="img" aria-label="' + CAP + ' places prises sur ' + CAP + '">'
       +   '<div class="slot-fill" style="width:100%"></div>'
       + '</div>'
@@ -1432,6 +1451,7 @@ function slotHTML(s){
     +   '<span class="slot-day">' + esc(s.day).toUpperCase() + 'S</span>'
       +   '<span class="slot-hours">' + esc(s.time) + '</span>'
     + '</div>'
+    + levelHTML(s)
     /* Price sits ABOVE the button. The "8 ans d'ateliers" proof line lived
        here too; it is still stated once above the picker, and repeating it
        on all four cards was four copies of the same sentence. */
