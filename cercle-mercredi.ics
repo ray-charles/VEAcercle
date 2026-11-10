@@ -22,12 +22,12 @@ RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:cercle-de-voix-mercredi-2026@veacademy.studio
-DTSTAMP:20260803T140000Z
-DTSTART;TZID=America/Toronto:20260902T191500
-DTEND;TZID=America/Toronto:20260902T204500
+UID:cercle-de-voix-mercredi-2027@veacademy.studio
+DTSTAMP:20261109T120000Z
+DTSTART;TZID=America/Toronto:20270303T191500
+DTEND;TZID=America/Toronto:20270303T204500
 RRULE:FREQ=WEEKLY;COUNT=12
-SUMMARY:Cercle de Voix — mercredi soir
+SUMMARY:Cercle de Voix — mercredi 19 h 15
 LOCATION:Centre Soha\, 961 rue Rachel Est\, Montréal\, QC
 DESCRIPTION:Cercle de Voix — 12 séances.\n\nArrive 5 minutes avant. Por
  te des vêtements confortables et amène une bouteille d'eau.\n\nMétro M

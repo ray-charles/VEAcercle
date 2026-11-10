@@ -224,7 +224,7 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
 
   <div class="card">
     <p class="eyebrow">Ton cercle</p>
-    <p class="soir"><b id="soir-nom">Les mardis et mercredis</b><br><span id="soir-dates">dès le 1<sup>er</sup> septembre</span></p>
+    <p class="soir"><b id="soir-nom">Les mercredis et jeudis</b><br><span id="soir-dates">dès le 3 mars</span></p>
 
     <ul class="facts">
       <li>
@@ -246,7 +246,7 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>
         Google Agenda
       </a>
-      <a class="btn btn-out" id="cal-ics" href="cercle-mardi.ics" download>
+      <a class="btn btn-out" id="cal-ics" href="cercle-mercredi.ics" download>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         Apple / Outlook
       </a>
@@ -285,20 +285,16 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
      ?soir=mercredi — one file to keep right instead of two that drift.
      Without the parameter the page still stands up and names both. */
   var COHORTS = {
-    /* Saison 2 — les mardis matin, 12 séances du 29 septembre au 15 décembre. */
-    'mardi-0900':    { nom:'Les mardis',    debut:'29 septembre',             fin:'15 décembre',
-                       d0:'20260929', t0:'090000', t1:'103000', heure:'9 h 00 à 10 h 30' },
-    'mardi-1045':    { nom:'Les mardis',    debut:'29 septembre',             fin:'15 décembre',
-                       d0:'20260929', t0:'104500', t1:'121500', heure:'10 h 45 à 12 h 15' },
-
-    'mardi':         { nom:'Les mardis',    debut:'1<sup>er</sup> septembre', fin:'17 novembre',
-                       d0:'20260901', t0:'191500', t1:'204500', heure:'19 h 15 à 20 h 45' },
-    'mercredi':      { nom:'Les mercredis', debut:'2 septembre',              fin:'18 novembre',
-                       d0:'20260902', t0:'191500', t1:'204500', heure:'19 h 15 à 20 h 45' },
-    'mardi-1730':    { nom:'Les mardis',    debut:'1<sup>er</sup> septembre', fin:'17 novembre',
-                       d0:'20260901', t0:'173000', t1:'190000', heure:'17 h 30 à 19 h 00' },
-    'mercredi-1730': { nom:'Les mercredis', debut:'2 septembre',              fin:'18 novembre',
-                       d0:'20260902', t0:'173000', t1:'190000', heure:'17 h 30 à 19 h 00' }
+    /* Printemps 2027 — 12 séances : mercredis du 3 mars au 19 mai,
+       jeudis du 4 mars au 20 mai. Autumn 2026 cohorts are over and went. */
+    'mercredi-1730': { nom:'Les mercredis', debut:'3 mars', fin:'19 mai',
+                       d0:'20270303', t0:'173000', t1:'190000', heure:'17 h 30 à 19 h 00' },
+    'mercredi':      { nom:'Les mercredis', debut:'3 mars', fin:'19 mai',
+                       d0:'20270303', t0:'191500', t1:'204500', heure:'19 h 15 à 20 h 45' },
+    'jeudi-1730':    { nom:'Les jeudis',    debut:'4 mars', fin:'20 mai',
+                       d0:'20270304', t0:'173000', t1:'190000', heure:'17 h 30 à 19 h 00' },
+    'jeudi':         { nom:'Les jeudis',    debut:'4 mars', fin:'20 mai',
+                       d0:'20270304', t0:'191500', t1:'204500', heure:'19 h 15 à 20 h 45' }
   };
   /* One WhatsApp group per cohort. These can only be created inside WhatsApp
      on the phone that owns the number — paste each invite link here and the
@@ -313,13 +309,17 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
      from their evening twins by four characters, and a buyer sent to the
      wrong one finds out on the wrong night. The ?s=sw&p=a&ilr=0 the share
      sheet appends is WhatsApp's own analytics and is not needed to join. */
+  /* Spring 2027: one NEW group per cohort (the autumn groups hold autumn
+     people). Empty until Mamselle creates them and sends the invite links;
+     until then buyers simply don't see the WhatsApp block.
+     Autumn 2026 links, for the record: mardi 19h15 Fi8QYxSd84PKOzfUBOx3wr,
+     mercredi 19h15 HtLAny3ZKjlHGIPQ0BadWH, mardi 17h30 Bf43xfnz8skHR9x4MuPhRb,
+     mercredi 17h30 LftMRUQ5MOsIHELPBAhrXd. */
   var WHATSAPP = {
-    'mardi':         'https://chat.whatsapp.com/Fi8QYxSd84PKOzfUBOx3wr',  /* mardi 19h15    */
-    'mercredi':      'https://chat.whatsapp.com/HtLAny3ZKjlHGIPQ0BadWH',  /* mercredi 19h15 */
-    'mardi-1730':    'https://chat.whatsapp.com/Bf43xfnz8skHR9x4MuPhRb',  /* mardi 17h30    */
-    'mercredi-1730': 'https://chat.whatsapp.com/LftMRUQ5MOsIHELPBAhrXd',  /* mercredi 17h30 */
-    'mardi-0900':    'https://chat.whatsapp.com/JtrhrDpFVg69LgGz9vJv5p',  /* mardi 9 h 00   */
-    'mardi-1045':    'https://chat.whatsapp.com/CI4Tos1rP1nIa7ITBbiOOX'   /* mardi 10 h 45  */
+    'mercredi-1730': '',  /* Cercle de voix mercredi 17h30 */
+    'mercredi':      '',  /* Cercle de voix mercredi 19h15 */
+    'jeudi-1730':    '',  /* Cercle de voix jeudi 17h30    */
+    'jeudi':         ''   /* Cercle de voix jeudi 19h15    */
   };
 
   var soir = new URLSearchParams(location.search).get('soir');
@@ -353,9 +353,9 @@ footer p{font-size:.76rem;color:var(--ink-soft)}
     document.getElementById('wa-section').hidden = false;
   }
 
-  /* ctz + local times rather than UTC: the series crosses the end of daylight
-     time on 1 November, and a UTC instant would drag the last three séances
-     back to 18 h 15. */
+  /* ctz + local times rather than UTC: the series crosses a daylight-time
+     change (autumn 2026: 1 November; spring 2027: 14 March), and a UTC
+     instant would shift every séance after it by an hour. */
   var g = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
     + '&text='     + encodeURIComponent('Cercle de Voix — ' + c.nom.replace('Les ','').replace(/s$/,'') + ' ' + c.heure.split(' à ')[0])
     + '&dates='    + c.d0 + 'T' + c.t0 + '/' + c.d0 + 'T' + c.t1
